@@ -523,6 +523,72 @@
     font-weight: 600;
     cursor: pointer;
   }
+
+  /* Veckostatus: prickar per person under varje dag i week-bar */
+  .week-dots {
+    display: flex;
+    gap: 3px;
+    justify-content: center;
+    margin-top: 5px;
+  }
+  .week-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--bg3);
+  }
+
+  /* EFTER-PASS-KÄNSLA (nytt) */
+  .feeling-grid {
+    padding: 4px 20px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .feeling-card {
+    background: var(--bg2);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 10px;
+    text-align: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .feeling-card:active { border-color: var(--accent); background: var(--accent-dim); }
+  .feeling-card:last-child { grid-column: 1 / -1; }
+  .feeling-emoji { font-size: 28px; margin-bottom: 6px; }
+  .feeling-label { font-size: 13px; font-weight: 700; }
+
+  /* HISTORIK – "Mina pass" (nytt) */
+  .history-list {
+    margin: 8px 20px 0;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .history-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .history-row:last-child { border-bottom: none; }
+  .history-date { font-size: 12px; color: var(--muted); min-width: 64px; }
+  .history-weights { font-size: 12px; font-weight: 600; flex: 1; text-align: center; }
+  .history-feeling { font-size: 18px; }
+  .history-empty {
+    margin: 8px 20px 0;
+    padding: 14px 16px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 12px;
+    color: var(--muted);
+  }
 </style>
 </head>
 <body>
@@ -542,13 +608,13 @@
 
 <div class="week-bar">
   <div class="week-label">Denna vecka</div>
-  <div class="week-col"><div class="week-pill" id="w-mon"></div><div class="week-name">Mån</div></div>
-  <div class="week-col"><div class="week-pill" id="w-tue"></div><div class="week-name">Tis</div></div>
-  <div class="week-col"><div class="week-pill" id="w-wed"></div><div class="week-name">Ons</div></div>
-  <div class="week-col"><div class="week-pill" id="w-thu"></div><div class="week-name">Tor</div></div>
-  <div class="week-col"><div class="week-pill" id="w-fri"></div><div class="week-name">Fre</div></div>
-  <div class="week-col"><div class="week-pill" id="w-sat"></div><div class="week-name">Lör</div></div>
-  <div class="week-col"><div class="week-pill" id="w-sun"></div><div class="week-name">Sön</div></div>
+  <div class="week-col"><div class="week-pill" id="w-mon"></div><div class="week-dots" id="wd-mon"></div><div class="week-name">Mån</div></div>
+  <div class="week-col"><div class="week-pill" id="w-tue"></div><div class="week-dots" id="wd-tue"></div><div class="week-name">Tis</div></div>
+  <div class="week-col"><div class="week-pill" id="w-wed"></div><div class="week-dots" id="wd-wed"></div><div class="week-name">Ons</div></div>
+  <div class="week-col"><div class="week-pill" id="w-thu"></div><div class="week-dots" id="wd-thu"></div><div class="week-name">Tor</div></div>
+  <div class="week-col"><div class="week-pill" id="w-fri"></div><div class="week-dots" id="wd-fri"></div><div class="week-name">Fre</div></div>
+  <div class="week-col"><div class="week-pill" id="w-sat"></div><div class="week-dots" id="wd-sat"></div><div class="week-name">Lör</div></div>
+  <div class="week-col"><div class="week-pill" id="w-sun"></div><div class="week-dots" id="wd-sun"></div><div class="week-name">Sön</div></div>
 </div>
 
 <div class="next-banner">
@@ -581,6 +647,8 @@
     </div>
     <div id="modalContent"></div>
     <div class="rest-note">⏱ Vila ca 2 minuter mellan varje set</div>
+    <button class="btn-primary" onclick="finishWorkout()">Avsluta pass ✅</button>
+    <div id="historySection"></div>
   </div>
 </div>
 
@@ -590,6 +658,14 @@
     <div class="modal-handle"></div>
     <div id="onboardingProgress" class="progress-dots"></div>
     <div id="onboardingContent"></div>
+  </div>
+</div>
+
+<!-- EFTER-PASS-KÄNSLA: visas direkt efter "Avsluta pass" -->
+<div class="modal-overlay" id="feelingOverlay">
+  <div class="modal" id="feelingModal">
+    <div class="modal-handle"></div>
+    <div id="feelingContent"></div>
   </div>
 </div>
 
@@ -623,6 +699,15 @@ const motivationProfiles = [
 const days = ['Söndag','Måndag','Tisdag','Onsdag','Torsdag','Fredag','Lördag'];
 const months = ['jan','feb','mar','apr','maj','jun','jul','aug','sep','okt','nov','dec'];
 
+// Efter-pass-skalan 1-5, visas direkt efter "Avsluta pass".
+const feelingOptions = [
+  { id: 1, emoji: '🙂', label: 'Bra att jag kom',  message: 'Det räcker. Varje pass bygger vanan.' },
+  { id: 2, emoji: '😐', label: 'Okej pass',        message: 'Solid insats. Kroppen anpassar sig.' },
+  { id: 3, emoji: '💪', label: 'Bra pass',         message: 'Bra jobbat! Nästa måndag – dags att öka?' },
+  { id: 4, emoji: '🔥', label: 'Starkt pass',      message: 'Du är på rätt spår. Få i dig protein inom 30 min!' },
+  { id: 5, emoji: '🚀', label: 'Maxade idag 🔥',    message: 'BEAST! 🔥 Äta: kycklingfilé, ris och grönsaker inom 45 min. Drick 0,5L vatten nu. Nästa pass: öka med 2,5 kg!' }
+];
+
 function r(w, pct) { return Math.round(w * pct / 2.5) * 2.5; }
 
 function buildSets(w, name) {
@@ -649,20 +734,38 @@ function buildSets(w, name) {
 // aktuella vikter och historik över genomförda pass.
 const STORAGE_PREFIX = 'gympass_';
 
-function loadPersonState(id) {
-  const raw = localStorage.getItem(STORAGE_PREFIX + id);
-  if (raw) return JSON.parse(raw);
-  const base = people[id];
-  return {
-    onboarded: false,
-    profile: null,
-    weights: { bp: base.bp, sq: base.sq, dl: base.dl, lat: base.lat },
-    history: []
-  };
+// Historik (genomförda pass) lagras separat per person under
+// nyckeln "gympass_[personnamn]_history", enligt spec.
+function historyKey(id) { return STORAGE_PREFIX + id + '_history'; }
+
+function loadHistory(id) {
+  const raw = localStorage.getItem(historyKey(id));
+  return raw ? JSON.parse(raw) : [];
 }
 
+function saveHistory(id, history) {
+  localStorage.setItem(historyKey(id), JSON.stringify(history));
+}
+
+function loadPersonState(id) {
+  const raw = localStorage.getItem(STORAGE_PREFIX + id);
+  const base = people[id];
+  const state = raw ? JSON.parse(raw) : {
+    onboarded: false,
+    profile: null,
+    weights: { bp: base.bp, sq: base.sq, dl: base.dl, lat: base.lat }
+  };
+  state.history = loadHistory(id);
+  return state;
+}
+
+// Sparar bara profil/vikter här – historiken sparas separat (se historyKey).
 function savePersonState(id, state) {
-  localStorage.setItem(STORAGE_PREFIX + id, JSON.stringify(state));
+  localStorage.setItem(STORAGE_PREFIX + id, JSON.stringify({
+    onboarded: state.onboarded,
+    profile: state.profile,
+    weights: state.weights
+  }));
 }
 
 // Måndag (00:00) i veckan för ett givet datum – används för veckostatus.
@@ -727,10 +830,76 @@ function onCardClick(id) {
   else openModal(id);
 }
 
+function sameDay(a, b) {
+  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+}
+
+// Ritar om veckostatusen (Mån-Sön) inkl. prickar för vilka personer som
+// tränat vilken dag. Anropas vid sidladdning och efter avslutat pass.
+function renderWeekBar() {
+  const today = new Date();
+  const monday = getMonday(today);
+  const dayKeys = ['mon','tue','wed','thu','fri','sat','sun'];
+  const todayIndex = (today.getDay() + 6) % 7; // Mån=0 ... Sön=6
+
+  dayKeys.forEach((key, i) => {
+    const dayDate = new Date(monday);
+    dayDate.setDate(monday.getDate() + i);
+
+    const pillEl = document.getElementById('w-' + key);
+    pillEl.classList.remove('done', 'today');
+    if (i < todayIndex) pillEl.classList.add('done');
+    else if (i === todayIndex) pillEl.classList.add('today');
+
+    const trainedIds = Object.keys(people).filter(id =>
+      personStates[id].history.some(h => sameDay(new Date(h.date), dayDate))
+    );
+    document.getElementById('wd-' + key).innerHTML = Object.keys(people).map(id =>
+      `<div class="week-dot" style="background:${trainedIds.includes(id) ? people[id].color : 'var(--bg3)'}"></div>`
+    ).join('');
+  });
+}
+
+// --- HISTORIK ("Mina pass") ----------------------------------------------
+function feelingEmoji(feelingId) {
+  const opt = feelingOptions.find(f => f.id === feelingId);
+  return opt ? opt.emoji : '–';
+}
+
+function renderHistorySection(id) {
+  const state = personStates[id];
+  const recent = state.history.slice(-10).reverse();
+  const el = document.getElementById('historySection');
+
+  if (!recent.length) {
+    el.innerHTML = `
+      <div class="section-head"><div class="section-title">Mina pass</div></div>
+      <div class="history-empty">Inga genomförda pass än.</div>`;
+    return;
+  }
+
+  el.innerHTML = `
+    <div class="section-head"><div class="section-title">Mina pass</div></div>
+    <div class="history-list">
+      ${recent.map(h => {
+        const d = new Date(h.date);
+        const dateStr = days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()];
+        return `
+        <div class="history-row">
+          <div class="history-date">${dateStr}</div>
+          <div class="history-weights">${h.weights.bp}/${h.weights.sq}/${h.weights.dl}/${h.weights.lat} kg</div>
+          <div class="history-feeling">${feelingEmoji(h.feeling)}</div>
+        </div>`;
+      }).join('')}
+    </div>`;
+}
+
 // --- ONBOARDING ----------------------------------------------------------
 // Visas första gången en person trycker på sitt kort. Stegen är:
 // 1) Välkomst  2) Välj motivationsprofil  3) Bekräfta/justera startvikter  4) Klart
 let onboarding = null;
+let currentModalPersonId = null;
+let feelingPersonId = null;
 
 function startOnboarding(id) {
   const base = personStates[id].weights;
@@ -856,6 +1025,7 @@ function finishOnboarding() {
 }
 
 function openModal(id) {
+  currentModalPersonId = id;
   const p = people[id];
   const state = personStates[id];
   document.getElementById('modalAvatar').textContent = p.initials;
@@ -877,6 +1047,8 @@ function openModal(id) {
       ${buildSets(e.w, e.key)}
     </div>`).join('');
 
+  renderHistorySection(id);
+
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -888,6 +1060,66 @@ function closeModal() {
 
 function closeModalOutside(e) {
   if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+// --- LOGGA GENOMFÖRT PASS + EFTER-PASS-KÄNSLA -----------------------------
+function finishWorkout() {
+  const id = currentModalPersonId;
+  const state = personStates[id];
+
+  // Spara datum/tid och dagens uträknade vikter. Känslan sätts i nästa steg.
+  state.history.push({
+    date: new Date().toISOString(),
+    weights: { ...state.weights },
+    feeling: null
+  });
+  saveHistory(id, state.history);
+
+  closeModal();
+  renderCards();
+  renderWeekBar();
+
+  feelingPersonId = id;
+  showFeelingQuestion();
+}
+
+function showFeelingQuestion() {
+  document.getElementById('feelingContent').innerHTML = `
+    <div class="onboarding-step">
+      <div class="onboarding-title">Hur kändes passet?</div>
+    </div>
+    <div class="feeling-grid">
+      ${feelingOptions.map(f => `
+        <div class="feeling-card" onclick="selectFeeling(${f.id})">
+          <div class="feeling-emoji">${f.emoji}</div>
+          <div class="feeling-label">${f.label}</div>
+        </div>`).join('')}
+    </div>`;
+  document.getElementById('feelingOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function selectFeeling(feelingId) {
+  const state = personStates[feelingPersonId];
+  const lastSession = state.history[state.history.length - 1];
+  lastSession.feeling = feelingId;
+  saveHistory(feelingPersonId, state.history);
+
+  const opt = feelingOptions.find(f => f.id === feelingId);
+  document.getElementById('feelingContent').innerHTML = `
+    <div class="onboarding-step">
+      <div class="onboarding-emoji">${opt.emoji}</div>
+      <div class="onboarding-title">${opt.label}</div>
+      <div class="onboarding-sub">${opt.message}</div>
+    </div>
+    <button class="btn-primary" onclick="closeFeelingOverlay()">Klart</button>`;
+}
+
+function closeFeelingOverlay() {
+  document.getElementById('feelingOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  feelingPersonId = null;
+  renderCards();
 }
 
 // Initiera state för alla personer från localStorage och rendera korten
@@ -904,14 +1136,8 @@ const q = quotes[now.getDay() % quotes.length];
 document.getElementById('quoteText').textContent = q.text;
 document.getElementById('quoteSub').textContent = q.sub;
 
-// Week bar – highlight today (Monday = obligatory)
-const dow = now.getDay(); // 0=sun,1=mon,...
-const dayIds = ['w-sun','w-mon','w-tue','w-wed','w-thu','w-fri','w-sat'];
-for (let i = 1; i <= 6; i++) {
-  const el = document.getElementById(['w-mon','w-tue','w-wed','w-thu','w-fri','w-sat'][i-1]);
-  if (i < dow) el.classList.add('done');
-  else if (i === dow) el.classList.add('today');
-}
+// Week bar – highlight today (Monday = obligatory) + tränings-prickar per person
+renderWeekBar();
 
 // Next Monday
 const daysUntilMon = (8 - now.getDay()) % 7 || 7;
