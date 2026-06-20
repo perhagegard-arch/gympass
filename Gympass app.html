@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gympass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:#0b0b0d; --card:#15151a; --card2:#1c1c22; --line:rgba(255,255,255,0.07);
+    --ink:#ececf0; --muted:#83838c;
+    --orange:#ff7a45; --orange-soft:rgba(255,122,69,0.14); --orange-line:rgba(255,122,69,0.3);
+    --disp:'Barlow Condensed','Inter',sans-serif;
+    --radius:18px;
+  }
+
+  body {
+    font-family:'Inter',sans-serif;
+    background:var(--bg); color:var(--ink);
+    min-height:100vh; padding:0 0 90px;
+    max-width:440px; margin:0 auto;
+    -webkit-font-smoothing:antialiased;
+  }
+  .num { font-variant-numeric:tabular-nums; }
+
+  /* HEADER */
+  .header { padding:22px 20px 0; display:flex; align-items:center; justify-content:space-between; }
+  .wm { font-family:var(--disp); font-weight:800; font-size:24px; letter-spacing:.02em; text-transform:uppercase; }
+  .wm b { color:var(--orange); }
+  .date { font-size:12px; color:var(--muted); font-weight:500; }
+
+  /* HERO QUOTE */
+  .quote { margin:18px 20px 0; }
+  .quote-lab { font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin-bottom:7px; }
+  .quote-text { font-family:var(--disp); font-weight:600; font-size:24px; line-height:1.05; }
+  .quote-sub { font-size:12px; color:var(--muted); margin-top:6px; }
+
+  /* NEXT PASS */
+  .next { margin:18px 20px 0; background:linear-gradient(135deg,#241410,#15110f); border:1px solid var(--orange-line); border-radius:var(--radius); padding:18px; position:relative; overflow:hidden; }
+  .next::after { content:'🏋️'; position:absolute; right:-6px; bottom:-12px; font-size:80px; opacity:.12; }
+  .next-lab { font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--orange); }
+  .next-day { font-family:var(--disp); font-weight:700; font-size:34px; line-height:1; margin-top:8px; }
+  .next-sub { font-size:12px; color:var(--muted); margin-top:6px; }
+
+  /* WEEK */
+  .week-head { display:flex; align-items:center; justify-content:space-between; padding:24px 20px 10px; }
+  .seclab { font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+  .sechint { font-size:11px; color:var(--muted); opacity:.7; }
+  .week { display:flex; gap:6px; padding:0 20px; }
+  .week .d { flex:1; text-align:center; }
+  .week .pill { height:32px; border-radius:9px; background:var(--card); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; font-family:var(--disp); font-weight:700; font-size:14px; color:var(--muted); }
+  .week .d.done .pill { background:var(--orange-soft); color:var(--orange); border-color:var(--orange-line); }
+  .week .d.today .pill { background:var(--orange); color:#1a0d06; border-color:var(--orange); }
+  .week .nm { font-size:9px; color:var(--muted); margin-top:5px; text-transform:uppercase; letter-spacing:.06em; }
+  .week-dots { display:flex; gap:3px; justify-content:center; margin-top:5px; height:6px; }
+  .week-dot { width:5px; height:5px; border-radius:50%; background:var(--card2); }
+
+  /* PERSON CARDS */
+  .cards { padding:0 20px; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .person-card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px; cursor:pointer; transition:transform .15s, border-color .15s; -webkit-tap-highlight-color:transparent; }
+  .person-card:active { transform:scale(0.97); }
+  .person-card.per { --pc:var(--orange); } .person-card.alex { --pc:#4d9fff; }
+  .person-card.nia { --pc:#ff6ea9; } .person-card.hannes { --pc:#ffd24d; }
+  .card-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+  .avatar { width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-family:var(--disp); font-weight:700; font-size:14px; background:var(--pc); color:#111; }
+  .person-card.hannes .avatar { color:#3a2c00; }
+  .card-badge { font-size:9px; font-weight:700; letter-spacing:.05em; padding:3px 8px; border-radius:20px; background:rgba(255,255,255,0.05); color:var(--muted); }
+  .card-badge.trained { background:var(--orange-soft); color:var(--orange); }
+  .card-name { font-family:var(--disp); font-weight:700; font-size:20px; line-height:1; }
+  .card-last { font-size:10px; color:var(--muted); margin-top:3px; }
+  .card-lifts { display:grid; grid-template-columns:1fr 1fr; gap:9px 6px; margin-top:12px; }
+  .lift-item { display:flex; flex-direction:column; }
+  .lift-label { font-size:8px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
+  .lift-val { font-family:var(--disp); font-weight:700; font-size:22px; line-height:1; margin-top:1px; }
+  .lift-val span { font-size:10px; font-family:'Inter'; font-weight:500; color:var(--muted); }
+  .card-cta { margin-top:13px; border-top:1px solid var(--line); padding-top:11px; font-size:12px; font-weight:600; color:var(--pc); }
+
+  /* BOTTOM NAV */
+  .nav { position:fixed; left:50%; transform:translateX(-50%); bottom:0; width:100%; max-width:440px; height:72px; border-top:1px solid var(--line); background:rgba(11,11,13,0.92); backdrop-filter:blur(10px); display:flex; align-items:center; justify-content:space-around; padding-bottom:10px; z-index:50; }
+  .nav a { display:flex; flex-direction:column; align-items:center; gap:4px; font-size:10px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); cursor:pointer; }
+  .nav a.on { color:var(--orange); }
+  .nav .ndot { width:20px; height:20px; border:2px solid currentColor; border-radius:6px; }
+  .nav a:nth-child(2) .ndot { border-radius:50%; } .nav a:nth-child(3) .ndot { border-radius:4px; }
+
+  /* MODAL */
+  .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:100; display:flex; flex-direction:column; overflow-y:auto; opacity:0; pointer-events:none; transition:opacity .2s; }
+  .modal-overlay.open { opacity:1; pointer-events:all; }
+  .modal { background:var(--bg); border-radius:24px 24px 0 0; margin-top:auto; padding:0 0 40px; min-height:86vh; max-width:440px; width:100%; margin-left:auto; margin-right:auto; transform:translateY(40px); transition:transform .25s cubic-bezier(0.32,0,0,1); border-top:1px solid var(--line); }
+  .modal-overlay.open .modal { transform:translateY(0); }
+  .modal-handle { width:36px; height:4px; background:rgba(255,255,255,0.15); border-radius:2px; margin:14px auto 0; }
+  .modal-header { padding:18px 20px 0; display:flex; align-items:center; justify-content:space-between; }
+  .modal-person { display:flex; align-items:center; gap:12px; }
+  .modal-avatar { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-family:var(--disp); font-weight:700; font-size:16px; }
+  .modal-name { font-family:var(--disp); font-weight:700; font-size:26px; line-height:1; }
+  .modal-close { width:34px; height:34px; border-radius:50%; background:var(--card2); border:none; color:var(--muted); font-size:15px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+
+  .exercise-block { margin:18px 20px 0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
+  .exercise-title { padding:13px 16px; font-family:var(--disp); font-size:18px; font-weight:700; letter-spacing:.02em; text-transform:uppercase; border-bottom:1px solid var(--line); }
+  .set-row { display:grid; grid-template-columns:24px 1fr 86px 54px; align-items:center; padding:11px 16px; border-bottom:1px solid var(--line); gap:8px; }
+  .set-row:last-child { border-bottom:none; }
+  .set-num { font-family:var(--disp); font-weight:700; font-size:14px; color:var(--muted); text-align:center; }
+  .set-type { font-size:12px; color:var(--muted); }
+  .set-weight { font-family:var(--disp); font-weight:700; font-size:22px; text-align:right; line-height:1; }
+  .set-weight span { font-size:11px; font-family:'Inter'; font-weight:500; color:var(--muted); }
+  .set-reps { font-family:var(--disp); font-weight:600; font-size:15px; color:var(--muted); text-align:right; }
+  .set-row.top-set { background:var(--orange-soft); }
+  .set-row.top-set .set-weight { color:var(--orange); }
+  .set-row.top-set .set-type { color:var(--orange); }
+  .rest-note { margin:14px 20px 0; text-align:center; font-size:12px; color:var(--muted); }
+
+  /* ONBOARDING */
+  .progress-dots { display:flex; gap:6px; padding:20px 20px 0; }
+  .progress-dot { height:4px; flex:1; border-radius:2px; background:var(--card2); }
+  .progress-dot.active { background:var(--orange); }
+  .onboarding-step { padding:26px 20px 10px; }
+  .onboarding-emoji { font-size:40px; margin-bottom:14px; }
+  .onboarding-title { font-family:var(--disp); font-weight:700; font-size:30px; line-height:1; margin-bottom:10px; }
+  .onboarding-sub { font-size:14px; color:var(--muted); line-height:1.5; margin-bottom:20px; }
+  .profile-card { background:var(--card); border:1.5px solid var(--line); border-radius:var(--radius); padding:15px; margin-bottom:10px; cursor:pointer; -webkit-tap-highlight-color:transparent; transition:border-color .15s, background .15s; }
+  .profile-card.selected { border-color:var(--orange); background:var(--orange-soft); }
+  .profile-card-title { font-family:var(--disp); font-weight:700; font-size:19px; line-height:1; margin-bottom:5px; }
+  .profile-card.selected .profile-card-title { color:var(--orange); }
+  .profile-card-desc { font-size:12px; color:var(--muted); line-height:1.4; }
+  .weight-row { display:flex; align-items:center; justify-content:space-between; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:13px 16px; margin-bottom:10px; }
+  .weight-row-label { font-family:var(--disp); font-weight:700; font-size:18px; }
+  .weight-row-hint { font-size:11px; color:var(--muted); margin-top:2px; }
+  .stepper { display:flex; align-items:center; gap:10px; }
+  .stepper-btn { width:42px; height:42px; border-radius:50%; border:1px solid var(--line); background:var(--card2); color:var(--ink); font-size:20px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; -webkit-tap-highlight-color:transparent; }
+  .stepper-btn:active { background:var(--orange-soft); border-color:var(--orange-line); }
+  .stepper-val { font-family:var(--disp); font-weight:700; font-size:20px; min-width:64px; text-align:center; }
+
+  .btn-primary { display:block; width:calc(100% - 40px); margin:24px 20px 0; padding:17px; border:none; border-radius:var(--radius); background:var(--orange); color:#1a0d06; font-family:var(--disp); font-size:20px; font-weight:700; letter-spacing:.02em; text-transform:uppercase; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  .btn-primary:disabled { opacity:.35; cursor:not-allowed; }
+  .btn-secondary { display:block; width:calc(100% - 40px); margin:10px 20px 0; padding:13px; border:none; border-radius:var(--radius); background:transparent; color:var(--muted); font-size:14px; font-weight:600; cursor:pointer; }
+
+  /* FEELING */
+  .feeling-grid { padding:4px 20px 0; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .feeling-card { background:var(--card); border:1.5px solid var(--line); border-radius:var(--radius); padding:18px 10px; text-align:center; cursor:pointer; -webkit-tap-highlight-color:transparent; transition:border-color .15s, background .15s; }
+  .feeling-card:active { border-color:var(--orange); background:var(--orange-soft); }
+  .feeling-card:last-child { grid-column:1 / -1; }
+  .feeling-emoji { font-size:28px; margin-bottom:6px; }
+  .feeling-label { font-family:var(--disp); font-weight:700; font-size:17px; }
+
+  /* HISTORY */
+  .history-list { margin:8px 20px 0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
+  .history-row { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 16px; border-bottom:1px solid var(--line); }
+  .history-row:last-child { border-bottom:none; }
+  .history-date { font-size:12px; color:var(--muted); min-width:74px; }
+  .history-weights { font-family:var(--disp); font-weight:700; font-size:16px; flex:1; text-align:center; }
+  .history-feeling { font-size:18px; }
+  .history-empty { margin:8px 20px 0; padding:14px 16px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); font-size:12px; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="wm">GYM<b>PASS</b></div>
+  <div class="date" id="headerDate"></div>
+</div>
+
+<div class="quote">
+  <div class="quote-lab">Veckans motivationsord</div>
+  <div class="quote-text" id="quoteText"></div>
+  <div class="quote-sub" id="quoteSub"></div>
+</div>
+
+<div class="next">
+  <div class="next-lab">Nästa obligatoriska pass</div>
+  <div class="next-day" id="nextDay">Måndag</div>
+  <div class="next-sub">Bänkpress · Benböj · Marklyft · Latsdrag</div>
+</div>
+
+<div class="week-head">
+  <div class="seclab">Denna vecka</div>
+</div>
+<div class="week">
+  <div class="d" id="d-mon"><div class="pill" id="w-mon">M</div><div class="week-dots" id="wd-mon"></div><div class="nm">Mån</div></div>
+  <div class="d" id="d-tue"><div class="pill" id="w-tue">T</div><div class="week-dots" id="wd-tue"></div><div class="nm">Tis</div></div>
+  <div class="d" id="d-wed"><div class="pill" id="w-wed">O</div><div class="week-dots" id="wd-wed"></div><div class="nm">Ons</div></div>
+  <div class="d" id="d-thu"><div class="pill" id="w-thu">T</div><div class="week-dots" id="wd-thu"></div><div class="nm">Tor</div></div>
+  <div class="d" id="d-fri"><div class="pill" id="w-fri">F</div><div class="week-dots" id="wd-fri"></div><div class="nm">Fre</div></div>
+  <div class="d" id="d-sat"><div class="pill" id="w-sat">L</div><div class="week-dots" id="wd-sat"></div><div class="nm">Lör</div></div>
+  <div class="d" id="d-sun"><div class="pill" id="w-sun">S</div><div class="week-dots" id="wd-sun"></div><div class="nm">Sön</div></div>
+</div>
+
+<div class="week-head">
+  <div class="seclab">Välj person</div>
+  <div class="sechint">Tryck för att se ditt pass</div>
+</div>
+<div class="cards" id="cardsContainer"></div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div class="modal-person">
+        <div class="modal-avatar" id="modalAvatar"></div>
+        <div class="modal-name" id="modalName"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modalContent"></div>
+    <div class="rest-note">⏱ Vila ca 2 minuter mellan varje set</div>
+    <button class="btn-primary" onclick="finishWorkout()">Avsluta pass ✅</button>
+    <div id="historySection"></div>
+  </div>
+</div>
+
+<!-- ONBOARDING -->
+<div class="modal-overlay" id="onboardingOverlay">
+  <div class="modal" id="onboardingModal">
+    <div class="modal-handle"></div>
+    <div id="onboardingProgress" class="progress-dots"></div>
+    <div id="onboardingContent"></div>
+  </div>
+</div>
+
+<!-- FEELING -->
+<div class="modal-overlay" id="feelingOverlay">
+  <div class="modal" id="feelingModal">
+    <div class="modal-handle"></div>
+    <div id="feelingContent"></div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="nav">
+  <a class="on"><span class="ndot"></span>Hem</a>
+  <a><span class="ndot"></span>Historik</a>
+  <a><span class="ndot"></span>Profil</a>
+</div>
+
+<script>
+const people = {
+  per:    { name: 'Per',    initials: 'PH', color: '#ff7a45', role: 'Coach', bp: 45, sq: 60, dl: 60, lat: null },
+  alex:   { name: 'Alex',   initials: 'AL', color: '#4d9fff', bp: 45, sq: 60, dl: 60, lat: null },
+  nia:    { name: 'Nia',    initials: 'NI', color: '#ff6ea9', bp: 35, sq: 20, dl: 30, lat: null },
+  hannes: { name: 'Hannes', initials: 'HA', color: '#ffd24d', bp: 27, sq: 22, dl: 27, lat: null }
+};
+
+const quotes = [
+  { text: 'Varje lyft räknas. Varje set bygger något.', sub: 'Konsistens slår motivation – varje gång.' },
+  { text: 'Du är starkare idag än igår.', sub: 'Progressiv överbelastning är magin.' },
+  { text: 'Gymmet är inte ett straff. Det är din tid.', sub: 'Fyra övningar. Sex set. Klar.' },
+  { text: 'Tekniken först. Vikten kommer.', sub: 'Rätt rörelse är grunden till allt.' },
+  { text: 'Ingen regret efter ett gympass.', sub: 'Det vet ni allihopa nu.' }
+];
+
+const motivationProfiles = [
+  { id: 1, title: 'Siffrorna ljuger inte', desc: 'Du motiveras av viktutveckling och tydliga grafer på din progression.' },
+  { id: 2, title: 'Tillsammans är vi starkare', desc: 'Du motiveras av att träna som grupp och peppa varandra.' },
+  { id: 3, title: 'Jag mår bättre när jag tränar', desc: 'Du motiveras av välmående, energi och hur kroppen känns.' },
+  { id: 4, title: 'Jag vill överraska mig själv', desc: 'Du motiveras av milstolpar, personbästa och beröm.' }
+];
+
+const days = ['Söndag','Måndag','Tisdag','Onsdag','Torsdag','Fredag','Lördag'];
+const months = ['jan','feb','mar','apr','maj','jun','jul','aug','sep','okt','nov','dec'];
+
+const feelingOptions = [
+  { id: 1, emoji: '🙂', label: 'Bra att jag kom',  message: 'Det räcker. Varje pass bygger vanan.' },
+  { id: 2, emoji: '😐', label: 'Okej pass',        message: 'Solid insats. Kroppen anpassar sig.' },
+  { id: 3, emoji: '💪', label: 'Bra pass',         message: 'Bra jobbat! Nästa måndag – dags att öka?' },
+  { id: 4, emoji: '🔥', label: 'Starkt pass',      message: 'Du är på rätt spår. Få i dig protein inom 30 min!' },
+  { id: 5, emoji: '🚀', label: 'Maxade idag 🔥',    message: 'BEAST! 🔥 Äta: kycklingfilé, ris och grönsaker inom 45 min. Drick 0,5L vatten nu. Nästa pass: öka med 2,5 kg!' }
+];
+
+function r(w, pct) { return Math.round(w * pct / 2.5) * 2.5; }
+
+function buildSets(w) {
+  if (!w) return `<div style="padding:14px 16px;font-size:13px;color:var(--muted);">Vikt ej registrerad ännu</div>`;
+  const sets = [
+    { label: 'Uppvärmning',  pct: 0.70, reps: 5,  top: false },
+    { label: 'Uppvärmning',  pct: 0.80, reps: 3,  top: false },
+    { label: 'Toppset 🔥',   pct: 0.95, reps: 1,  top: true  },
+    { label: 'Arbetsserie',  pct: 0.87, reps: 5,  top: false },
+    { label: 'Arbetsserie',  pct: 0.87, reps: 5,  top: false },
+    { label: 'Arbetsserie',  pct: 0.87, reps: 5,  top: false },
+  ];
+  return sets.map((s, i) => `
+    <div class="set-row ${s.top ? 'top-set' : ''}">
+      <div class="set-num num">${i+1}</div>
+      <div class="set-type">${s.label}</div>
+      <div class="set-weight num">${r(w, s.pct)}<span> kg</span></div>
+      <div class="set-reps num">× ${s.reps}</div>
+    </div>`).join('');
+}
+
+const STORAGE_PREFIX = 'gympass_';
+function historyKey(id) { return STORAGE_PREFIX + id + '_history'; }
+function loadHistory(id) { const raw = localStorage.getItem(historyKey(id)); return raw ? JSON.parse(raw) : []; }
+function saveHistory(id, history) { localStorage.setItem(historyKey(id), JSON.stringify(history)); }
+
+function loadPersonState(id) {
+  const raw = localStorage.getItem(STORAGE_PREFIX + id);
+  const base = people[id];
+  const state = raw ? JSON.parse(raw) : {
+    onboarded: false, profile: null,
+    weights: { bp: base.bp, sq: base.sq, dl: base.dl, lat: base.lat }
+  };
+  state.history = loadHistory(id);
+  return state;
+}
+function savePersonState(id, state) {
+  localStorage.setItem(STORAGE_PREFIX + id, JSON.stringify({
+    onboarded: state.onboarded, profile: state.profile, weights: state.weights
+  }));
+}
+
+function getMonday(date) {
+  const d = new Date(date);
+  const diff = (d.getDay() === 0 ? -6 : 1) - d.getDay();
+  d.setDate(d.getDate() + diff); d.setHours(0,0,0,0); return d;
+}
+function hasTrainedThisWeek(state) {
+  if (!state.history.length) return false;
+  const monday = getMonday(new Date());
+  return state.history.some(h => new Date(h.date) >= monday);
+}
+function lastTrainedText(state) {
+  if (!state.history.length) return 'Inte tränat ännu';
+  const last = new Date(state.history[state.history.length - 1].date);
+  return 'Senast: ' + days[last.getDay()] + ' ' + last.getDate() + ' ' + months[last.getMonth()];
+}
+
+function liftValueHtml(label, value) {
+  return `<div class="lift-item"><div class="lift-label">${label}</div>` +
+    (value == null
+      ? `<div class="lift-val">–</div>`
+      : `<div class="lift-val num">${value} <span>kg</span></div>`) +
+    `</div>`;
+}
+
+function renderCards() {
+  const container = document.getElementById('cardsContainer');
+  container.innerHTML = Object.keys(people).map(id => {
+    const p = people[id];
+    const state = personStates[id];
+    const trained = hasTrainedThisWeek(state);
+    const badgeText = p.role ? p.role : (trained ? 'Tränat ✓' : '–');
+    const badgeClass = !p.role && trained ? 'trained' : '';
+    return `
+    <div class="person-card ${id}" onclick="onCardClick('${id}')">
+      <div class="card-top">
+        <div class="avatar">${p.initials}</div>
+        <div class="card-badge ${badgeClass}">${badgeText}</div>
+      </div>
+      <div class="card-name">${p.name}</div>
+      <div class="card-last">${lastTrainedText(state)}</div>
+      <div class="card-lifts">
+        ${liftValueHtml('Bänk', state.weights.bp)}
+        ${liftValueHtml('Benböj', state.weights.sq)}
+        ${liftValueHtml('Marklyft', state.weights.dl)}
+        ${liftValueHtml('Latsdrag', state.weights.lat)}
+      </div>
+      <div class="card-cta">${state.onboarded ? 'Öppna mitt pass →' : 'Kom igång →'}</div>
+    </div>`;
+  }).join('');
+}
+
+function onCardClick(id) {
+  if (!personStates[id].onboarded) startOnboarding(id);
+  else openModal(id);
+}
+
+function sameDay(a, b) {
+  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+}
+
+function renderWeekBar() {
+  const today = new Date();
+  const monday = getMonday(today);
+  const dayKeys = ['mon','tue','wed','thu','fri','sat','sun'];
+  const todayIndex = (today.getDay() + 6) % 7;
+  dayKeys.forEach((key, i) => {
+    const dayDate = new Date(monday); dayDate.setDate(monday.getDate() + i);
+    const dEl = document.getElementById('d-' + key);
+    dEl.classList.remove('done','today');
+    if (i < todayIndex) dEl.classList.add('done');
+    else if (i === todayIndex) dEl.classList.add('today');
+    const trainedIds = Object.keys(people).filter(id =>
+      personStates[id].history.some(h => sameDay(new Date(h.date), dayDate)));
+    document.getElementById('wd-' + key).innerHTML = Object.keys(people).map(id =>
+      `<div class="week-dot" style="background:${trainedIds.includes(id) ? people[id].color : 'var(--card2)'}"></div>`
+    ).join('');
+  });
+}
+
+function feelingEmoji(feelingId) {
+  const opt = feelingOptions.find(f => f.id === feelingId);
+  return opt ? opt.emoji : '–';
+}
+
+function renderHistorySection(id) {
+  const state = personStates[id];
+  const recent = state.history.slice(-10).reverse();
+  const el = document.getElementById('historySection');
+  if (!recent.length) {
+    el.innerHTML = `<div class="week-head"><div class="seclab">Mina pass</div></div>
+      <div class="history-empty">Inga genomförda pass än.</div>`;
+    return;
+  }
+  el.innerHTML = `<div class="week-head"><div class="seclab">Mina pass</div></div>
+    <div class="history-list">
+      ${recent.map(h => {
+        const d = new Date(h.date);
+        const dateStr = days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()];
+        return `<div class="history-row">
+          <div class="history-date">${dateStr}</div>
+          <div class="history-weights num">${h.weights.bp}/${h.weights.sq}/${h.weights.dl}/${h.weights.lat} kg</div>
+          <div class="history-feeling">${feelingEmoji(h.feeling)}</div>
+        </div>`;
+      }).join('')}
+    </div>`;
+}
+
+let onboarding = null;
+let currentModalPersonId = null;
+let feelingPersonId = null;
+
+function startOnboarding(id) {
+  const base = personStates[id].weights;
+  onboarding = { personId: id, step: 1, profile: null,
+    weights: { bp: base.bp, sq: base.sq, dl: base.dl, lat: base.lat ?? 20 } };
+  document.getElementById('onboardingOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderOnboardingStep();
+}
+function closeOnboarding() {
+  document.getElementById('onboardingOverlay').classList.remove('open');
+  document.body.style.overflow = ''; onboarding = null;
+}
+function weightRowHtml(key, label) {
+  const isLat = key === 'lat';
+  return `<div class="weight-row">
+      <div>
+        <div class="weight-row-label">${label}</div>
+        ${isLat ? '<div class="weight-row-hint">Ny övning – välj en startvikt</div>' : ''}
+      </div>
+      <div class="stepper">
+        <button class="stepper-btn" onclick="adjustOnboardingWeight('${key}', -2.5)">–</button>
+        <div class="stepper-val num">${onboarding.weights[key]} kg</div>
+        <button class="stepper-btn" onclick="adjustOnboardingWeight('${key}', 2.5)">+</button>
+      </div>
+    </div>`;
+}
+function renderOnboardingStep() {
+  const p = people[onboarding.personId];
+  document.getElementById('onboardingProgress').innerHTML =
+    [1,2,3,4].map(n => `<div class="progress-dot ${n <= onboarding.step ? 'active' : ''}"></div>`).join('');
+  let body = '';
+  if (onboarding.step === 1) {
+    body = `<div class="onboarding-step">
+        <div class="onboarding-emoji">👋</div>
+        <div class="onboarding-title">Välkommen, ${p.name}!</div>
+        <div class="onboarding-sub">Innan du kör ditt första pass sätter vi upp din profil. Det tar under en minut.</div>
+      </div>
+      <button class="btn-primary" onclick="onboardingNext()">Kom igång →</button>`;
+  } else if (onboarding.step === 2) {
+    body = `<div class="onboarding-step">
+        <div class="onboarding-title">Vad driver dig?</div>
+        <div class="onboarding-sub">Välj den motivationsprofil som stämmer bäst – du kan byta senare.</div>
+        ${motivationProfiles.map(mp => `
+          <div class="profile-card ${onboarding.profile === mp.id ? 'selected' : ''}" onclick="selectProfile(${mp.id})">
+            <div class="profile-card-title">${mp.title}</div>
+            <div class="profile-card-desc">${mp.desc}</div>
+          </div>`).join('')}
+      </div>
+      <button class="btn-primary" ${onboarding.profile ? '' : 'disabled'} onclick="onboardingNext()">Nästa →</button>
+      <button class="btn-secondary" onclick="onboardingBack()">Tillbaka</button>`;
+  } else if (onboarding.step === 3) {
+    body = `<div class="onboarding-step">
+        <div class="onboarding-title">Dina startvikter</div>
+        <div class="onboarding-sub">Stämmer de här? Justera med +/- om du vill (steg om 2,5 kg).</div>
+        ${weightRowHtml('bp', 'Bänkpress')}
+        ${weightRowHtml('sq', 'Benböj')}
+        ${weightRowHtml('dl', 'Marklyft')}
+        ${weightRowHtml('lat', 'Latsdrag')}
+      </div>
+      <button class="btn-primary" onclick="onboardingNext()">Bekräfta →</button>
+      <button class="btn-secondary" onclick="onboardingBack()">Tillbaka</button>`;
+  } else if (onboarding.step === 4) {
+    body = `<div class="onboarding-step">
+        <div class="onboarding-emoji">✅</div>
+        <div class="onboarding-title">Klart, ${p.name}!</div>
+        <div class="onboarding-sub">Din profil och dina vikter är sparade. Nu kör vi ditt första pass.</div>
+      </div>
+      <button class="btn-primary" onclick="finishOnboarding()">Till mitt pass →</button>`;
+  }
+  document.getElementById('onboardingContent').innerHTML = body;
+}
+function adjustOnboardingWeight(key, delta) {
+  const next = Math.max(0, onboarding.weights[key] + delta);
+  onboarding.weights[key] = Math.round(next / 2.5) * 2.5;
+  renderOnboardingStep();
+}
+function selectProfile(id) { onboarding.profile = id; renderOnboardingStep(); }
+function onboardingNext() { if (onboarding.step === 2 && !onboarding.profile) return; onboarding.step++; renderOnboardingStep(); }
+function onboardingBack() { onboarding.step--; renderOnboardingStep(); }
+function finishOnboarding() {
+  const id = onboarding.personId;
+  personStates[id] = { onboarded: true, profile: onboarding.profile, weights: { ...onboarding.weights }, history: [] };
+  savePersonState(id, personStates[id]);
+  closeOnboarding(); renderCards(); openModal(id);
+}
+
+function openModal(id) {
+  currentModalPersonId = id;
+  const p = people[id];
+  const state = personStates[id];
+  const av = document.getElementById('modalAvatar');
+  av.textContent = p.initials;
+  av.style.color = id === 'hannes' ? '#3a2c00' : '#111';
+  av.style.background = p.color;
+  document.getElementById('modalName').textContent = p.name;
+  const exercises = [
+    { key: 'bp',  label: 'Bänkpress',  w: state.weights.bp  },
+    { key: 'sq',  label: 'Benböj',     w: state.weights.sq  },
+    { key: 'dl',  label: 'Marklyft',   w: state.weights.dl  },
+    { key: 'lat', label: 'Latsdrag',   w: state.weights.lat },
+  ];
+  document.getElementById('modalContent').innerHTML = exercises.map(e => `
+    <div class="exercise-block">
+      <div class="exercise-title" style="color:${p.color}">${e.label}</div>
+      ${buildSets(e.w)}
+    </div>`).join('');
+  renderHistorySection(id);
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModalOutside(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
+
+function finishWorkout() {
+  const id = currentModalPersonId;
+  const state = personStates[id];
+  state.history.push({ date: new Date().toISOString(), weights: { ...state.weights }, feeling: null });
+  saveHistory(id, state.history);
+  closeModal(); renderCards(); renderWeekBar();
+  feelingPersonId = id; showFeelingQuestion();
+}
+function showFeelingQuestion() {
+  document.getElementById('feelingContent').innerHTML = `
+    <div class="onboarding-step"><div class="onboarding-title">Hur kändes passet?</div></div>
+    <div class="feeling-grid">
+      ${feelingOptions.map(f => `
+        <div class="feeling-card" onclick="selectFeeling(${f.id})">
+          <div class="feeling-emoji">${f.emoji}</div>
+          <div class="feeling-label">${f.label}</div>
+        </div>`).join('')}
+    </div>`;
+  document.getElementById('feelingOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function selectFeeling(feelingId) {
+  const state = personStates[feelingPersonId];
+  const lastSession = state.history[state.history.length - 1];
+  lastSession.feeling = feelingId;
+  saveHistory(feelingPersonId, state.history);
+  const opt = feelingOptions.find(f => f.id === feelingId);
+  document.getElementById('feelingContent').innerHTML = `
+    <div class="onboarding-step">
+      <div class="onboarding-emoji">${opt.emoji}</div>
+      <div class="onboarding-title">${opt.label}</div>
+      <div class="onboarding-sub">${opt.message}</div>
+    </div>
+    <button class="btn-primary" onclick="closeFeelingOverlay()">Klart</button>`;
+}
+function closeFeelingOverlay() {
+  document.getElementById('feelingOverlay').classList.remove('open');
+  document.body.style.overflow = ''; feelingPersonId = null; renderCards();
+}
+
+const personStates = {};
+Object.keys(people).forEach(id => { personStates[id] = loadPersonState(id); });
+renderCards();
+
+const now = new Date();
+document.getElementById('headerDate').textContent = days[now.getDay()] + ' ' + now.getDate() + ' ' + months[now.getMonth()];
+const q = quotes[now.getDay() % quotes.length];
+document.getElementById('quoteText').textContent = q.text;
+document.getElementById('quoteSub').textContent = q.sub;
+renderWeekBar();
+const daysUntilMon = (8 - now.getDay()) % 7 || 7;
+const nextMon = new Date(now); nextMon.setDate(now.getDate() + daysUntilMon);
+document.getElementById('nextDay').textContent = 'Måndag ' + nextMon.getDate() + ' ' + months[nextMon.getMonth()];
+</script>
+</body>
+</html>
