@@ -422,6 +422,107 @@
     font-size: 12px;
     color: var(--muted);
   }
+
+  /* ONBOARDING (nytt) */
+  .onboarding-step {
+    padding: 28px 20px 10px;
+  }
+  .onboarding-emoji { font-size: 40px; margin-bottom: 14px; }
+  .onboarding-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .onboarding-sub {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 22px;
+  }
+
+  /* Stegindikator överst i onboarding */
+  .progress-dots {
+    display: flex;
+    gap: 6px;
+    padding: 20px 20px 0;
+  }
+  .progress-dot { height: 4px; flex: 1; border-radius: 2px; background: var(--bg3); }
+  .progress-dot.active { background: var(--accent); }
+
+  /* Valbara motivationsprofiler */
+  .profile-card {
+    background: var(--bg2);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .profile-card.selected { border-color: var(--accent); background: var(--accent-dim); }
+  .profile-card-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .profile-card.selected .profile-card-title { color: var(--accent); }
+  .profile-card-desc { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+  /* Justering av startvikter (+/- 2,5 kg) */
+  .weight-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .weight-row-label { font-size: 14px; font-weight: 700; }
+  .weight-row-hint { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .stepper { display: flex; align-items: center; gap: 12px; }
+  .stepper-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    color: var(--text);
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .stepper-btn:active { background: var(--accent-dim); }
+  .stepper-val { font-size: 16px; font-weight: 700; min-width: 60px; text-align: center; }
+
+  /* Stora knappar för svettiga händer på gymmet */
+  .btn-primary {
+    display: block;
+    width: 100%;
+    margin: 24px 20px 0;
+    padding: 18px;
+    border: none;
+    border-radius: var(--radius);
+    background: var(--accent);
+    color: #0f0f0f;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
+  .btn-secondary {
+    display: block;
+    width: 100%;
+    margin: 10px 20px 0;
+    padding: 14px;
+    border: none;
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
 </style>
 </head>
 <body>
@@ -464,71 +565,8 @@
   <div class="section-hint">Tryck för att se ditt pass</div>
 </div>
 
-<div class="cards">
-  <div class="person-card per" onclick="openModal('per')">
-    <div class="card-top">
-      <div class="avatar">PH</div>
-      <div class="card-badge">Coach</div>
-    </div>
-    <div class="card-name">Per</div>
-    <div class="card-last" id="last-per">Inte tränat ännu</div>
-    <div class="card-lifts">
-      <div class="lift-item"><div class="lift-label">Bänk</div><div class="lift-val">45 <span>kg</span></div></div>
-      <div class="lift-item"><div class="lift-label">Benböj</div><div class="lift-val">60 <span>kg</span></div></div>
-      <div class="lift-item"><div class="lift-label">Marklyft</div><div class="lift-val">60 <span>kg</span></div></div>
-      <div class="lift-item"><div class="lift-label">Latsdrag</div><div class="lift-val">– <span></span></div></div>
-    </div>
-    <div class="card-cta">Öppna mitt pass →</div>
-  </div>
-
-  <div class="person-card alex" onclick="openModal('alex')">
-    <div class="card-top">
-      <div class="avatar">AL</div>
-      <div class="card-badge" id="badge-alex">–</div>
-    </div>
-    <div class="card-name">Alex</div>
-    <div class="card-last" id="last-alex">Inte tränat ännu</div>
-    <div class="card-lifts">
-      <div class="lift-item"><div class="lift-label">Bänk</div><div class="lift-val">45 <span>kg</span></div></div>
-      <div class="lift-item"><div class="lift-label">Benböj</div><div class="lift-val">60 <span>kg</span></div></div>
-      <div class="lift-item"><div class="lift-label">Marklyft</div><div class="lift-val">60 <span>kg</span></div></div>
-      <div class="lift-item"><div class="lift-label">Latsdrag</div><div class="lift-val">– <span></span></div></div>
-    </div>
-    <div class="card-cta">Öppna mitt pass →</div>
-  </div>
-
-  <div class="person-card nia" onclick="openModal('nia')">
-    <div class="card-top">
-      <div class="avatar">NI</div>
-      <div class="card-badge" id="badge-nia">–</div>
-    </div>
-    <div class="card-name">Nia</div>
-    <div class="card-last" id="last-nia">Inte tränat ännu</div>
-    <div class="card-lifts">
-      <div class="lift-item"><div class="lift-label">Bänk</div><div class="lift-val">35 <span>kg</span></div></div>
-      <div class="lift-item"><div class="lift-label">Benböj</div><div class="lift-val">20 <span>kg</span></div></div>
-      <div class="lift-item"><div class="lift-label">Marklyft</div><div class="lift-val">30 <span>kg</span></div></div>
-      <div class="lift-item"><div class="lift-label">Latsdrag</div><div class="lift-val">– <span></span></div></div>
-    </div>
-    <div class="card-cta">Öppna mitt pass →</div>
-  </div>
-
-  <div class="person-card hannes" onclick="openModal('hannes')">
-    <div class="card-top">
-      <div class="avatar">HA</div>
-      <div class="card-badge" id="badge-hannes">–</div>
-    </div>
-    <div class="card-name">Hannes</div>
-    <div class="card-last" id="last-hannes">Inte tränat ännu</div>
-    <div class="card-lifts">
-      <div class="lift-item"><div class="lift-label">Bänk</div><div class="lift-val">27 <span>kg</span></div></div>
-      <div class="lift-item"><div class="lift-label">Benböj</div><div class="lift-val">22 <span>kg</span></div></div>
-      <div class="lift-item"><div class="lift-label">Marklyft</div><div class="lift-val">27 <span>kg</span></div></div>
-      <div class="lift-item"><div class="lift-label">Latsdrag</div><div class="lift-val">– <span></span></div></div>
-    </div>
-    <div class="card-cta">Öppna mitt pass →</div>
-  </div>
-</div>
+<!-- Personkorten renderas av JS (renderCards) utifrån "people"-objektet och sparat state -->
+<div class="cards" id="cardsContainer"></div>
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
@@ -546,9 +584,21 @@
   </div>
 </div>
 
+<!-- ONBOARDING-MODAL: visas första gången en person öppnar sitt kort -->
+<div class="modal-overlay" id="onboardingOverlay">
+  <div class="modal" id="onboardingModal">
+    <div class="modal-handle"></div>
+    <div id="onboardingProgress" class="progress-dots"></div>
+    <div id="onboardingContent"></div>
+  </div>
+</div>
+
 <script>
+// "people" är grundkällan för vilka som finns i appen och deras startvikter.
+// En ny kollega läggs till genom att lägga till ett objekt här – kort,
+// onboarding och pass genereras automatiskt av JS nedan.
 const people = {
-  per:    { name: 'Per',    initials: 'PH', color: '#c8f135', bp: 45, sq: 60, dl: 60, lat: null },
+  per:    { name: 'Per',    initials: 'PH', color: '#c8f135', role: 'Coach', bp: 45, sq: 60, dl: 60, lat: null },
   alex:   { name: 'Alex',   initials: 'AL', color: '#4d9fff', bp: 45, sq: 60, dl: 60, lat: null },
   nia:    { name: 'Nia',    initials: 'NI', color: '#ff7eb6', bp: 35, sq: 20, dl: 30, lat: null },
   hannes: { name: 'Hannes', initials: 'HA', color: '#ffa94d', bp: 27, sq: 22, dl: 27, lat: null }
@@ -561,6 +611,17 @@ const quotes = [
   { text: 'Tekniken först. Vikten kommer.', sub: 'Rätt rörelse är grunden till allt.' },
   { text: 'Ingen regret efter ett gympass.', sub: 'Det vet ni allihopa nu.' }
 ];
+
+// De fyra motivationsprofilerna som väljs i onboarding (kan bytas senare).
+const motivationProfiles = [
+  { id: 1, title: 'Siffrorna ljuger inte', desc: 'Du motiveras av viktutveckling och tydliga grafer på din progression.' },
+  { id: 2, title: 'Tillsammans är vi starkare', desc: 'Du motiveras av att träna som grupp och peppa varandra.' },
+  { id: 3, title: 'Jag mår bättre när jag tränar', desc: 'Du motiveras av välmående, energi och hur kroppen känns.' },
+  { id: 4, title: 'Jag vill överraska mig själv', desc: 'Du motiveras av milstolpar, personbästa och beröm.' }
+];
+
+const days = ['Söndag','Måndag','Tisdag','Onsdag','Torsdag','Fredag','Lördag'];
+const months = ['jan','feb','mar','apr','maj','jun','jul','aug','sep','okt','nov','dec'];
 
 function r(w, pct) { return Math.round(w * pct / 2.5) * 2.5; }
 
@@ -583,8 +644,220 @@ function buildSets(w, name) {
     </div>`).join('');
 }
 
+// --- LAGRING (localStorage) -------------------------------------------
+// Varje person har ett eget state: onboarded, vald motivationsprofil,
+// aktuella vikter och historik över genomförda pass.
+const STORAGE_PREFIX = 'gympass_';
+
+function loadPersonState(id) {
+  const raw = localStorage.getItem(STORAGE_PREFIX + id);
+  if (raw) return JSON.parse(raw);
+  const base = people[id];
+  return {
+    onboarded: false,
+    profile: null,
+    weights: { bp: base.bp, sq: base.sq, dl: base.dl, lat: base.lat },
+    history: []
+  };
+}
+
+function savePersonState(id, state) {
+  localStorage.setItem(STORAGE_PREFIX + id, JSON.stringify(state));
+}
+
+// Måndag (00:00) i veckan för ett givet datum – används för veckostatus.
+function getMonday(date) {
+  const d = new Date(date);
+  const diff = (d.getDay() === 0 ? -6 : 1) - d.getDay();
+  d.setDate(d.getDate() + diff);
+  d.setHours(0, 0, 0, 0);
+  return d;
+}
+
+function hasTrainedThisWeek(state) {
+  if (!state.history.length) return false;
+  const monday = getMonday(new Date());
+  return state.history.some(h => new Date(h.date) >= monday);
+}
+
+function lastTrainedText(state) {
+  if (!state.history.length) return 'Inte tränat ännu';
+  const last = new Date(state.history[state.history.length - 1].date);
+  return 'Senast: ' + days[last.getDay()] + ' ' + last.getDate() + ' ' + months[last.getMonth()];
+}
+
+// --- RENDERING AV PERSONKORT (dashboard) --------------------------------
+function liftValueHtml(label, value) {
+  return `<div class="lift-item"><div class="lift-label">${label}</div>` +
+    (value == null
+      ? `<div class="lift-val">– <span></span></div>`
+      : `<div class="lift-val">${value} <span>kg</span></div>`) +
+    `</div>`;
+}
+
+function renderCards() {
+  const container = document.getElementById('cardsContainer');
+  container.innerHTML = Object.keys(people).map(id => {
+    const p = people[id];
+    const state = personStates[id];
+    const trained = hasTrainedThisWeek(state);
+    const badgeText = p.role ? p.role : (trained ? 'Tränat ✓' : '–');
+    const badgeClass = !p.role && trained ? 'trained' : '';
+    return `
+    <div class="person-card ${id}" onclick="onCardClick('${id}')">
+      <div class="card-top">
+        <div class="avatar">${p.initials}</div>
+        <div class="card-badge ${badgeClass}">${badgeText}</div>
+      </div>
+      <div class="card-name">${p.name}</div>
+      <div class="card-last">${lastTrainedText(state)}</div>
+      <div class="card-lifts">
+        ${liftValueHtml('Bänk', state.weights.bp)}
+        ${liftValueHtml('Benböj', state.weights.sq)}
+        ${liftValueHtml('Marklyft', state.weights.dl)}
+        ${liftValueHtml('Latsdrag', state.weights.lat)}
+      </div>
+      <div class="card-cta">${state.onboarded ? 'Öppna mitt pass →' : 'Kom igång →'}</div>
+    </div>`;
+  }).join('');
+}
+
+function onCardClick(id) {
+  if (!personStates[id].onboarded) startOnboarding(id);
+  else openModal(id);
+}
+
+// --- ONBOARDING ----------------------------------------------------------
+// Visas första gången en person trycker på sitt kort. Stegen är:
+// 1) Välkomst  2) Välj motivationsprofil  3) Bekräfta/justera startvikter  4) Klart
+let onboarding = null;
+
+function startOnboarding(id) {
+  const base = personStates[id].weights;
+  onboarding = {
+    personId: id,
+    step: 1,
+    profile: null,
+    // Latsdrag är okänd (TBD) för alla – föreslå 20 kg som startpunkt att justera från
+    weights: { bp: base.bp, sq: base.sq, dl: base.dl, lat: base.lat ?? 20 }
+  };
+  document.getElementById('onboardingOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderOnboardingStep();
+}
+
+function closeOnboarding() {
+  document.getElementById('onboardingOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  onboarding = null;
+}
+
+function weightRowHtml(key, label) {
+  const isLat = key === 'lat';
+  return `
+    <div class="weight-row">
+      <div>
+        <div class="weight-row-label">${label}</div>
+        ${isLat ? '<div class="weight-row-hint">Ny övning – välj en startvikt</div>' : ''}
+      </div>
+      <div class="stepper">
+        <button class="stepper-btn" onclick="adjustOnboardingWeight('${key}', -2.5)">–</button>
+        <div class="stepper-val">${onboarding.weights[key]} kg</div>
+        <button class="stepper-btn" onclick="adjustOnboardingWeight('${key}', 2.5)">+</button>
+      </div>
+    </div>`;
+}
+
+function renderOnboardingStep() {
+  const p = people[onboarding.personId];
+  document.getElementById('onboardingProgress').innerHTML =
+    [1, 2, 3, 4].map(n => `<div class="progress-dot ${n <= onboarding.step ? 'active' : ''}"></div>`).join('');
+
+  let body = '';
+  if (onboarding.step === 1) {
+    body = `
+      <div class="onboarding-step">
+        <div class="onboarding-emoji">👋</div>
+        <div class="onboarding-title">Välkommen, ${p.name}!</div>
+        <div class="onboarding-sub">Innan du kör ditt första pass sätter vi upp din profil. Det tar under en minut.</div>
+      </div>
+      <button class="btn-primary" onclick="onboardingNext()">Kom igång →</button>`;
+  } else if (onboarding.step === 2) {
+    body = `
+      <div class="onboarding-step">
+        <div class="onboarding-title">Vad driver dig?</div>
+        <div class="onboarding-sub">Välj den motivationsprofil som stämmer bäst – du kan byta senare.</div>
+        ${motivationProfiles.map(mp => `
+          <div class="profile-card ${onboarding.profile === mp.id ? 'selected' : ''}" onclick="selectProfile(${mp.id})">
+            <div class="profile-card-title">${mp.title}</div>
+            <div class="profile-card-desc">${mp.desc}</div>
+          </div>`).join('')}
+      </div>
+      <button class="btn-primary" ${onboarding.profile ? '' : 'disabled'} onclick="onboardingNext()">Nästa →</button>
+      <button class="btn-secondary" onclick="onboardingBack()">Tillbaka</button>`;
+  } else if (onboarding.step === 3) {
+    body = `
+      <div class="onboarding-step">
+        <div class="onboarding-title">Dina startvikter</div>
+        <div class="onboarding-sub">Stämmer de här? Justera med +/- om du vill (steg om 2,5 kg).</div>
+        ${weightRowHtml('bp', 'Bänkpress')}
+        ${weightRowHtml('sq', 'Benböj')}
+        ${weightRowHtml('dl', 'Marklyft')}
+        ${weightRowHtml('lat', 'Latsdrag')}
+      </div>
+      <button class="btn-primary" onclick="onboardingNext()">Bekräfta →</button>
+      <button class="btn-secondary" onclick="onboardingBack()">Tillbaka</button>`;
+  } else if (onboarding.step === 4) {
+    body = `
+      <div class="onboarding-step">
+        <div class="onboarding-emoji">✅</div>
+        <div class="onboarding-title">Klart, ${p.name}!</div>
+        <div class="onboarding-sub">Din profil och dina vikter är sparade. Nu kör vi ditt första pass.</div>
+      </div>
+      <button class="btn-primary" onclick="finishOnboarding()">Till mitt pass →</button>`;
+  }
+  document.getElementById('onboardingContent').innerHTML = body;
+}
+
+function adjustOnboardingWeight(key, delta) {
+  const next = Math.max(0, onboarding.weights[key] + delta);
+  onboarding.weights[key] = Math.round(next / 2.5) * 2.5;
+  renderOnboardingStep();
+}
+
+function selectProfile(id) {
+  onboarding.profile = id;
+  renderOnboardingStep();
+}
+
+function onboardingNext() {
+  if (onboarding.step === 2 && !onboarding.profile) return;
+  onboarding.step++;
+  renderOnboardingStep();
+}
+
+function onboardingBack() {
+  onboarding.step--;
+  renderOnboardingStep();
+}
+
+function finishOnboarding() {
+  const id = onboarding.personId;
+  personStates[id] = {
+    onboarded: true,
+    profile: onboarding.profile,
+    weights: { ...onboarding.weights },
+    history: []
+  };
+  savePersonState(id, personStates[id]);
+  closeOnboarding();
+  renderCards();
+  openModal(id);
+}
+
 function openModal(id) {
   const p = people[id];
+  const state = personStates[id];
   document.getElementById('modalAvatar').textContent = p.initials;
   document.getElementById('modalAvatar').style.color = p.color;
   document.getElementById('modalAvatar').style.borderColor = p.color;
@@ -592,10 +865,10 @@ function openModal(id) {
   document.getElementById('modalName').textContent = p.name;
 
   const exercises = [
-    { key: 'bp',  label: 'Bänkpress',  w: p.bp  },
-    { key: 'sq',  label: 'Benböj',     w: p.sq  },
-    { key: 'dl',  label: 'Marklyft',   w: p.dl  },
-    { key: 'lat', label: 'Latsdrag',   w: p.lat },
+    { key: 'bp',  label: 'Bänkpress',  w: state.weights.bp  },
+    { key: 'sq',  label: 'Benböj',     w: state.weights.sq  },
+    { key: 'dl',  label: 'Marklyft',   w: state.weights.dl  },
+    { key: 'lat', label: 'Latsdrag',   w: state.weights.lat },
   ];
 
   document.getElementById('modalContent').innerHTML = exercises.map(e => `
@@ -617,9 +890,12 @@ function closeModalOutside(e) {
   if (e.target === document.getElementById('modalOverlay')) closeModal();
 }
 
+// Initiera state för alla personer från localStorage och rendera korten
+const personStates = {};
+Object.keys(people).forEach(id => { personStates[id] = loadPersonState(id); });
+renderCards();
+
 // Date & quote
-const days = ['Söndag','Måndag','Tisdag','Onsdag','Torsdag','Fredag','Lördag'];
-const months = ['jan','feb','mar','apr','maj','jun','jul','aug','sep','okt','nov','dec'];
 const now = new Date();
 document.getElementById('headerDate').textContent =
   days[now.getDay()] + ' ' + now.getDate() + ' ' + months[now.getMonth()];
