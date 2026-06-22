@@ -299,6 +299,7 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
 <div class="bar-toggle">
   <div class="bar-btn on" id="bar20" onclick="setBar(20)">Stång 20 kg (olympisk)</div>
   <div class="bar-btn" id="bar15" onclick="setBar(15)">Stång 15 kg (standard)</div>
+  <div style="width:100%;text-align:center;font-size:10px;color:var(--muted);margin-top:6px;padding:0 8px;">Latsdrag: viktstack 35–115 kg visas automatiskt 📍</div>
 </div>
 
 <div class="week-head">
@@ -448,8 +449,32 @@ function calcPlates(totalKg) {
   return result;
 }
 
-function plateHTML(totalKg) {
+// Latsdrag-stack: 35-115 kg i steg om 5 kg
+const LAT_STACK = [35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115];
+
+function latStackLevel(kg) {
+  if (!kg) return null;
+  // Hitta närmaste nivå på stacken
+  let nearest = LAT_STACK[0];
+  let minDiff = Math.abs(kg - LAT_STACK[0]);
+  for (const level of LAT_STACK) {
+    const diff = Math.abs(kg - level);
+    if (diff < minDiff) { minDiff = diff; nearest = level; }
+  }
+  return nearest;
+}
+
+function plateHTML(totalKg, isLat) {
   if (!totalKg) return '';
+  if (isLat) {
+    const level = latStackLevel(totalKg);
+    if (!level) return '';
+    const exact = totalKg === level;
+    return `<div class="plate-info"><div class="plate-row">
+      <span class="plate-label">Stack:</span>
+      <span class="plate-chip p10" style="font-size:11px;">📍 Nivå ${level} kg${!exact ? ` (≈${totalKg} kg)` : ''}</span>
+    </div></div>`;
+  }
   const plates = calcPlates(totalKg);
   if (!plates.length) return `<div class="plate-info"><div class="plate-row"><span class="plate-label">Bara stång</span><span class="plate-chip">${barWeight} kg</span></div></div>`;
   const chips = plates.map(p => `<span class="plate-chip ${PLATE_CLASSES[p.weight]}">${p.count}×${p.weight}kg</span>`).join('');
@@ -785,10 +810,16 @@ function printPass() {
     html += `<div class="ex"><div class="ex-title">${ex.label}</div>`;
     sets.forEach((s,i) => {
       const kg = r(ex.w, s.pct);
-      const plates = calcPlates(kg);
-      const platesStr = plates.length ? plates.map(p2=>`${p2.count}×${p2.weight}kg`).join(' + ') : 'bara stång';
+      let infoStr;
+      if (ex.key === 'lat') {
+        const level = latStackLevel(kg);
+        infoStr = `Stack: nivå ${level} kg`;
+      } else {
+        const plates = calcPlates(kg);
+        infoStr = plates.length ? 'Per sida: ' + plates.map(p2=>`${p2.count}×${p2.weight}kg`).join(' + ') : 'Bara stång';
+      }
       html += `<div class="row"><span>${i+1}</span><span>${s.label}</span><span class="num">${kg} kg</span><span>×${s.reps}</span></div>`;
-      html += `<div class="plates">Per sida: ${platesStr}</div>`;
+      html += `<div class="plates">${infoStr}</div>`;
     });
     html += `</div>`;
   });
@@ -872,6 +903,7 @@ function renderWeekBar() {
 // ── PASS / MODAL ──────────────────────────────────────
 function buildSets(w, exKey) {
   if (!w) return `<div style="padding:14px 16px;font-size:13px;color:var(--muted);">Vikt ej registrerad ännu</div>`;
+  const isLat = exKey === 'lat';
   const sets=[
     {label:'Uppvärmning',pct:0.70,reps:5,top:false},
     {label:'Uppvärmning',pct:0.80,reps:3,top:false},
@@ -882,12 +914,14 @@ function buildSets(w, exKey) {
   ];
   return sets.map((s,i)=>{
     const kg = r(w,s.pct);
+    // För latsdrag: avrunda till närmaste stacknivå
+    const displayKg = isLat ? (latStackLevel(kg) || kg) : kg;
     return `<div class="set-row ${s.top?'top-set':''}">
       <div class="set-num num">${i+1}</div>
       <div class="set-type">${s.label}</div>
-      <div class="set-weight num">${kg}<span> kg</span></div>
+      <div class="set-weight num">${displayKg}<span> kg</span></div>
       <div class="set-reps num">× ${s.reps}</div>
-    </div>${plateHTML(kg)}`;
+    </div>${plateHTML(kg, isLat)}`;
   }).join('');
 }
 
