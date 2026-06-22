@@ -1693,6 +1693,7 @@ renderWeekBar();
 const daysUntilMon=(8-now.getDay())%7||7;
 const nextMon=new Date(now); nextMon.setDate(now.getDate()+daysUntilMon);
 document.getElementById('nextDay').textContent='Måndag '+nextMon.getDate()+' '+months[nextMon.getMonth()];
+showView('hem');
 </script>
 </body>
 </html>
