@@ -1181,7 +1181,9 @@ function closeFreepass() {
 function closeFreepassOutside(e) { if(e.target===document.getElementById('freepassOverlay')) closeFreepass(); }
 
 function renderFreepass() {
-  const p = people[freepassPersonId];
+  const _dpF = loadDynamicPeople();
+  const p = people[freepassPersonId] || _dpF[freepassPersonId];
+  if (!p) return;
   document.getElementById('freepassContent').innerHTML = `
     <div style="padding:16px 20px 0;">
       <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Ditt fria pass</div>
