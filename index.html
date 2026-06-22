@@ -757,7 +757,9 @@ let editWeightsTmp = {};
 
 function renderEditWeights(id) {
   const state = personStates[id];
-  const p = people[id];
+  const _dpE = loadDynamicPeople();
+  const p = people[id] || _dpE[id];
+  if (!p) return;
   const el = document.getElementById('editWeightsSection');
   if (!el) return;
 
@@ -1061,9 +1063,14 @@ let feelingPersonId = null;
 
 function openModal(id) {
   currentModalPersonId = id;
-  const p=people[id], state=personStates[id];
+  const dp = loadDynamicPeople();
+  const p = people[id] || dp[id];
+  if (!p) return;
+  const state = personStates[id];
   const av=document.getElementById('modalAvatar');
-  av.textContent=p.initials; av.style.color=id==='hannes'?'#3a2c00':'#111'; av.style.background=p.color;
+  av.textContent=p.initials;
+  av.style.color = (p.color === '#ffd24d') ? '#3a2c00' : '#111';
+  av.style.background=p.color;
   document.getElementById('modalName').textContent=p.name;
   document.getElementById('modalContent').innerHTML=[
     {key:'bp',label:'Bänkpress',w:state.weights.bp},
@@ -1152,9 +1159,13 @@ let newExName = '';
 function openFreepass(id) {
   freepassPersonId = id;
   freeExercises = [];
-  const p = people[id];
+  const dp = loadDynamicPeople();
+  const p = people[id] || dp[id];
+  if (!p) return;
   const av = document.getElementById('freepassAvatar');
-  av.textContent = p.initials; av.style.background = p.color; av.style.color = id==='hannes'?'#3a2c00':'#111';
+  av.textContent = p.initials;
+  av.style.background = p.color;
+  av.style.color = (p.color === '#ffd24d') ? '#3a2c00' : '#111';
   document.getElementById('freepassName').textContent = p.name;
   renderFreepass();
   document.getElementById('freepassOverlay').classList.add('open');
@@ -1168,7 +1179,9 @@ function closeFreepass() {
 function closeFreepassOutside(e) { if(e.target===document.getElementById('freepassOverlay')) closeFreepass(); }
 
 function renderFreepass() {
-  const p = people[freepassPersonId];
+  const _dp = loadDynamicPeople();
+  const p = people[freepassPersonId] || _dp[freepassPersonId];
+  if (!p) return;
   document.getElementById('freepassContent').innerHTML = `
     <div style="padding:16px 20px 0;">
       <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Ditt fria pass</div>
