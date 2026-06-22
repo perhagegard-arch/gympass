@@ -8,151 +8,195 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:#0b0b0d; --card:#15151a; --card2:#1c1c22; --line:rgba(255,255,255,0.07);
+  --ink:#ececf0; --muted:#83838c;
+  --orange:#ff7a45; --orange-soft:rgba(255,122,69,0.14); --orange-line:rgba(255,122,69,0.3);
+  --disp:'Barlow Condensed','Inter',sans-serif; --radius:18px;
+}
+body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); min-height:100vh; padding:0 0 90px; max-width:440px; margin:0 auto; -webkit-font-smoothing:antialiased; }
+.num { font-variant-numeric:tabular-nums; }
 
-  :root {
-    --bg:#0b0b0d; --card:#15151a; --card2:#1c1c22; --line:rgba(255,255,255,0.07);
-    --ink:#ececf0; --muted:#83838c;
-    --orange:#ff7a45; --orange-soft:rgba(255,122,69,0.14); --orange-line:rgba(255,122,69,0.3);
-    --disp:'Barlow Condensed','Inter',sans-serif;
-    --radius:18px;
-  }
+/* HEADER */
+.header { padding:22px 20px 0; display:flex; align-items:center; justify-content:space-between; }
+.wm { font-family:var(--disp); font-weight:800; font-size:24px; letter-spacing:.02em; text-transform:uppercase; }
+.wm b { color:var(--orange); }
+.date { font-size:12px; color:var(--muted); font-weight:500; }
 
-  body {
-    font-family:'Inter',sans-serif;
-    background:var(--bg); color:var(--ink);
-    min-height:100vh; padding:0 0 90px;
-    max-width:440px; margin:0 auto;
-    -webkit-font-smoothing:antialiased;
-  }
-  .num { font-variant-numeric:tabular-nums; }
+/* HERO QUOTE */
+.quote { margin:18px 20px 0; }
+.quote-lab { font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin-bottom:7px; }
+.quote-text { font-family:var(--disp); font-weight:600; font-size:24px; line-height:1.05; }
+.quote-sub { font-size:12px; color:var(--muted); margin-top:6px; }
 
-  /* HEADER */
-  .header { padding:22px 20px 0; display:flex; align-items:center; justify-content:space-between; }
-  .wm { font-family:var(--disp); font-weight:800; font-size:24px; letter-spacing:.02em; text-transform:uppercase; }
-  .wm b { color:var(--orange); }
-  .date { font-size:12px; color:var(--muted); font-weight:500; }
+/* NEXT PASS */
+.next { margin:18px 20px 0; background:linear-gradient(135deg,#241410,#15110f); border:1px solid var(--orange-line); border-radius:var(--radius); padding:18px; position:relative; overflow:hidden; }
+.next::after { content:'🏋️'; position:absolute; right:-6px; bottom:-12px; font-size:80px; opacity:.12; }
+.next-lab { font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--orange); }
+.next-day { font-family:var(--disp); font-weight:700; font-size:34px; line-height:1; margin-top:8px; }
+.next-sub { font-size:12px; color:var(--muted); margin-top:6px; }
 
-  /* HERO QUOTE */
-  .quote { margin:18px 20px 0; }
-  .quote-lab { font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin-bottom:7px; }
-  .quote-text { font-family:var(--disp); font-weight:600; font-size:24px; line-height:1.05; }
-  .quote-sub { font-size:12px; color:var(--muted); margin-top:6px; }
+/* WEEK */
+.week-head { display:flex; align-items:center; justify-content:space-between; padding:24px 20px 10px; }
+.seclab { font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+.sechint { font-size:11px; color:var(--muted); opacity:.7; }
+.week { display:flex; gap:6px; padding:0 20px; }
+.week .d { flex:1; text-align:center; }
+.week .pill { height:32px; border-radius:9px; background:var(--card); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; font-family:var(--disp); font-weight:700; font-size:14px; color:var(--muted); }
+.week .d.done .pill { background:var(--orange-soft); color:var(--orange); border-color:var(--orange-line); }
+.week .d.today .pill { background:var(--orange); color:#1a0d06; border-color:var(--orange); }
+.week .nm { font-size:9px; color:var(--muted); margin-top:5px; text-transform:uppercase; letter-spacing:.06em; }
+.week-dots { display:flex; gap:3px; justify-content:center; margin-top:5px; height:6px; }
+.week-dot { width:5px; height:5px; border-radius:50%; background:var(--card2); }
 
-  /* NEXT PASS */
-  .next { margin:18px 20px 0; background:linear-gradient(135deg,#241410,#15110f); border:1px solid var(--orange-line); border-radius:var(--radius); padding:18px; position:relative; overflow:hidden; }
-  .next::after { content:'🏋️'; position:absolute; right:-6px; bottom:-12px; font-size:80px; opacity:.12; }
-  .next-lab { font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--orange); }
-  .next-day { font-family:var(--disp); font-weight:700; font-size:34px; line-height:1; margin-top:8px; }
-  .next-sub { font-size:12px; color:var(--muted); margin-top:6px; }
+/* PERSON CARDS */
+.cards { padding:0 20px; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.person-card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px; cursor:pointer; transition:transform .15s, border-color .15s; -webkit-tap-highlight-color:transparent; }
+.person-card:active { transform:scale(0.97); }
+.person-card.per { --pc:var(--orange); } .person-card.alex { --pc:#4d9fff; }
+.person-card.nia { --pc:#ff6ea9; } .person-card.hannes { --pc:#ffd24d; }
+.card-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+.avatar { width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-family:var(--disp); font-weight:700; font-size:14px; background:var(--pc); color:#111; }
+.person-card.hannes .avatar { color:#3a2c00; }
+.card-badge { font-size:9px; font-weight:700; letter-spacing:.05em; padding:3px 8px; border-radius:20px; background:rgba(255,255,255,0.05); color:var(--muted); }
+.card-badge.trained { background:var(--orange-soft); color:var(--orange); }
+.card-name { font-family:var(--disp); font-weight:700; font-size:20px; line-height:1; }
+.card-last { font-size:10px; color:var(--muted); margin-top:3px; }
+.card-lifts { display:grid; grid-template-columns:1fr 1fr; gap:9px 6px; margin-top:12px; }
+.lift-item { display:flex; flex-direction:column; }
+.lift-label { font-size:8px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
+.lift-val { font-family:var(--disp); font-weight:700; font-size:22px; line-height:1; margin-top:1px; }
+.lift-val span { font-size:10px; font-family:'Inter'; font-weight:500; color:var(--muted); }
+.card-cta { margin-top:13px; border-top:1px solid var(--line); padding-top:11px; font-size:12px; font-weight:600; color:var(--pc); }
 
-  /* WEEK */
-  .week-head { display:flex; align-items:center; justify-content:space-between; padding:24px 20px 10px; }
-  .seclab { font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
-  .sechint { font-size:11px; color:var(--muted); opacity:.7; }
-  .week { display:flex; gap:6px; padding:0 20px; }
-  .week .d { flex:1; text-align:center; }
-  .week .pill { height:32px; border-radius:9px; background:var(--card); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; font-family:var(--disp); font-weight:700; font-size:14px; color:var(--muted); }
-  .week .d.done .pill { background:var(--orange-soft); color:var(--orange); border-color:var(--orange-line); }
-  .week .d.today .pill { background:var(--orange); color:#1a0d06; border-color:var(--orange); }
-  .week .nm { font-size:9px; color:var(--muted); margin-top:5px; text-transform:uppercase; letter-spacing:.06em; }
-  .week-dots { display:flex; gap:3px; justify-content:center; margin-top:5px; height:6px; }
-  .week-dot { width:5px; height:5px; border-radius:50%; background:var(--card2); }
+/* EIFFELTORNET */
+.eiffel-card { margin:18px 20px 0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px; }
+.eiffel-top { display:flex; align-items:flex-start; gap:16px; margin-bottom:16px; }
+.eiffel-svg-wrap { flex-shrink:0; width:80px; }
+.eiffel-info { flex:1; }
+.eiffel-label { font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+.eiffel-pct { font-family:var(--disp); font-weight:800; font-size:42px; line-height:1; color:var(--orange); }
+.eiffel-kg { font-size:12px; color:var(--muted); margin-top:4px; }
+.eiffel-milestone { font-size:12px; color:var(--ink); margin-top:6px; font-weight:500; }
+.eiffel-bar { height:6px; background:var(--card2); border-radius:3px; overflow:hidden; margin-bottom:10px; }
+.eiffel-bar-fill { height:100%; border-radius:3px; background:linear-gradient(90deg,var(--orange),#ff6ea9,#4d9fff,#ffd24d); transition:width 1s ease; }
+.eiffel-last { background:var(--card2); border-radius:12px; padding:10px 14px; display:flex; align-items:center; justify-content:space-between; }
+.eiffel-last-label { font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:3px; }
+.eiffel-last-val { font-family:var(--disp); font-weight:700; font-size:18px; }
+.eiffel-last-compare { font-size:11px; color:var(--muted); }
+.eiffel-contribs { display:flex; gap:6px; margin-top:10px; }
+.eiffel-contrib { flex:1; background:var(--card2); border-radius:10px; padding:8px; text-align:center; }
+.eiffel-contrib-name { font-size:9px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-bottom:4px; }
+.eiffel-contrib-bar { height:4px; background:var(--line); border-radius:2px; overflow:hidden; margin-bottom:4px; }
+.eiffel-contrib-fill { height:100%; border-radius:2px; }
+.eiffel-contrib-kg { font-family:var(--disp); font-weight:700; font-size:13px; }
 
-  /* PERSON CARDS */
-  .cards { padding:0 20px; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-  .person-card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px; cursor:pointer; transition:transform .15s, border-color .15s; -webkit-tap-highlight-color:transparent; }
-  .person-card:active { transform:scale(0.97); }
-  .person-card.per { --pc:var(--orange); } .person-card.alex { --pc:#4d9fff; }
-  .person-card.nia { --pc:#ff6ea9; } .person-card.hannes { --pc:#ffd24d; }
-  .card-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
-  .avatar { width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-family:var(--disp); font-weight:700; font-size:14px; background:var(--pc); color:#111; }
-  .person-card.hannes .avatar { color:#3a2c00; }
-  .card-badge { font-size:9px; font-weight:700; letter-spacing:.05em; padding:3px 8px; border-radius:20px; background:rgba(255,255,255,0.05); color:var(--muted); }
-  .card-badge.trained { background:var(--orange-soft); color:var(--orange); }
-  .card-name { font-family:var(--disp); font-weight:700; font-size:20px; line-height:1; }
-  .card-last { font-size:10px; color:var(--muted); margin-top:3px; }
-  .card-lifts { display:grid; grid-template-columns:1fr 1fr; gap:9px 6px; margin-top:12px; }
-  .lift-item { display:flex; flex-direction:column; }
-  .lift-label { font-size:8px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
-  .lift-val { font-family:var(--disp); font-weight:700; font-size:22px; line-height:1; margin-top:1px; }
-  .lift-val span { font-size:10px; font-family:'Inter'; font-weight:500; color:var(--muted); }
-  .card-cta { margin-top:13px; border-top:1px solid var(--line); padding-top:11px; font-size:12px; font-weight:600; color:var(--pc); }
+/* BOTTOM NAV */
+.nav { position:fixed; left:50%; transform:translateX(-50%); bottom:0; width:100%; max-width:440px; height:72px; border-top:1px solid var(--line); background:rgba(11,11,13,0.92); backdrop-filter:blur(10px); display:flex; align-items:center; justify-content:space-around; padding-bottom:10px; z-index:50; }
+.nav a { display:flex; flex-direction:column; align-items:center; gap:4px; font-size:10px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); cursor:pointer; }
+.nav a.on { color:var(--orange); }
+.nav .ndot { width:20px; height:20px; border:2px solid currentColor; border-radius:6px; }
+.nav a:nth-child(2) .ndot { border-radius:50%; } .nav a:nth-child(3) .ndot { border-radius:4px; }
 
-  /* BOTTOM NAV */
-  .nav { position:fixed; left:50%; transform:translateX(-50%); bottom:0; width:100%; max-width:440px; height:72px; border-top:1px solid var(--line); background:rgba(11,11,13,0.92); backdrop-filter:blur(10px); display:flex; align-items:center; justify-content:space-around; padding-bottom:10px; z-index:50; }
-  .nav a { display:flex; flex-direction:column; align-items:center; gap:4px; font-size:10px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); cursor:pointer; }
-  .nav a.on { color:var(--orange); }
-  .nav .ndot { width:20px; height:20px; border:2px solid currentColor; border-radius:6px; }
-  .nav a:nth-child(2) .ndot { border-radius:50%; } .nav a:nth-child(3) .ndot { border-radius:4px; }
+/* MODAL */
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:100; display:flex; flex-direction:column; overflow-y:auto; opacity:0; pointer-events:none; transition:opacity .2s; }
+.modal-overlay.open { opacity:1; pointer-events:all; }
+.modal { background:var(--bg); border-radius:24px 24px 0 0; margin-top:auto; padding:0 0 40px; min-height:86vh; max-width:440px; width:100%; margin-left:auto; margin-right:auto; transform:translateY(40px); transition:transform .25s cubic-bezier(0.32,0,0,1); border-top:1px solid var(--line); }
+.modal-overlay.open .modal { transform:translateY(0); }
+.modal-handle { width:36px; height:4px; background:rgba(255,255,255,0.15); border-radius:2px; margin:14px auto 0; }
+.modal-header { padding:18px 20px 0; display:flex; align-items:center; justify-content:space-between; }
+.modal-person { display:flex; align-items:center; gap:12px; }
+.modal-avatar { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-family:var(--disp); font-weight:700; font-size:16px; }
+.modal-name { font-family:var(--disp); font-weight:700; font-size:26px; line-height:1; }
+.modal-close { width:34px; height:34px; border-radius:50%; background:var(--card2); border:none; color:var(--muted); font-size:15px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.exercise-block { margin:18px 20px 0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
+.exercise-title { padding:13px 16px; font-family:var(--disp); font-size:18px; font-weight:700; letter-spacing:.02em; text-transform:uppercase; border-bottom:1px solid var(--line); }
+.set-row { display:grid; grid-template-columns:24px 1fr 86px 54px; align-items:center; padding:11px 16px; border-bottom:1px solid var(--line); gap:8px; }
+.set-row:last-child { border-bottom:none; }
+.set-num { font-family:var(--disp); font-weight:700; font-size:14px; color:var(--muted); text-align:center; }
+.set-type { font-size:12px; color:var(--muted); }
+.set-weight { font-family:var(--disp); font-weight:700; font-size:22px; text-align:right; line-height:1; }
+.set-weight span { font-size:11px; font-family:'Inter'; font-weight:500; color:var(--muted); }
+.set-reps { font-family:var(--disp); font-weight:600; font-size:15px; color:var(--muted); text-align:right; }
+.set-row.top-set { background:var(--orange-soft); }
+.set-row.top-set .set-weight { color:var(--orange); }
+.set-row.top-set .set-type { color:var(--orange); }
+.rest-note { margin:14px 20px 0; text-align:center; font-size:12px; color:var(--muted); }
 
-  /* MODAL */
-  .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:100; display:flex; flex-direction:column; overflow-y:auto; opacity:0; pointer-events:none; transition:opacity .2s; }
-  .modal-overlay.open { opacity:1; pointer-events:all; }
-  .modal { background:var(--bg); border-radius:24px 24px 0 0; margin-top:auto; padding:0 0 40px; min-height:86vh; max-width:440px; width:100%; margin-left:auto; margin-right:auto; transform:translateY(40px); transition:transform .25s cubic-bezier(0.32,0,0,1); border-top:1px solid var(--line); }
-  .modal-overlay.open .modal { transform:translateY(0); }
-  .modal-handle { width:36px; height:4px; background:rgba(255,255,255,0.15); border-radius:2px; margin:14px auto 0; }
-  .modal-header { padding:18px 20px 0; display:flex; align-items:center; justify-content:space-between; }
-  .modal-person { display:flex; align-items:center; gap:12px; }
-  .modal-avatar { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-family:var(--disp); font-weight:700; font-size:16px; }
-  .modal-name { font-family:var(--disp); font-weight:700; font-size:26px; line-height:1; }
-  .modal-close { width:34px; height:34px; border-radius:50%; background:var(--card2); border:none; color:var(--muted); font-size:15px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+/* MÅLVIKTER */
+.targets-block { margin:18px 20px 0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
+.targets-title { padding:13px 16px; font-family:var(--disp); font-size:16px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; }
+.targets-grid { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:0; }
+.targets-head { display:grid; grid-template-columns:80px 1fr 1fr 1fr; padding:8px 16px; border-bottom:1px solid var(--line); }
+.targets-head span { font-size:9px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); text-align:center; }
+.targets-head span:first-child { text-align:left; }
+.targets-row { display:grid; grid-template-columns:80px 1fr 1fr 1fr; padding:10px 16px; border-bottom:1px solid var(--line); align-items:center; }
+.targets-row:last-child { border-bottom:none; }
+.targets-ex { font-size:12px; font-weight:600; color:var(--muted); }
+.targets-val { font-family:var(--disp); font-weight:700; font-size:18px; text-align:center; }
+.targets-val.current { color:var(--ink); }
+.targets-val.m1 { color:var(--orange); }
+.targets-val.m3 { color:#4d9fff; }
+.targets-val.m6 { color:#ff6ea9; }
+.adjust-row { padding:12px 16px; border-top:1px solid var(--line); display:flex; gap:8px; align-items:center; }
+.adjust-btn { flex:1; padding:9px; border:1px solid var(--line); border-radius:10px; background:var(--card2); color:var(--muted); font-size:12px; font-weight:600; cursor:pointer; text-align:center; }
+.adjust-btn:hover { border-color:var(--orange-line); color:var(--orange); }
+.adjust-label { font-size:11px; color:var(--muted); }
 
-  .exercise-block { margin:18px 20px 0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
-  .exercise-title { padding:13px 16px; font-family:var(--disp); font-size:18px; font-weight:700; letter-spacing:.02em; text-transform:uppercase; border-bottom:1px solid var(--line); }
-  .set-row { display:grid; grid-template-columns:24px 1fr 86px 54px; align-items:center; padding:11px 16px; border-bottom:1px solid var(--line); gap:8px; }
-  .set-row:last-child { border-bottom:none; }
-  .set-num { font-family:var(--disp); font-weight:700; font-size:14px; color:var(--muted); text-align:center; }
-  .set-type { font-size:12px; color:var(--muted); }
-  .set-weight { font-family:var(--disp); font-weight:700; font-size:22px; text-align:right; line-height:1; }
-  .set-weight span { font-size:11px; font-family:'Inter'; font-weight:500; color:var(--muted); }
-  .set-reps { font-family:var(--disp); font-weight:600; font-size:15px; color:var(--muted); text-align:right; }
-  .set-row.top-set { background:var(--orange-soft); }
-  .set-row.top-set .set-weight { color:var(--orange); }
-  .set-row.top-set .set-type { color:var(--orange); }
-  .rest-note { margin:14px 20px 0; text-align:center; font-size:12px; color:var(--muted); }
+/* PROGRESSIONSGRAFER */
+.graph-block { margin:18px 20px 0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
+.graph-title { padding:13px 16px 10px; font-family:var(--disp); font-size:16px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; border-bottom:1px solid var(--line); }
+.graph-tabs { display:flex; gap:0; padding:10px 16px 0; }
+.graph-tab { font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:6px 10px; border-radius:8px; cursor:pointer; color:var(--muted); }
+.graph-tab.on { background:var(--orange-soft); color:var(--orange); }
+.graph-svg-wrap { padding:10px 16px 14px; }
+.graph-svg { width:100%; height:120px; display:block; }
+.graph-empty { padding:20px 16px; font-size:12px; color:var(--muted); text-align:center; }
+.graph-legend { display:flex; gap:12px; padding:0 16px 14px; flex-wrap:wrap; }
+.graph-legend-item { display:flex; align-items:center; gap:5px; font-size:10px; color:var(--muted); }
+.graph-legend-dot { width:8px; height:8px; border-radius:50%; }
 
-  /* ONBOARDING */
-  .progress-dots { display:flex; gap:6px; padding:20px 20px 0; }
-  .progress-dot { height:4px; flex:1; border-radius:2px; background:var(--card2); }
-  .progress-dot.active { background:var(--orange); }
-  .onboarding-step { padding:26px 20px 10px; }
-  .onboarding-emoji { font-size:40px; margin-bottom:14px; }
-  .onboarding-title { font-family:var(--disp); font-weight:700; font-size:30px; line-height:1; margin-bottom:10px; }
-  .onboarding-sub { font-size:14px; color:var(--muted); line-height:1.5; margin-bottom:20px; }
-  .profile-card { background:var(--card); border:1.5px solid var(--line); border-radius:var(--radius); padding:15px; margin-bottom:10px; cursor:pointer; -webkit-tap-highlight-color:transparent; transition:border-color .15s, background .15s; }
-  .profile-card.selected { border-color:var(--orange); background:var(--orange-soft); }
-  .profile-card-title { font-family:var(--disp); font-weight:700; font-size:19px; line-height:1; margin-bottom:5px; }
-  .profile-card.selected .profile-card-title { color:var(--orange); }
-  .profile-card-desc { font-size:12px; color:var(--muted); line-height:1.4; }
-  .weight-row { display:flex; align-items:center; justify-content:space-between; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:13px 16px; margin-bottom:10px; }
-  .weight-row-label { font-family:var(--disp); font-weight:700; font-size:18px; }
-  .weight-row-hint { font-size:11px; color:var(--muted); margin-top:2px; }
-  .stepper { display:flex; align-items:center; gap:10px; }
-  .stepper-btn { width:42px; height:42px; border-radius:50%; border:1px solid var(--line); background:var(--card2); color:var(--ink); font-size:20px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; -webkit-tap-highlight-color:transparent; }
-  .stepper-btn:active { background:var(--orange-soft); border-color:var(--orange-line); }
-  .stepper-val { font-family:var(--disp); font-weight:700; font-size:20px; min-width:64px; text-align:center; }
+/* ONBOARDING */
+.progress-dots { display:flex; gap:6px; padding:20px 20px 0; }
+.progress-dot { height:4px; flex:1; border-radius:2px; background:var(--card2); }
+.progress-dot.active { background:var(--orange); }
+.onboarding-step { padding:26px 20px 10px; }
+.onboarding-emoji { font-size:40px; margin-bottom:14px; }
+.onboarding-title { font-family:var(--disp); font-weight:700; font-size:30px; line-height:1; margin-bottom:10px; }
+.onboarding-sub { font-size:14px; color:var(--muted); line-height:1.5; margin-bottom:20px; }
+.profile-card { background:var(--card); border:1.5px solid var(--line); border-radius:var(--radius); padding:15px; margin-bottom:10px; cursor:pointer; -webkit-tap-highlight-color:transparent; transition:border-color .15s, background .15s; }
+.profile-card.selected { border-color:var(--orange); background:var(--orange-soft); }
+.profile-card-title { font-family:var(--disp); font-weight:700; font-size:19px; line-height:1; margin-bottom:5px; }
+.profile-card.selected .profile-card-title { color:var(--orange); }
+.profile-card-desc { font-size:12px; color:var(--muted); line-height:1.4; }
+.weight-row { display:flex; align-items:center; justify-content:space-between; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:13px 16px; margin-bottom:10px; }
+.weight-row-label { font-family:var(--disp); font-weight:700; font-size:18px; }
+.weight-row-hint { font-size:11px; color:var(--muted); margin-top:2px; }
+.stepper { display:flex; align-items:center; gap:10px; }
+.stepper-btn { width:42px; height:42px; border-radius:50%; border:1px solid var(--line); background:var(--card2); color:var(--ink); font-size:20px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; -webkit-tap-highlight-color:transparent; }
+.stepper-btn:active { background:var(--orange-soft); border-color:var(--orange-line); }
+.stepper-val { font-family:var(--disp); font-weight:700; font-size:20px; min-width:64px; text-align:center; }
+.btn-primary { display:block; width:calc(100% - 40px); margin:24px 20px 0; padding:17px; border:none; border-radius:var(--radius); background:var(--orange); color:#1a0d06; font-family:var(--disp); font-size:20px; font-weight:700; letter-spacing:.02em; text-transform:uppercase; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.btn-primary:disabled { opacity:.35; cursor:not-allowed; }
+.btn-secondary { display:block; width:calc(100% - 40px); margin:10px 20px 0; padding:13px; border:none; border-radius:var(--radius); background:transparent; color:var(--muted); font-size:14px; font-weight:600; cursor:pointer; }
 
-  .btn-primary { display:block; width:calc(100% - 40px); margin:24px 20px 0; padding:17px; border:none; border-radius:var(--radius); background:var(--orange); color:#1a0d06; font-family:var(--disp); font-size:20px; font-weight:700; letter-spacing:.02em; text-transform:uppercase; cursor:pointer; -webkit-tap-highlight-color:transparent; }
-  .btn-primary:disabled { opacity:.35; cursor:not-allowed; }
-  .btn-secondary { display:block; width:calc(100% - 40px); margin:10px 20px 0; padding:13px; border:none; border-radius:var(--radius); background:transparent; color:var(--muted); font-size:14px; font-weight:600; cursor:pointer; }
+/* FEELING */
+.feeling-grid { padding:4px 20px 0; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.feeling-card { background:var(--card); border:1.5px solid var(--line); border-radius:var(--radius); padding:18px 10px; text-align:center; cursor:pointer; -webkit-tap-highlight-color:transparent; transition:border-color .15s, background .15s; }
+.feeling-card:active { border-color:var(--orange); background:var(--orange-soft); }
+.feeling-card:last-child { grid-column:1 / -1; }
+.feeling-emoji { font-size:28px; margin-bottom:6px; }
+.feeling-label { font-family:var(--disp); font-weight:700; font-size:17px; }
 
-  /* FEELING */
-  .feeling-grid { padding:4px 20px 0; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-  .feeling-card { background:var(--card); border:1.5px solid var(--line); border-radius:var(--radius); padding:18px 10px; text-align:center; cursor:pointer; -webkit-tap-highlight-color:transparent; transition:border-color .15s, background .15s; }
-  .feeling-card:active { border-color:var(--orange); background:var(--orange-soft); }
-  .feeling-card:last-child { grid-column:1 / -1; }
-  .feeling-emoji { font-size:28px; margin-bottom:6px; }
-  .feeling-label { font-family:var(--disp); font-weight:700; font-size:17px; }
-
-  /* HISTORY */
-  .history-list { margin:8px 20px 0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
-  .history-row { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 16px; border-bottom:1px solid var(--line); }
-  .history-row:last-child { border-bottom:none; }
-  .history-date { font-size:12px; color:var(--muted); min-width:74px; }
-  .history-weights { font-family:var(--disp); font-weight:700; font-size:16px; flex:1; text-align:center; }
-  .history-feeling { font-size:18px; }
-  .history-empty { margin:8px 20px 0; padding:14px 16px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); font-size:12px; color:var(--muted); }
+/* HISTORY */
+.history-list { margin:8px 20px 0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
+.history-row { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 16px; border-bottom:1px solid var(--line); }
+.history-row:last-child { border-bottom:none; }
+.history-date { font-size:12px; color:var(--muted); min-width:74px; }
+.history-weights { font-family:var(--disp); font-weight:700; font-size:16px; flex:1; text-align:center; }
+.history-feeling { font-size:18px; }
+.history-empty { margin:8px 20px 0; padding:14px 16px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); font-size:12px; color:var(--muted); }
 </style>
 </head>
 <body>
@@ -174,9 +218,7 @@
   <div class="next-sub">Bänkpress · Benböj · Marklyft · Latsdrag</div>
 </div>
 
-<div class="week-head">
-  <div class="seclab">Denna vecka</div>
-</div>
+<div class="week-head"><div class="seclab">Denna vecka</div></div>
 <div class="week">
   <div class="d" id="d-mon"><div class="pill" id="w-mon">M</div><div class="week-dots" id="wd-mon"></div><div class="nm">Mån</div></div>
   <div class="d" id="d-tue"><div class="pill" id="w-tue">T</div><div class="week-dots" id="wd-tue"></div><div class="nm">Tis</div></div>
@@ -187,13 +229,17 @@
   <div class="d" id="d-sun"><div class="pill" id="w-sun">S</div><div class="week-dots" id="wd-sun"></div><div class="nm">Sön</div></div>
 </div>
 
+<!-- EIFFELTORNET -->
+<div class="week-head"><div class="seclab">Gruppens mål 🗼</div></div>
+<div class="eiffel-card" id="eiffelCard"></div>
+
 <div class="week-head">
   <div class="seclab">Välj person</div>
   <div class="sechint">Tryck för att se ditt pass</div>
 </div>
 <div class="cards" id="cardsContainer"></div>
 
-<!-- MODAL -->
+<!-- PERSON MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
   <div class="modal" id="modal">
     <div class="modal-handle"></div>
@@ -207,6 +253,8 @@
     <div id="modalContent"></div>
     <div class="rest-note">⏱ Vila ca 2 minuter mellan varje set</div>
     <button class="btn-primary" onclick="finishWorkout()">Avsluta pass ✅</button>
+    <div id="targetsSection"></div>
+    <div id="graphSection"></div>
     <div id="historySection"></div>
   </div>
 </div>
@@ -236,85 +284,426 @@
 </div>
 
 <script>
+// ── DATA ──────────────────────────────────────────────
 const people = {
-  per:    { name: 'Per',    initials: 'PH', color: '#ff7a45', role: 'Coach', bp: 45, sq: 60, dl: 60, lat: null },
-  alex:   { name: 'Alex',   initials: 'AL', color: '#4d9fff', bp: 45, sq: 60, dl: 60, lat: null },
-  nia:    { name: 'Nia',    initials: 'NI', color: '#ff6ea9', bp: 35, sq: 20, dl: 30, lat: null },
-  hannes: { name: 'Hannes', initials: 'HA', color: '#ffd24d', bp: 27, sq: 22, dl: 27, lat: null }
+  per:    { name:'Per',    initials:'PH', color:'#ff7a45', role:'Coach', bp:45, sq:60, dl:60, lat:null },
+  alex:   { name:'Alex',   initials:'AL', color:'#4d9fff',              bp:45, sq:60, dl:60, lat:null },
+  nia:    { name:'Nia',    initials:'NI', color:'#ff6ea9',              bp:35, sq:20, dl:30, lat:null },
+  hannes: { name:'Hannes', initials:'HA', color:'#ffd24d',              bp:27, sq:22, dl:27, lat:null }
 };
 
+const EIFFEL_KG = 10100000;
+const KG_PER_PASS_EST = 24000; // ungefär per gruppass
+
+const comparisons = [
+  { kg:5000,     emoji:'🐘', name:'elefant' },
+  { kg:150000,   emoji:'🐋', name:'blåval' },
+  { kg:500000,   emoji:'✈️', name:'Boeing 747' },
+  { kg:3000000,  emoji:'🚀', name:'rymdraket' },
+  { kg:10100000, emoji:'🗼', name:'Eiffeltorn' }
+];
+
+const milestones = [
+  { kg:1600000,  label:'Våning 1 🎯', pct:15.8 },
+  { kg:3200000,  label:'Våning 2 🥂', pct:31.7 },
+  { kg:7800000,  label:'Våning 3 👁',  pct:77.2 },
+  { kg:10100000, label:'Toppen 🗼',    pct:100  }
+];
+
 const quotes = [
-  { text: 'Varje lyft räknas. Varje set bygger något.', sub: 'Konsistens slår motivation – varje gång.' },
-  { text: 'Du är starkare idag än igår.', sub: 'Progressiv överbelastning är magin.' },
-  { text: 'Gymmet är inte ett straff. Det är din tid.', sub: 'Fyra övningar. Sex set. Klar.' },
-  { text: 'Tekniken först. Vikten kommer.', sub: 'Rätt rörelse är grunden till allt.' },
-  { text: 'Ingen regret efter ett gympass.', sub: 'Det vet ni allihopa nu.' }
+  { text:'Varje lyft räknas. Varje set bygger något.', sub:'Konsistens slår motivation – varje gång.' },
+  { text:'Du är starkare idag än igår.',               sub:'Progressiv överbelastning är magin.' },
+  { text:'Gymmet är inte ett straff. Det är din tid.', sub:'Fyra övningar. Sex set. Klar.' },
+  { text:'Tekniken först. Vikten kommer.',             sub:'Rätt rörelse är grunden till allt.' },
+  { text:'Ingen regret efter ett gympass.',            sub:'Det vet ni allihopa nu.' }
 ];
 
 const motivationProfiles = [
-  { id: 1, title: 'Siffrorna ljuger inte', desc: 'Du motiveras av viktutveckling och tydliga grafer på din progression.' },
-  { id: 2, title: 'Tillsammans är vi starkare', desc: 'Du motiveras av att träna som grupp och peppa varandra.' },
-  { id: 3, title: 'Jag mår bättre när jag tränar', desc: 'Du motiveras av välmående, energi och hur kroppen känns.' },
-  { id: 4, title: 'Jag vill överraska mig själv', desc: 'Du motiveras av milstolpar, personbästa och beröm.' }
+  { id:1, title:'Siffrorna ljuger inte',       desc:'Du motiveras av viktutveckling och tydliga grafer på din progression.' },
+  { id:2, title:'Tillsammans är vi starkare',  desc:'Du motiveras av att träna som grupp och peppa varandra.' },
+  { id:3, title:'Jag mår bättre när jag tränar', desc:'Du motiveras av välmående, energi och hur kroppen känns.' },
+  { id:4, title:'Jag vill överraska mig själv', desc:'Du motiveras av milstolpar, personbästa och beröm.' }
 ];
-
-const days = ['Söndag','Måndag','Tisdag','Onsdag','Torsdag','Fredag','Lördag'];
-const months = ['jan','feb','mar','apr','maj','jun','jul','aug','sep','okt','nov','dec'];
 
 const feelingOptions = [
-  { id: 1, emoji: '🙂', label: 'Bra att jag kom',  message: 'Det räcker. Varje pass bygger vanan.' },
-  { id: 2, emoji: '😐', label: 'Okej pass',        message: 'Solid insats. Kroppen anpassar sig.' },
-  { id: 3, emoji: '💪', label: 'Bra pass',         message: 'Bra jobbat! Nästa måndag – dags att öka?' },
-  { id: 4, emoji: '🔥', label: 'Starkt pass',      message: 'Du är på rätt spår. Få i dig protein inom 30 min!' },
-  { id: 5, emoji: '🚀', label: 'Maxade idag 🔥',    message: 'BEAST! 🔥 Äta: kycklingfilé, ris och grönsaker inom 45 min. Drick 0,5L vatten nu. Nästa pass: öka med 2,5 kg!' }
+  { id:1, emoji:'🙂', label:'Bra att jag kom',  message:'Det räcker. Varje pass bygger vanan.' },
+  { id:2, emoji:'😐', label:'Okej pass',         message:'Solid insats. Kroppen anpassar sig.' },
+  { id:3, emoji:'💪', label:'Bra pass',          message:'Bra jobbat! Nästa måndag – dags att öka?' },
+  { id:4, emoji:'🔥', label:'Starkt pass',       message:'Du är på rätt spår. Få i dig protein inom 30 min!' },
+  { id:5, emoji:'🚀', label:'Maxade idag 🔥',    message:'BEAST! 🔥 Äta: kycklingfilé, ris och grönsaker inom 45 min. Drick 0,5L vatten nu. Nästa pass: öka med 2,5 kg!' }
 ];
 
-function r(w, pct) { return Math.round(w * pct / 2.5) * 2.5; }
+const days   = ['Söndag','Måndag','Tisdag','Onsdag','Torsdag','Fredag','Lördag'];
+const months = ['jan','feb','mar','apr','maj','jun','jul','aug','sep','okt','nov','dec'];
 
-function buildSets(w) {
-  if (!w) return `<div style="padding:14px 16px;font-size:13px;color:var(--muted);">Vikt ej registrerad ännu</div>`;
-  const sets = [
-    { label: 'Uppvärmning',  pct: 0.70, reps: 5,  top: false },
-    { label: 'Uppvärmning',  pct: 0.80, reps: 3,  top: false },
-    { label: 'Toppset 🔥',   pct: 0.95, reps: 1,  top: true  },
-    { label: 'Arbetsserie',  pct: 0.87, reps: 5,  top: false },
-    { label: 'Arbetsserie',  pct: 0.87, reps: 5,  top: false },
-    { label: 'Arbetsserie',  pct: 0.87, reps: 5,  top: false },
-  ];
-  return sets.map((s, i) => `
-    <div class="set-row ${s.top ? 'top-set' : ''}">
-      <div class="set-num num">${i+1}</div>
-      <div class="set-type">${s.label}</div>
-      <div class="set-weight num">${r(w, s.pct)}<span> kg</span></div>
-      <div class="set-reps num">× ${s.reps}</div>
-    </div>`).join('');
+const exerciseKeys  = ['bp','sq','dl','lat'];
+const exerciseNames = { bp:'Bänkpress', sq:'Benböj', dl:'Marklyft', lat:'Latsdrag' };
+const personColors  = { per:'#ff7a45', alex:'#4d9fff', nia:'#ff6ea9', hannes:'#ffd24d' };
+
+// ── UTILS ─────────────────────────────────────────────
+function r(w, pct) { return Math.round(w * pct / 2.5) * 2.5; }
+function fmtKg(n) {
+  if (n >= 1000000) return (n/1000000).toFixed(2) + 'M kg';
+  return Math.round(n).toLocaleString('sv-SE') + ' kg';
 }
 
+// Progression: överkropp +2.5 var 2.5 vecka, underkropp +2.5 var 2 vecka
+function targetWeight(startW, weeks, isUpper) {
+  if (!startW) return null;
+  const interval = isUpper ? 2.5 : 2;
+  const increases = Math.floor(weeks / interval);
+  return Math.round((startW + increases * 2.5) / 2.5) * 2.5;
+}
+
+// Beräkna total lyft i kg för ett pass (alla set × reps × vikt)
+function passKg(weights) {
+  let total = 0;
+  const sets = [
+    { pct:0.70, reps:5 }, { pct:0.80, reps:3 }, { pct:0.95, reps:1 },
+    { pct:0.87, reps:5 }, { pct:0.87, reps:5 }, { pct:0.87, reps:5 }
+  ];
+  ['bp','sq','dl','lat'].forEach(k => {
+    const w = weights[k];
+    if (w) sets.forEach(s => { total += r(w, s.pct) * s.reps; });
+  });
+  return total;
+}
+
+// ── STORAGE ───────────────────────────────────────────
 const STORAGE_PREFIX = 'gympass_';
-function historyKey(id) { return STORAGE_PREFIX + id + '_history'; }
+function historyKey(id)  { return STORAGE_PREFIX + id + '_history'; }
 function loadHistory(id) { const raw = localStorage.getItem(historyKey(id)); return raw ? JSON.parse(raw) : []; }
-function saveHistory(id, history) { localStorage.setItem(historyKey(id), JSON.stringify(history)); }
+function saveHistory(id, h) { localStorage.setItem(historyKey(id), JSON.stringify(h)); }
 
 function loadPersonState(id) {
-  const raw = localStorage.getItem(STORAGE_PREFIX + id);
+  const raw  = localStorage.getItem(STORAGE_PREFIX + id);
   const base = people[id];
   const state = raw ? JSON.parse(raw) : {
     onboarded: false, profile: null,
-    weights: { bp: base.bp, sq: base.sq, dl: base.dl, lat: base.lat }
+    weights: { bp:base.bp, sq:base.sq, dl:base.dl, lat:base.lat },
+    progressionAdj: 1.0
   };
+  if (!state.progressionAdj) state.progressionAdj = 1.0;
   state.history = loadHistory(id);
   return state;
 }
 function savePersonState(id, state) {
   localStorage.setItem(STORAGE_PREFIX + id, JSON.stringify({
-    onboarded: state.onboarded, profile: state.profile, weights: state.weights
+    onboarded: state.onboarded, profile: state.profile,
+    weights: state.weights, progressionAdj: state.progressionAdj
   }));
+}
+
+// ── EIFFELTORNET ──────────────────────────────────────
+function calcTotalKg() {
+  let total = 0;
+  Object.keys(people).forEach(id => {
+    personStates[id].history.forEach(h => { total += passKg(h.weights); });
+  });
+  return total;
+}
+
+function calcLastPassKg() {
+  let latest = null; let latestKg = 0;
+  Object.keys(people).forEach(id => {
+    personStates[id].history.forEach(h => {
+      const d = new Date(h.date);
+      if (!latest || d > latest) { latest = d; latestKg = passKg(h.weights); }
+    });
+  });
+  return latestKg;
+}
+
+function eiffelSVG(pct) {
+  const fillH = Math.round(pct / 100 * 160);
+  return `<svg viewBox="0 0 80 160" xmlns="http://www.w3.org/2000/svg" width="80" height="160">
+    <defs>
+      <clipPath id="ec"><rect x="0" y="${160-fillH}" width="80" height="${fillH}"/></clipPath>
+      <linearGradient id="eg" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0%" stop-color="#ff7a45"/>
+        <stop offset="50%" stop-color="#ff6ea9"/>
+        <stop offset="100%" stop-color="#ffd24d"/>
+      </linearGradient>
+    </defs>
+    <!-- grå bas -->
+    <g fill="#2a2a2a" stroke="#333" stroke-width="0.3">
+      <path d="M10 160 L20 115 L28 115 L26 160Z"/>
+      <path d="M70 160 L60 115 L52 115 L54 160Z"/>
+      <rect x="8" y="112" width="64" height="5" rx="1"/>
+      <path d="M20 115 L26 78 L32 78 L30 115Z"/>
+      <path d="M60 115 L54 78 L48 78 L50 115Z"/>
+      <rect x="18" y="75" width="44" height="5" rx="1"/>
+      <path d="M26 78 L32 48 L38 48 L36 78Z"/>
+      <path d="M54 78 L48 48 L42 48 L44 78Z"/>
+      <rect x="24" y="45" width="32" height="4" rx="1"/>
+      <path d="M32 48 L37 18 L43 18 L48 48Z"/>
+      <path d="M36 18 L40 4 L44 18Z"/>
+      <rect x="14" y="130" width="52" height="3" rx="1"/>
+      <rect x="16" y="120" width="48" height="2" rx="1"/>
+      <rect x="22" y="95" width="36" height="2" rx="1"/>
+      <rect x="27" y="62" width="26" height="2" rx="1"/>
+    </g>
+    <!-- färgad fyllning -->
+    <g clip-path="url(#ec)" fill="url(#eg)" opacity="0.95">
+      <path d="M10 160 L20 115 L28 115 L26 160Z"/>
+      <path d="M70 160 L60 115 L52 115 L54 160Z"/>
+      <rect x="8" y="112" width="64" height="5" rx="1"/>
+      <path d="M20 115 L26 78 L32 78 L30 115Z"/>
+      <path d="M60 115 L54 78 L48 78 L50 115Z"/>
+      <rect x="18" y="75" width="44" height="5" rx="1"/>
+      <path d="M26 78 L32 48 L38 48 L36 78Z"/>
+      <path d="M54 78 L48 48 L42 48 L44 78Z"/>
+      <rect x="24" y="45" width="32" height="4" rx="1"/>
+      <path d="M32 48 L37 18 L43 18 L48 48Z"/>
+      <path d="M36 18 L40 4 L44 18Z"/>
+      <rect x="14" y="130" width="52" height="3" rx="1"/>
+      <rect x="16" y="120" width="48" height="2" rx="1"/>
+      <rect x="22" y="95" width="36" height="2" rx="1"/>
+      <rect x="27" y="62" width="26" height="2" rx="1"/>
+    </g>
+  </svg>`;
+}
+
+function renderEiffel() {
+  const totalKg  = calcTotalKg();
+  const lastKg   = calcLastPassKg();
+  const pct      = Math.min((totalKg / EIFFEL_KG) * 100, 100);
+  const pctStr   = pct < 0.01 ? '0.00' : pct.toFixed(2);
+
+  // nästa milstolpe
+  const nextMs = milestones.find(m => totalKg < m.kg) || milestones[milestones.length-1];
+
+  // bästa jämförelse för senaste pass
+  let comp = comparisons[0];
+  if (lastKg > 0) comparisons.forEach(c => { if (lastKg >= c.kg * 0.3) comp = c; });
+  const times = lastKg > 0 ? (lastKg / comp.kg).toFixed(1) : '–';
+
+  // bidrag per person
+  const contribs = {};
+  let maxC = 1;
+  Object.keys(people).forEach(id => {
+    contribs[id] = personStates[id].history.reduce((s,h) => s + passKg(h.weights), 0);
+    if (contribs[id] > maxC) maxC = contribs[id];
+  });
+
+  document.getElementById('eiffelCard').innerHTML = `
+    <div class="eiffel-top">
+      <div class="eiffel-svg-wrap">${eiffelSVG(pct)}</div>
+      <div class="eiffel-info">
+        <div class="eiffel-label">Lyft mot Eiffeltornet</div>
+        <div class="eiffel-pct num">${pctStr}%</div>
+        <div class="eiffel-kg num">${fmtKg(totalKg)} av ${fmtKg(EIFFEL_KG)}</div>
+        <div class="eiffel-milestone">▶ Nästa: ${nextMs.label}</div>
+      </div>
+    </div>
+    <div class="eiffel-bar"><div class="eiffel-bar-fill" style="width:${pctStr}%"></div></div>
+    <div class="eiffel-last">
+      <div>
+        <div class="eiffel-last-label">Senaste passet</div>
+        <div class="eiffel-last-val num">${lastKg > 0 ? fmtKg(lastKg) : '–'}</div>
+        <div class="eiffel-last-compare">${lastKg > 0 ? `= ${times}× ${comp.name} ${comp.emoji}` : 'Logga ert första pass!'}</div>
+      </div>
+      <div style="font-size:32px">${lastKg > 0 ? comp.emoji : '🏋️'}</div>
+    </div>
+    <div class="eiffel-contribs">
+      ${Object.keys(people).map(id => `
+        <div class="eiffel-contrib">
+          <div class="eiffel-contrib-name">${people[id].name}</div>
+          <div class="eiffel-contrib-bar"><div class="eiffel-contrib-fill" style="width:${maxC>0?(contribs[id]/maxC*100):0}%;background:${people[id].color}"></div></div>
+          <div class="eiffel-contrib-kg" style="color:${people[id].color}">${contribs[id]>0 ? fmtKg(contribs[id]) : '–'}</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+// ── MÅLVIKTER ─────────────────────────────────────────
+function renderTargets(id) {
+  const state = personStates[id];
+  const adj   = state.progressionAdj;
+  const w     = state.weights;
+  const el    = document.getElementById('targetsSection');
+
+  const rows = [
+    { key:'bp',  label:'Bänkpress', upper:true  },
+    { key:'sq',  label:'Benböj',    upper:false },
+    { key:'dl',  label:'Marklyft',  upper:false },
+    { key:'lat', label:'Latsdrag',  upper:true  }
+  ];
+
+  el.innerHTML = `
+    <div class="targets-block">
+      <div class="targets-title">
+        <span>🎯 Målvikter</span>
+        <span style="font-size:11px;font-weight:500;color:var(--muted)">adj: ${Math.round(adj*100)}%</span>
+      </div>
+      <div class="targets-head">
+        <span>Övning</span><span>Nu</span><span style="color:var(--orange)">1 mån</span><span style="color:#4d9fff">3 mån</span>
+      </div>
+      ${rows.map(ro => {
+        const cur = w[ro.key];
+        const m1  = cur ? Math.round(targetWeight(cur, 4,  ro.upper) * adj / 2.5) * 2.5 : null;
+        const m3  = cur ? Math.round(targetWeight(cur, 12, ro.upper) * adj / 2.5) * 2.5 : null;
+        return `<div class="targets-row">
+          <div class="targets-ex">${ro.label}</div>
+          <div class="targets-val current num">${cur ?? '–'}</div>
+          <div class="targets-val m1 num">${m1 ?? '–'}</div>
+          <div class="targets-val m3 num">${m3 ?? '–'}</div>
+        </div>`;
+      }).join('')}
+      <div class="adjust-row">
+        <div class="adjust-label">Justera plan:</div>
+        <div class="adjust-btn" onclick="adjustProgression('${id}', -0.1)">−10%</div>
+        <div class="adjust-btn" onclick="adjustProgression('${id}', -0.05)">−5%</div>
+        <div class="adjust-btn" onclick="adjustProgression('${id}', 0.05)">+5%</div>
+        <div class="adjust-btn" onclick="adjustProgression('${id}', 0.1)">+10%</div>
+      </div>
+    </div>`;
+}
+
+function adjustProgression(id, delta) {
+  const state = personStates[id];
+  state.progressionAdj = Math.max(0.5, Math.min(2.0, (state.progressionAdj || 1.0) + delta));
+  savePersonState(id, state);
+  renderTargets(id);
+}
+
+// ── PROGRESSIONSGRAFER ────────────────────────────────
+let graphPersonId  = null;
+let graphActiveEx  = 'bp';
+
+function renderGraph(id) {
+  graphPersonId = id;
+  const el = document.getElementById('graphSection');
+  el.innerHTML = `
+    <div class="graph-block">
+      <div class="graph-title">📈 Din progression</div>
+      <div class="graph-tabs">
+        ${exerciseKeys.map(k => `<div class="graph-tab ${k===graphActiveEx?'on':''}" onclick="switchGraph('${id}','${k}')">${exerciseNames[k]}</div>`).join('')}
+      </div>
+      <div id="graphCanvas"></div>
+    </div>`;
+  drawGraph(id, graphActiveEx);
+}
+
+function switchGraph(id, ex) {
+  graphActiveEx = ex;
+  // Uppdatera tabs
+  document.querySelectorAll('.graph-tab').forEach(t => t.classList.remove('on'));
+  event.target.classList.add('on');
+  drawGraph(id, ex);
+}
+
+function drawGraph(id, ex) {
+  const state   = personStates[id];
+  const history = state.history;
+  const canvas  = document.getElementById('graphCanvas');
+  const color   = people[id].color;
+
+  if (history.length < 2) {
+    canvas.innerHTML = `<div class="graph-empty">Minst 2 pass behövs för att visa grafen.<br>Kör på!</div>`;
+    return;
+  }
+
+  const pts = history.map(h => ({ date: new Date(h.date), val: h.weights[ex] })).filter(p => p.val);
+  if (pts.length < 2) {
+    canvas.innerHTML = `<div class="graph-empty">Ingen data för ${exerciseNames[ex]} än.</div>`;
+    return;
+  }
+
+  const W = 360, H = 100, PAD = { t:10, r:10, b:20, l:30 };
+  const iW = W - PAD.l - PAD.r;
+  const iH = H - PAD.t - PAD.b;
+
+  const vals  = pts.map(p => p.val);
+  const minV  = Math.min(...vals) - 2.5;
+  const maxV  = Math.max(...vals) + 2.5;
+  const minT  = pts[0].date.getTime();
+  const maxT  = pts[pts.length-1].date.getTime();
+  const rangeT = maxT - minT || 1;
+
+  function cx(d) { return PAD.l + ((d.getTime()-minT)/rangeT)*iW; }
+  function cy(v) { return PAD.t + iH - ((v-minV)/(maxV-minV))*iH; }
+
+  const polyline = pts.map(p => `${cx(p.date).toFixed(1)},${cy(p.val).toFixed(1)}`).join(' ');
+  const areaPath = `M${cx(pts[0].date).toFixed(1)},${(PAD.t+iH).toFixed(1)} ` +
+    pts.map(p => `L${cx(p.date).toFixed(1)},${cy(p.val).toFixed(1)}`).join(' ') +
+    ` L${cx(pts[pts.length-1].date).toFixed(1)},${(PAD.t+iH).toFixed(1)} Z`;
+
+  // y-axis labels
+  const yLabels = [minV+2.5, (minV+maxV)/2, maxV-2.5].map(v =>
+    `<text x="${PAD.l-4}" y="${cy(v)+4}" text-anchor="end" font-size="8" fill="#666">${Math.round(v)}</text>`).join('');
+
+  // x-axis labels (first and last)
+  const fmt = d => `${d.getDate()} ${months[d.getMonth()]}`;
+  const xLabels = `
+    <text x="${PAD.l}" y="${H-4}" font-size="8" fill="#666">${fmt(pts[0].date)}</text>
+    <text x="${W-PAD.r}" y="${H-4}" font-size="8" fill="#666" text-anchor="end">${fmt(pts[pts.length-1].date)}</text>`;
+
+  // dots
+  const dots = pts.map((p,i) =>
+    `<circle cx="${cx(p.date).toFixed(1)}" cy="${cy(p.val).toFixed(1)}" r="${i===pts.length-1?4:2.5}" fill="${color}" stroke="var(--bg)" stroke-width="1.5"/>
+     ${i===pts.length-1 ? `<text x="${cx(p.date).toFixed(1)}" y="${(cy(p.val)-7).toFixed(1)}" text-anchor="middle" font-size="9" fill="${color}" font-weight="700">${p.val} kg</text>` : ''}`
+  ).join('');
+
+  canvas.innerHTML = `
+    <div class="graph-svg-wrap">
+      <svg class="graph-svg" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="gg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="${color}" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="${color}" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path d="${areaPath}" fill="url(#gg)"/>
+        <polyline points="${polyline}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+        ${yLabels}${xLabels}${dots}
+      </svg>
+    </div>`;
+}
+
+// ── CARDS ─────────────────────────────────────────────
+function renderCards() {
+  const container = document.getElementById('cardsContainer');
+  container.innerHTML = Object.keys(people).map(id => {
+    const p      = people[id];
+    const state  = personStates[id];
+    const trained = hasTrainedThisWeek(state);
+    const badgeText  = p.role ? p.role : (trained ? 'Tränat ✓' : '–');
+    const badgeClass = !p.role && trained ? 'trained' : '';
+    return `
+      <div class="person-card ${id}" onclick="onCardClick('${id}')">
+        <div class="card-top">
+          <div class="avatar">${p.initials}</div>
+          <div class="card-badge ${badgeClass}">${badgeText}</div>
+        </div>
+        <div class="card-name">${p.name}</div>
+        <div class="card-last">${lastTrainedText(state)}</div>
+        <div class="card-lifts">
+          ${liftValueHtml('Bänk',     state.weights.bp)}
+          ${liftValueHtml('Benböj',   state.weights.sq)}
+          ${liftValueHtml('Marklyft', state.weights.dl)}
+          ${liftValueHtml('Latsdrag', state.weights.lat)}
+        </div>
+        <div class="card-cta">${state.onboarded ? 'Öppna mitt pass →' : 'Kom igång →'}</div>
+      </div>`;
+  }).join('');
+}
+
+function liftValueHtml(label, value) {
+  return `<div class="lift-item"><div class="lift-label">${label}</div>` +
+    (value == null
+      ? `<div class="lift-val">–</div>`
+      : `<div class="lift-val num">${value} <span>kg</span></div>`) + `</div>`;
+}
+
+function onCardClick(id) {
+  if (!personStates[id].onboarded) startOnboarding(id);
+  else openModal(id);
 }
 
 function getMonday(date) {
   const d = new Date(date);
-  const diff = (d.getDay() === 0 ? -6 : 1) - d.getDay();
-  d.setDate(d.getDate() + diff); d.setHours(0,0,0,0); return d;
+  const diff = (d.getDay()===0 ? -6 : 1) - d.getDay();
+  d.setDate(d.getDate()+diff); d.setHours(0,0,0,0); return d;
 }
 function hasTrainedThisWeek(state) {
   if (!state.history.length) return false;
@@ -323,86 +712,44 @@ function hasTrainedThisWeek(state) {
 }
 function lastTrainedText(state) {
   if (!state.history.length) return 'Inte tränat ännu';
-  const last = new Date(state.history[state.history.length - 1].date);
+  const last = new Date(state.history[state.history.length-1].date);
   return 'Senast: ' + days[last.getDay()] + ' ' + last.getDate() + ' ' + months[last.getMonth()];
 }
-
-function liftValueHtml(label, value) {
-  return `<div class="lift-item"><div class="lift-label">${label}</div>` +
-    (value == null
-      ? `<div class="lift-val">–</div>`
-      : `<div class="lift-val num">${value} <span>kg</span></div>`) +
-    `</div>`;
-}
-
-function renderCards() {
-  const container = document.getElementById('cardsContainer');
-  container.innerHTML = Object.keys(people).map(id => {
-    const p = people[id];
-    const state = personStates[id];
-    const trained = hasTrainedThisWeek(state);
-    const badgeText = p.role ? p.role : (trained ? 'Tränat ✓' : '–');
-    const badgeClass = !p.role && trained ? 'trained' : '';
-    return `
-    <div class="person-card ${id}" onclick="onCardClick('${id}')">
-      <div class="card-top">
-        <div class="avatar">${p.initials}</div>
-        <div class="card-badge ${badgeClass}">${badgeText}</div>
-      </div>
-      <div class="card-name">${p.name}</div>
-      <div class="card-last">${lastTrainedText(state)}</div>
-      <div class="card-lifts">
-        ${liftValueHtml('Bänk', state.weights.bp)}
-        ${liftValueHtml('Benböj', state.weights.sq)}
-        ${liftValueHtml('Marklyft', state.weights.dl)}
-        ${liftValueHtml('Latsdrag', state.weights.lat)}
-      </div>
-      <div class="card-cta">${state.onboarded ? 'Öppna mitt pass →' : 'Kom igång →'}</div>
-    </div>`;
-  }).join('');
-}
-
-function onCardClick(id) {
-  if (!personStates[id].onboarded) startOnboarding(id);
-  else openModal(id);
-}
-
-function sameDay(a, b) {
-  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+function sameDay(a,b) {
+  return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
 }
 
 function renderWeekBar() {
-  const today = new Date();
-  const monday = getMonday(today);
+  const today   = new Date();
+  const monday  = getMonday(today);
   const dayKeys = ['mon','tue','wed','thu','fri','sat','sun'];
-  const todayIndex = (today.getDay() + 6) % 7;
-  dayKeys.forEach((key, i) => {
-    const dayDate = new Date(monday); dayDate.setDate(monday.getDate() + i);
-    const dEl = document.getElementById('d-' + key);
+  const todayI  = (today.getDay()+6)%7;
+  dayKeys.forEach((key,i) => {
+    const dd = new Date(monday); dd.setDate(monday.getDate()+i);
+    const dEl = document.getElementById('d-'+key);
     dEl.classList.remove('done','today');
-    if (i < todayIndex) dEl.classList.add('done');
-    else if (i === todayIndex) dEl.classList.add('today');
+    if (i < todayI) dEl.classList.add('done');
+    else if (i===todayI) dEl.classList.add('today');
     const trainedIds = Object.keys(people).filter(id =>
-      personStates[id].history.some(h => sameDay(new Date(h.date), dayDate)));
-    document.getElementById('wd-' + key).innerHTML = Object.keys(people).map(id =>
+      personStates[id].history.some(h => sameDay(new Date(h.date), dd)));
+    document.getElementById('wd-'+key).innerHTML = Object.keys(people).map(id =>
       `<div class="week-dot" style="background:${trainedIds.includes(id) ? people[id].color : 'var(--card2)'}"></div>`
     ).join('');
   });
 }
 
-function feelingEmoji(feelingId) {
-  const opt = feelingOptions.find(f => f.id === feelingId);
+function feelingEmoji(fid) {
+  const opt = feelingOptions.find(f => f.id===fid);
   return opt ? opt.emoji : '–';
 }
 
 function renderHistorySection(id) {
-  const state = personStates[id];
+  const state  = personStates[id];
   const recent = state.history.slice(-10).reverse();
   const el = document.getElementById('historySection');
   if (!recent.length) {
     el.innerHTML = `<div class="week-head"><div class="seclab">Mina pass</div></div>
-      <div class="history-empty">Inga genomförda pass än.</div>`;
-    return;
+      <div class="history-empty">Inga genomförda pass än.</div>`; return;
   }
   el.innerHTML = `<div class="week-head"><div class="seclab">Mina pass</div></div>
     <div class="history-list">
@@ -411,123 +758,56 @@ function renderHistorySection(id) {
         const dateStr = days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()];
         return `<div class="history-row">
           <div class="history-date">${dateStr}</div>
-          <div class="history-weights num">${h.weights.bp}/${h.weights.sq}/${h.weights.dl}/${h.weights.lat} kg</div>
+          <div class="history-weights num">${h.weights.bp}/${h.weights.sq}/${h.weights.dl}/${h.weights.lat||'–'} kg</div>
           <div class="history-feeling">${feelingEmoji(h.feeling)}</div>
         </div>`;
       }).join('')}
     </div>`;
 }
 
+// ── PASS / MODAL ──────────────────────────────────────
+function buildSets(w) {
+  if (!w) return `<div style="padding:14px 16px;font-size:13px;color:var(--muted);">Vikt ej registrerad ännu</div>`;
+  const sets = [
+    { label:'Uppvärmning', pct:0.70, reps:5, top:false },
+    { label:'Uppvärmning', pct:0.80, reps:3, top:false },
+    { label:'Toppset 🔥',  pct:0.95, reps:1, top:true  },
+    { label:'Arbetsserie', pct:0.87, reps:5, top:false },
+    { label:'Arbetsserie', pct:0.87, reps:5, top:false },
+    { label:'Arbetsserie', pct:0.87, reps:5, top:false }
+  ];
+  return sets.map((s,i) => `
+    <div class="set-row ${s.top?'top-set':''}">
+      <div class="set-num num">${i+1}</div>
+      <div class="set-type">${s.label}</div>
+      <div class="set-weight num">${r(w,s.pct)}<span> kg</span></div>
+      <div class="set-reps num">× ${s.reps}</div>
+    </div>`).join('');
+}
+
 let onboarding = null;
 let currentModalPersonId = null;
 let feelingPersonId = null;
 
-function startOnboarding(id) {
-  const base = personStates[id].weights;
-  onboarding = { personId: id, step: 1, profile: null,
-    weights: { bp: base.bp, sq: base.sq, dl: base.dl, lat: base.lat ?? 20 } };
-  document.getElementById('onboardingOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  renderOnboardingStep();
-}
-function closeOnboarding() {
-  document.getElementById('onboardingOverlay').classList.remove('open');
-  document.body.style.overflow = ''; onboarding = null;
-}
-function weightRowHtml(key, label) {
-  const isLat = key === 'lat';
-  return `<div class="weight-row">
-      <div>
-        <div class="weight-row-label">${label}</div>
-        ${isLat ? '<div class="weight-row-hint">Ny övning – välj en startvikt</div>' : ''}
-      </div>
-      <div class="stepper">
-        <button class="stepper-btn" onclick="adjustOnboardingWeight('${key}', -2.5)">–</button>
-        <div class="stepper-val num">${onboarding.weights[key]} kg</div>
-        <button class="stepper-btn" onclick="adjustOnboardingWeight('${key}', 2.5)">+</button>
-      </div>
-    </div>`;
-}
-function renderOnboardingStep() {
-  const p = people[onboarding.personId];
-  document.getElementById('onboardingProgress').innerHTML =
-    [1,2,3,4].map(n => `<div class="progress-dot ${n <= onboarding.step ? 'active' : ''}"></div>`).join('');
-  let body = '';
-  if (onboarding.step === 1) {
-    body = `<div class="onboarding-step">
-        <div class="onboarding-emoji">👋</div>
-        <div class="onboarding-title">Välkommen, ${p.name}!</div>
-        <div class="onboarding-sub">Innan du kör ditt första pass sätter vi upp din profil. Det tar under en minut.</div>
-      </div>
-      <button class="btn-primary" onclick="onboardingNext()">Kom igång →</button>`;
-  } else if (onboarding.step === 2) {
-    body = `<div class="onboarding-step">
-        <div class="onboarding-title">Vad driver dig?</div>
-        <div class="onboarding-sub">Välj den motivationsprofil som stämmer bäst – du kan byta senare.</div>
-        ${motivationProfiles.map(mp => `
-          <div class="profile-card ${onboarding.profile === mp.id ? 'selected' : ''}" onclick="selectProfile(${mp.id})">
-            <div class="profile-card-title">${mp.title}</div>
-            <div class="profile-card-desc">${mp.desc}</div>
-          </div>`).join('')}
-      </div>
-      <button class="btn-primary" ${onboarding.profile ? '' : 'disabled'} onclick="onboardingNext()">Nästa →</button>
-      <button class="btn-secondary" onclick="onboardingBack()">Tillbaka</button>`;
-  } else if (onboarding.step === 3) {
-    body = `<div class="onboarding-step">
-        <div class="onboarding-title">Dina startvikter</div>
-        <div class="onboarding-sub">Stämmer de här? Justera med +/- om du vill (steg om 2,5 kg).</div>
-        ${weightRowHtml('bp', 'Bänkpress')}
-        ${weightRowHtml('sq', 'Benböj')}
-        ${weightRowHtml('dl', 'Marklyft')}
-        ${weightRowHtml('lat', 'Latsdrag')}
-      </div>
-      <button class="btn-primary" onclick="onboardingNext()">Bekräfta →</button>
-      <button class="btn-secondary" onclick="onboardingBack()">Tillbaka</button>`;
-  } else if (onboarding.step === 4) {
-    body = `<div class="onboarding-step">
-        <div class="onboarding-emoji">✅</div>
-        <div class="onboarding-title">Klart, ${p.name}!</div>
-        <div class="onboarding-sub">Din profil och dina vikter är sparade. Nu kör vi ditt första pass.</div>
-      </div>
-      <button class="btn-primary" onclick="finishOnboarding()">Till mitt pass →</button>`;
-  }
-  document.getElementById('onboardingContent').innerHTML = body;
-}
-function adjustOnboardingWeight(key, delta) {
-  const next = Math.max(0, onboarding.weights[key] + delta);
-  onboarding.weights[key] = Math.round(next / 2.5) * 2.5;
-  renderOnboardingStep();
-}
-function selectProfile(id) { onboarding.profile = id; renderOnboardingStep(); }
-function onboardingNext() { if (onboarding.step === 2 && !onboarding.profile) return; onboarding.step++; renderOnboardingStep(); }
-function onboardingBack() { onboarding.step--; renderOnboardingStep(); }
-function finishOnboarding() {
-  const id = onboarding.personId;
-  personStates[id] = { onboarded: true, profile: onboarding.profile, weights: { ...onboarding.weights }, history: [] };
-  savePersonState(id, personStates[id]);
-  closeOnboarding(); renderCards(); openModal(id);
-}
-
 function openModal(id) {
   currentModalPersonId = id;
-  const p = people[id];
+  const p     = people[id];
   const state = personStates[id];
-  const av = document.getElementById('modalAvatar');
+  const av    = document.getElementById('modalAvatar');
   av.textContent = p.initials;
-  av.style.color = id === 'hannes' ? '#3a2c00' : '#111';
+  av.style.color  = id==='hannes' ? '#3a2c00' : '#111';
   av.style.background = p.color;
   document.getElementById('modalName').textContent = p.name;
-  const exercises = [
-    { key: 'bp',  label: 'Bänkpress',  w: state.weights.bp  },
-    { key: 'sq',  label: 'Benböj',     w: state.weights.sq  },
-    { key: 'dl',  label: 'Marklyft',   w: state.weights.dl  },
-    { key: 'lat', label: 'Latsdrag',   w: state.weights.lat },
-  ];
-  document.getElementById('modalContent').innerHTML = exercises.map(e => `
-    <div class="exercise-block">
-      <div class="exercise-title" style="color:${p.color}">${e.label}</div>
-      ${buildSets(e.w)}
-    </div>`).join('');
+  document.getElementById('modalContent').innerHTML = [
+    { key:'bp', label:'Bänkpress', w:state.weights.bp },
+    { key:'sq', label:'Benböj',    w:state.weights.sq },
+    { key:'dl', label:'Marklyft',  w:state.weights.dl },
+    { key:'lat',label:'Latsdrag',  w:state.weights.lat }
+  ].map(e => `<div class="exercise-block">
+    <div class="exercise-title" style="color:${p.color}">${e.label}</div>
+    ${buildSets(e.w)}</div>`).join('');
+  renderTargets(id);
+  renderGraph(id);
   renderHistorySection(id);
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -536,16 +816,17 @@ function closeModal() {
   document.getElementById('modalOverlay').classList.remove('open');
   document.body.style.overflow = '';
 }
-function closeModalOutside(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
+function closeModalOutside(e) { if (e.target===document.getElementById('modalOverlay')) closeModal(); }
 
 function finishWorkout() {
-  const id = currentModalPersonId;
+  const id    = currentModalPersonId;
   const state = personStates[id];
-  state.history.push({ date: new Date().toISOString(), weights: { ...state.weights }, feeling: null });
+  state.history.push({ date:new Date().toISOString(), weights:{...state.weights}, feeling:null });
   saveHistory(id, state.history);
-  closeModal(); renderCards(); renderWeekBar();
+  closeModal(); renderCards(); renderWeekBar(); renderEiffel();
   feelingPersonId = id; showFeelingQuestion();
 }
+
 function showFeelingQuestion() {
   document.getElementById('feelingContent').innerHTML = `
     <div class="onboarding-step"><div class="onboarding-title">Hur kändes passet?</div></div>
@@ -559,12 +840,12 @@ function showFeelingQuestion() {
   document.getElementById('feelingOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-function selectFeeling(feelingId) {
+
+function selectFeeling(fid) {
   const state = personStates[feelingPersonId];
-  const lastSession = state.history[state.history.length - 1];
-  lastSession.feeling = feelingId;
+  state.history[state.history.length-1].feeling = fid;
   saveHistory(feelingPersonId, state.history);
-  const opt = feelingOptions.find(f => f.id === feelingId);
+  const opt = feelingOptions.find(f => f.id===fid);
   document.getElementById('feelingContent').innerHTML = `
     <div class="onboarding-step">
       <div class="onboarding-emoji">${opt.emoji}</div>
@@ -578,18 +859,104 @@ function closeFeelingOverlay() {
   document.body.style.overflow = ''; feelingPersonId = null; renderCards();
 }
 
+// ── ONBOARDING ────────────────────────────────────────
+function startOnboarding(id) {
+  const base = personStates[id].weights;
+  onboarding = { personId:id, step:1, profile:null,
+    weights:{ bp:base.bp, sq:base.sq, dl:base.dl, lat:base.lat??20 } };
+  document.getElementById('onboardingOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderOnboardingStep();
+}
+function closeOnboarding() {
+  document.getElementById('onboardingOverlay').classList.remove('open');
+  document.body.style.overflow = ''; onboarding = null;
+}
+function weightRowHtml(key, label) {
+  return `<div class="weight-row">
+    <div>
+      <div class="weight-row-label">${label}</div>
+      ${key==='lat'?'<div class="weight-row-hint">Ny övning – välj startvikt</div>':''}
+    </div>
+    <div class="stepper">
+      <button class="stepper-btn" onclick="adjustOnboardingWeight('${key}',-2.5)">–</button>
+      <div class="stepper-val num">${onboarding.weights[key]} kg</div>
+      <button class="stepper-btn" onclick="adjustOnboardingWeight('${key}',2.5)">+</button>
+    </div>
+  </div>`;
+}
+function renderOnboardingStep() {
+  const p = people[onboarding.personId];
+  document.getElementById('onboardingProgress').innerHTML =
+    [1,2,3,4].map(n => `<div class="progress-dot ${n<=onboarding.step?'active':''}"></div>`).join('');
+  let body = '';
+  if (onboarding.step===1) {
+    body = `<div class="onboarding-step">
+      <div class="onboarding-emoji">👋</div>
+      <div class="onboarding-title">Välkommen, ${p.name}!</div>
+      <div class="onboarding-sub">Sätt upp din profil – tar under en minut.</div>
+    </div>
+    <button class="btn-primary" onclick="onboardingNext()">Kom igång →</button>`;
+  } else if (onboarding.step===2) {
+    body = `<div class="onboarding-step">
+      <div class="onboarding-title">Vad driver dig?</div>
+      <div class="onboarding-sub">Välj profil – du kan byta senare.</div>
+      ${motivationProfiles.map(mp => `
+        <div class="profile-card ${onboarding.profile===mp.id?'selected':''}" onclick="selectProfile(${mp.id})">
+          <div class="profile-card-title">${mp.title}</div>
+          <div class="profile-card-desc">${mp.desc}</div>
+        </div>`).join('')}
+    </div>
+    <button class="btn-primary" ${onboarding.profile?'':'disabled'} onclick="onboardingNext()">Nästa →</button>
+    <button class="btn-secondary" onclick="onboardingBack()">Tillbaka</button>`;
+  } else if (onboarding.step===3) {
+    body = `<div class="onboarding-step">
+      <div class="onboarding-title">Dina startvikter</div>
+      <div class="onboarding-sub">Justera om det behövs (steg om 2,5 kg).</div>
+      ${weightRowHtml('bp','Bänkpress')}${weightRowHtml('sq','Benböj')}
+      ${weightRowHtml('dl','Marklyft')}${weightRowHtml('lat','Latsdrag')}
+    </div>
+    <button class="btn-primary" onclick="onboardingNext()">Bekräfta →</button>
+    <button class="btn-secondary" onclick="onboardingBack()">Tillbaka</button>`;
+  } else if (onboarding.step===4) {
+    body = `<div class="onboarding-step">
+      <div class="onboarding-emoji">✅</div>
+      <div class="onboarding-title">Klart, ${p.name}!</div>
+      <div class="onboarding-sub">Profil och vikter sparade. Nu kör vi!</div>
+    </div>
+    <button class="btn-primary" onclick="finishOnboarding()">Till mitt pass →</button>`;
+  }
+  document.getElementById('onboardingContent').innerHTML = body;
+}
+function adjustOnboardingWeight(key, delta) {
+  onboarding.weights[key] = Math.round(Math.max(0, onboarding.weights[key]+delta)/2.5)*2.5;
+  renderOnboardingStep();
+}
+function selectProfile(id) { onboarding.profile = id; renderOnboardingStep(); }
+function onboardingNext() { if (onboarding.step===2 && !onboarding.profile) return; onboarding.step++; renderOnboardingStep(); }
+function onboardingBack() { onboarding.step--; renderOnboardingStep(); }
+function finishOnboarding() {
+  const id = onboarding.personId;
+  personStates[id] = { onboarded:true, profile:onboarding.profile, weights:{...onboarding.weights}, history:[], progressionAdj:1.0 };
+  savePersonState(id, personStates[id]);
+  closeOnboarding(); renderCards(); openModal(id);
+}
+
+// ── INIT ──────────────────────────────────────────────
 const personStates = {};
 Object.keys(people).forEach(id => { personStates[id] = loadPersonState(id); });
+
 renderCards();
+renderEiffel();
 
 const now = new Date();
 document.getElementById('headerDate').textContent = days[now.getDay()] + ' ' + now.getDate() + ' ' + months[now.getMonth()];
 const q = quotes[now.getDay() % quotes.length];
 document.getElementById('quoteText').textContent = q.text;
-document.getElementById('quoteSub').textContent = q.sub;
+document.getElementById('quoteSub').textContent  = q.sub;
 renderWeekBar();
-const daysUntilMon = (8 - now.getDay()) % 7 || 7;
-const nextMon = new Date(now); nextMon.setDate(now.getDate() + daysUntilMon);
+const daysUntilMon = (8-now.getDay())%7 || 7;
+const nextMon = new Date(now); nextMon.setDate(now.getDate()+daysUntilMon);
 document.getElementById('nextDay').textContent = 'Måndag ' + nextMon.getDate() + ' ' + months[nextMon.getMonth()];
 </script>
 </body>
