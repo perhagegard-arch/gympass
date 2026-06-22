@@ -280,35 +280,29 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
 .add-person-label { font-family:var(--disp); font-weight:700; font-size:16px; color:var(--orange); }
 .add-person-sub { font-size:11px; color:var(--muted); margin-top:4px; text-align:center; }
 
-
-/* NAVIGERING */
-.home-el { display: block; }
-.home-el.hidden { display: none !important; }
-#view-historik { display: none; padding: 0 0 80px; }
-#view-historik.visible { display: block; }
 </style>
 </head>
 <body>
 
-<div class="header home-el">
+<div class="header">
   <div class="wm">GYM<b>PASS</b></div>
   <div class="date" id="headerDate"></div>
 </div>
 
-<div class="quote home-el">
+<div class="quote">
   <div class="quote-lab">Veckans motivationsord</div>
   <div class="quote-text" id="quoteText"></div>
   <div class="quote-sub" id="quoteSub"></div>
 </div>
 
-<div class="next home-el">
+<div class="next">
   <div class="next-lab">Nästa obligatoriska pass</div>
   <div class="next-day" id="nextDay">Måndag</div>
   <div class="next-sub">Bänkpress · Benböj · Marklyft · Latsdrag</div>
 </div>
 
-<div class="week-head home-el"><div class="seclab">Denna vecka</div></div>
-<div class="week home-el">
+<div class="week-head"><div class="seclab">Denna vecka</div></div>
+<div class="week">
   <div class="d" id="d-mon"><div class="pill" id="w-mon">M</div><div class="week-dots" id="wd-mon"></div><div class="nm">Mån</div></div>
   <div class="d" id="d-tue"><div class="pill" id="w-tue">T</div><div class="week-dots" id="wd-tue"></div><div class="nm">Tis</div></div>
   <div class="d" id="d-wed"><div class="pill" id="w-wed">O</div><div class="week-dots" id="wd-wed"></div><div class="nm">Ons</div></div>
@@ -319,22 +313,22 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
 </div>
 
 <!-- EIFFELTORNET -->
-<div class="week-head home-el"><div class="seclab">Gruppens mål 🗼</div></div>
-<div class="eiffel-card home-el" id="eiffelCard"></div>
+<div class="week-head"><div class="seclab">Gruppens mål 🗼</div></div>
+<div class="eiffel-card" id="eiffelCard"></div>
 
 
 <!-- STÅNGVÄLJARE -->
-<div class="bar-toggle home-el">
+<div class="bar-toggle">
   <div class="bar-btn on" id="bar20" onclick="setBar(20)">Stång 20 kg (olympisk)</div>
   <div class="bar-btn" id="bar15" onclick="setBar(15)">Stång 15 kg (standard)</div>
   <div style="width:100%;text-align:center;font-size:10px;color:var(--muted);margin-top:6px;padding:0 8px;">Latsdrag: viktstack 35–115 kg visas automatiskt 📍</div>
 </div>
 
-<div class="week-head home-el">
+<div class="week-head">
   <div class="seclab">Välj person</div>
   <div class="sechint">Tryck för att se ditt pass</div>
 </div>
-<div class="cards home-el" id="cardsContainer"></div>
+<div class="cards" id="cardsContainer"></div>
 
 <!-- PERSON MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
@@ -408,12 +402,10 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
 
 <!-- BOTTOM NAV -->
 <div class="nav">
-  <a class="on" id="nav-hem" onclick="navGo('hem')"><span class="ndot"></span>Hem</a>
-  <a id="nav-historik" onclick="navGo('historik')"><span class="ndot"></span>Historik</a>
+  <a class="on" id="nav-hem"><span class="ndot"></span>Hem</a>
+  <a onclick="openHistorik()"><span class="ndot"></span>Historik</a>
   <a><span class="ndot"></span>Profil</a>
 </div>
-
-<div id="view-historik"></div>
 
 <script>
 // ── DATA ──────────────────────────────────────────────
@@ -1550,83 +1542,66 @@ const daysUntilMon=(8-now.getDay())%7||7;
 const nextMon=new Date(now); nextMon.setDate(now.getDate()+daysUntilMon);
 document.getElementById('nextDay').textContent='Måndag '+nextMon.getDate()+' '+months[nextMon.getMonth()];
 
-// ── NAVIGERING ────────────────────────────────────────
-function navGo(view) {
-  const homeEls = document.querySelectorAll('.home-el');
-  const historik = document.getElementById('view-historik');
-
-  homeEls.forEach(function(el) {
-    el.classList.toggle('hidden', view !== 'hem');
-  });
-
-  if (historik) {
-    historik.classList.toggle('visible', view === 'historik');
-  }
-
-  document.querySelectorAll('.nav a').forEach(function(a) {
-    a.classList.remove('on');
-  });
-  var activeEl = document.getElementById('nav-' + view);
-  if (activeEl) activeEl.classList.add('on');
-
-  if (view === 'historik') renderHistorikView();
+// ── HISTORIK MODAL ────────────────────────────────────
+function openHistorik() {
+  renderHistorikContent();
+  document.getElementById('historikOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
-
-function renderHistorikView() {
-  var el = document.getElementById('view-historik');
+function closeHistorik() {
+  document.getElementById('historikOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeHistorikOutside(e) {
+  if (e.target === document.getElementById('historikOverlay')) closeHistorik();
+}
+function renderHistorikContent() {
+  var el = document.getElementById('historikContent');
   if (!el) return;
-
-  var dp   = loadDynamicPeople ? loadDynamicPeople() : {};
+  var dp = loadDynamicPeople();
   var allP = Object.assign({}, people, dp);
-  var html = '<div style="padding:20px 20px 0;">';
+  var html = '';
   var hasData = false;
-
   Object.keys(allP).forEach(function(id) {
-    var p     = allP[id];
+    var p = allP[id];
     var state = personStates[id];
     if (!state) return;
-    var hist  = state.history || [];
+    var hist = state.history || [];
     if (!hist.length) return;
     hasData = true;
-
     var rows = hist.slice(-10).reverse().map(function(h) {
-      var d       = new Date(h.date);
+      var d = new Date(h.date);
       var dateStr = days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()];
-      var detail;
-      if (h.freeExercises) {
-        detail = h.freeExercises.map(function(e){ return e.name; }).join(', ');
-      } else if (h.weights) {
-        detail = [h.weights.bp, h.weights.sq, h.weights.dl, h.weights.lat]
-          .map(function(v){ return v ? v + 'kg' : '-'; }).join(' / ');
-      } else {
-        detail = '-';
-      }
-      var emoji = feelingEmoji ? (feelingEmoji(h.feeling) || '') : '';
+      var detail = h.freeExercises
+        ? h.freeExercises.map(function(e){ return e.name; }).join(', ')
+        : (h.weights ? [h.weights.bp,h.weights.sq,h.weights.dl,h.weights.lat].map(function(v){ return v?v+'kg':'-'; }).join(' / ') : '-');
+      var emoji = feelingEmoji ? (feelingEmoji(h.feeling)||'') : '';
       return '<div style="display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--line);">'
-        + '<div style="font-size:12px;color:var(--muted);min-width:80px;">' + dateStr + '</div>'
-        + '<div style="font-size:13px;flex:1;">' + detail + '</div>'
-        + '<div style="font-size:16px;">' + emoji + '</div>'
-        + '</div>';
+        +'<div style="font-size:12px;color:var(--muted);min-width:80px;">'+dateStr+'</div>'
+        +'<div style="font-size:13px;flex:1;">'+detail+'</div>'
+        +'<div style="font-size:16px;">'+emoji+'</div></div>';
     }).join('');
-
-    html += '<div style="margin-bottom:20px;">'
-      + '<div style="font-family:var(--disp);font-weight:700;font-size:20px;color:' + p.color + ';margin-bottom:8px;">' + p.name + '</div>'
-      + '<div style="background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;">'
-      + rows + '</div></div>';
+    html += '<div style="margin:16px 20px 0;">'
+      +'<div style="font-family:var(--disp);font-weight:700;font-size:20px;color:'+p.color+';margin-bottom:8px;">'+p.name+'</div>'
+      +'<div style="background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;">'+rows+'</div></div>';
   });
-
-  html += '</div>';
-
-  if (!hasData) {
-    html = '<div style="padding:40px 20px;color:var(--muted);font-size:14px;text-align:center;">Inga loggade pass ännu.</div>';
-  }
-
-  el.innerHTML =
-    '<div style="padding:22px 20px 16px;display:flex;align-items:center;justify-content:space-between;">'
-    + '<div style="font-family:var(--disp);font-weight:800;font-size:24px;">GYM<b style='color:var(--orange)'>PASS</b></div>'
-    + '<div style="font-size:12px;color:var(--muted);">Alla pass</div></div>'
-    + html;
+  el.innerHTML = hasData ? html : '<div style="padding:40px 20px;color:var(--muted);font-size:14px;text-align:center;">Inga loggade pass ännu.</div>';
 }
 </script>
+<!-- HISTORIK MODAL -->
+<div class="modal-overlay" id="historikOverlay" onclick="closeHistorikOutside(event)">
+  <div class="modal" id="historikModal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div class="modal-person">
+        <div class="modal-avatar" style="background:var(--orange);color:#111;">📋</div>
+        <div class="modal-name">Alla pass</div>
+      </div>
+      <button class="modal-close" onclick="closeHistorik()">✕</button>
+    </div>
+    <div id="historikContent" style="padding-bottom:40px;"></div>
+  </div>
+</div>
+
 </body>
 </html>
