@@ -412,7 +412,7 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
 </div>
 
 <!-- HISTORIK-VY -->
-<div id="view-historik" class="view">
+<div id="view-historik" style="display:none;padding:0 0 80px;">
   <div style="padding:22px 20px 0;display:flex;align-items:center;justify-content:space-between;">
     <div style="font-family:var(--disp);font-weight:800;font-size:24px;">GYM<b style='color:var(--orange)'>PASS</b></div>
     <div style="font-size:12px;color:var(--muted)">Alla pass</div>
@@ -421,7 +421,7 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
 </div>
 
 <!-- PROFIL-VY -->
-<div id="view-profil" class="view">
+<div id="view-profil" style="display:none;padding:0 0 80px;">
   <div style="padding:22px 20px 0;display:flex;align-items:center;justify-content:space-between;">
     <div style="font-family:var(--disp);font-weight:800;font-size:24px;">GYM<b style='color:var(--orange)'>PASS</b></div>
     <div style="font-size:12px;color:var(--muted)">Inställningar</div>
@@ -936,9 +936,6 @@ function printPass() {
     .rest{text-align:center;font-size:12px;color:#888;margin-top:8px;}
   
 /* NAVIGATION VYER */
-.view { display:none; padding:0 0 80px; }
-.view.active { display:block; }
-#main-content { display:block; }
 #main-content.hidden { display:none; }
 </style></head><body>
   <h1>GYMPASS – ${p.name.toUpperCase()}</h1>
@@ -1575,29 +1572,23 @@ function saveNewPerson() {
 
 // ── NAVIGERING ───────────────────────────────────────
 function showView(view) {
-  // Hantera main-content
+  // Visa/dölj main-content
   const main = document.getElementById('main-content');
-  if (main) main.classList.toggle('hidden', view !== 'hem');
+  const historik = document.getElementById('view-historik');
+  const profil = document.getElementById('view-profil');
 
-  // Hantera extra vyer
-  document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+  if (main) main.style.display = (view === 'hem') ? '' : 'none';
+  if (historik) historik.style.display = (view === 'historik') ? '' : 'none';
+  if (profil) profil.style.display = (view === 'profil') ? '' : 'none';
 
   // Markera aktiv nav
   document.querySelectorAll('.nav a').forEach(a => a.classList.remove('on'));
+  const navEl = document.getElementById('nav-' + view);
+  if (navEl) navEl.classList.add('on');
 
-  if (view === 'hem') {
-    document.getElementById('nav-hem').classList.add('on');
-  } else if (view === 'historik') {
-    const el = document.getElementById('view-historik');
-    if (el) el.classList.add('active');
-    document.getElementById('nav-historik').classList.add('on');
-    renderHistorikView();
-  } else if (view === 'profil') {
-    const el = document.getElementById('view-profil');
-    if (el) el.classList.add('active');
-    document.getElementById('nav-profil').classList.add('on');
-    renderProfilView();
-  }
+  // Rendera innehåll
+  if (view === 'historik') renderHistorikView();
+  if (view === 'profil') renderProfilView();
 }
 
 function renderHistorikView() {
