@@ -272,6 +272,14 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
 .type-btn { flex:1; padding:11px; background:var(--card2); border:none; color:var(--muted); font-size:13px; font-weight:700; cursor:pointer; font-family:var(--disp); }
 .type-btn.on { background:var(--orange); color:#1a0d06; }
 
+
+/* NY PERSON */
+.add-person-card { background:var(--card); border:1.5px dashed rgba(255,122,69,0.3); border-radius:16px; padding:14px; cursor:pointer; transition:border-color .15s, background .15s; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:160px; -webkit-tap-highlight-color:transparent; }
+.add-person-card:active { background:var(--orange-soft); border-color:var(--orange); }
+.add-person-icon { font-size:32px; margin-bottom:8px; }
+.add-person-label { font-family:var(--disp); font-weight:700; font-size:16px; color:var(--orange); }
+.add-person-sub { font-size:11px; color:var(--muted); margin-top:4px; text-align:center; }
+
 </style>
 </head>
 <body>
@@ -344,6 +352,21 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
   </div>
 </div>
 
+
+<!-- LÄGG TILL PERSON MODAL -->
+<div class="modal-overlay" id="addPersonOverlay" onclick="closeAddPersonOutside(event)">
+  <div class="modal" id="addPersonModal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div class="modal-person">
+        <div class="modal-avatar" id="addPersonAvatar" style="background:#ff7a45;color:#111;">➕</div>
+        <div class="modal-name">Ny person</div>
+      </div>
+      <button class="modal-close" onclick="closeAddPerson()">✕</button>
+    </div>
+    <div id="addPersonContent"></div>
+  </div>
+</div>
 
 <!-- FRIPASS MODAL -->
 <div class="modal-overlay" id="freepassOverlay" onclick="closeFreepassOutside(event)">
@@ -532,12 +555,13 @@ function historyKey(id)  { return STORAGE_PREFIX + id + '_history'; }
 function loadHistory(id) { const raw = localStorage.getItem(historyKey(id)); return raw ? JSON.parse(raw) : []; }
 function saveHistory(id, h) { localStorage.setItem(historyKey(id), JSON.stringify(h)); }
 
-function loadPersonState(id) {
+function loadPersonState(id, dynamicBase) {
   const raw  = localStorage.getItem(STORAGE_PREFIX + id);
-  const base = people[id];
+  const base = people[id] || dynamicBase || {};
   const state = raw ? JSON.parse(raw) : {
-    onboarded:false, profile:null, type:'structured',
-    weights:{ bp:base.bp, sq:base.sq, dl:base.dl, lat:base.lat },
+    onboarded: dynamicBase ? true : false,
+    profile:null, type:'structured',
+    weights:{ bp:base.bp||40, sq:base.sq||50, dl:base.dl||50, lat:base.lat||60 },
     progressionAdj:{ bp:1.0, sq:1.0, dl:1.0, lat:1.0 }
   };
   // Migrera gamla format
@@ -917,9 +941,18 @@ function printPass() {
 // ── PERSON CARDS ──────────────────────────────────────
 function renderCards() {
   const container = document.getElementById('cardsContainer');
-  container.innerHTML = Object.keys(people).map(id => {
-    const p      = people[id];
-    const state  = personStates[id];
+  // Hämta dynamiska personer från localStorage
+  const dynamicPeople = loadDynamicPeople();
+  const allPeople = { ...people, ...dynamicPeople };
+
+  // Ladda states för dynamiska personer
+  Object.keys(dynamicPeople).forEach(id => {
+    if (!personStates[id]) personStates[id] = loadPersonState(id, dynamicPeople[id]);
+  });
+
+  container.innerHTML = Object.keys(allPeople).map(id => {
+    const p      = allPeople[id];
+    const state  = personStates[id] || loadPersonState(id, dynamicPeople[id]);
     const trained = hasTrainedThisWeek(state);
     const badgeText  = p.role ? p.role : (trained ? 'Tränat ✓' : '–');
     const badgeClass = !p.role && trained ? 'trained' : '';
@@ -939,7 +972,12 @@ function renderCards() {
         </div>
         <div class="card-cta">${state.onboarded ? 'Öppna mitt pass →' : 'Kom igång →'}</div>
       </div>`;
-  }).join('');
+  }).join('') + `
+    <div class="add-person-card" onclick="openAddPerson()">
+      <div class="add-person-icon">➕</div>
+      <div class="add-person-label">Ny person</div>
+      <div class="add-person-sub">Lägg till en träningskompis</div>
+    </div>`;
 }
 
 function liftValueHtml(label, value) {
@@ -948,6 +986,14 @@ function liftValueHtml(label, value) {
 }
 
 function onCardClick(id) {
+  // Ladda dynamisk person om den inte finns i personStates
+  if (!personStates[id]) {
+    const dp = loadDynamicPeople();
+    if (dp[id]) {
+      personStates[id] = loadPersonState(id, dp[id]);
+    }
+  }
+  if (!personStates[id]) return;
   if (!personStates[id].onboarded) startOnboarding(id);
   else if (personStates[id].type === 'free') openFreepass(id);
   else openModal(id);
@@ -1302,6 +1348,183 @@ function finishOnboarding() {
   if (onboarding && onboarding.type==='free') openFreepass(id);
   else openModal(id);
   onboarding=null;
+}
+
+// ── DYNAMISKA PERSONER ───────────────────────────────
+const DYNAMIC_KEY = 'gympass_dynamic_people';
+const PERSON_COLORS_LIST = ['#a78bfa','#34d399','#f472b6','#60a5fa','#fb923c','#e879f9','#2dd4bf','#facc15'];
+
+function loadDynamicPeople() {
+  const raw = localStorage.getItem(DYNAMIC_KEY);
+  return raw ? JSON.parse(raw) : {};
+}
+
+function saveDynamicPeople(dp) {
+  localStorage.setItem(DYNAMIC_KEY, JSON.stringify(dp));
+}
+
+function getAllPeople() {
+  return { ...people, ...loadDynamicPeople() };
+}
+
+let addPersonStep = 1;
+let addPersonData = { name:'', initials:'', color:'', type:'structured', profile:null, weights:{ bp:40, sq:50, dl:50, lat:60 } };
+
+function openAddPerson() {
+  addPersonStep = 1;
+  addPersonData = { name:'', initials:'', color:PERSON_COLORS_LIST[0], type:'structured', profile:null, weights:{ bp:40, sq:50, dl:50, lat:60 } };
+  renderAddPersonStep();
+  document.getElementById('addPersonOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAddPerson() {
+  document.getElementById('addPersonOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeAddPersonOutside(e) {
+  if (e.target === document.getElementById('addPersonOverlay')) closeAddPerson();
+}
+
+function renderAddPersonStep() {
+  const el = document.getElementById('addPersonContent');
+  const av = document.getElementById('addPersonAvatar');
+
+  // Uppdatera avatar med vald färg och initialer
+  if (addPersonData.name) {
+    av.textContent = addPersonData.initials || addPersonData.name.substring(0,2).toUpperCase();
+    av.style.background = addPersonData.color;
+  } else {
+    av.textContent = '➕';
+    av.style.background = '#ff7a45';
+  }
+
+  if (addPersonStep === 1) {
+    el.innerHTML = `
+      <div class="onboarding-step">
+        <div class="onboarding-title">Vad heter du?</div>
+        <div class="onboarding-sub">Skriv in ditt namn så sätter vi upp ditt kort.</div>
+        <input class="free-input" id="newPersonName" placeholder="Namn..." value="${addPersonData.name}"
+          oninput="addPersonData.name=this.value; addPersonData.initials=this.value.substring(0,2).toUpperCase(); document.getElementById('addPersonAvatar').textContent=addPersonData.initials||'➕';"
+          style="width:100%;margin-bottom:16px;font-size:16px;padding:14px;">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:10px;font-weight:600;">Välj färg på ditt kort:</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          ${PERSON_COLORS_LIST.map(c => `
+            <div onclick="addPersonData.color='${c}';document.getElementById('addPersonAvatar').style.background='${c}';renderAddPersonStep();"
+              style="width:36px;height:36px;border-radius:50%;background:${c};cursor:pointer;border:3px solid ${addPersonData.color===c?'#fff':'transparent'};transition:border .15s;"></div>`).join('')}
+        </div>
+      </div>
+      <button class="btn-primary" ${addPersonData.name.trim().length>1?'':'disabled'} onclick="addPersonNext()">Nästa →</button>`;
+
+  } else if (addPersonStep === 2) {
+    el.innerHTML = `
+      <div class="onboarding-step">
+        <div class="onboarding-title">Hur vill ${addPersonData.name} träna?</div>
+        <div class="onboarding-sub">Du kan byta senare.</div>
+        <div class="profile-card ${addPersonData.type==='structured'?'selected':''}" onclick="addPersonData.type='structured';renderAddPersonStep()">
+          <div class="profile-card-title">🏋️ Strukturerat program</div>
+          <div class="profile-card-desc">Följer Per's schema med 6 set och uträknade vikter.</div>
+        </div>
+        <div class="profile-card ${addPersonData.type==='free'?'selected':''}" onclick="addPersonData.type='free';renderAddPersonStep()">
+          <div class="profile-card-title">🎯 Eget upplägg</div>
+          <div class="profile-card-desc">Väljer egna övningar och loggar fritt.</div>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="addPersonNext()">Nästa →</button>
+      <button class="btn-secondary" onclick="addPersonStep=1;renderAddPersonStep()">Tillbaka</button>`;
+
+  } else if (addPersonStep === 3) {
+    el.innerHTML = `
+      <div class="onboarding-step">
+        <div class="onboarding-title">Vad driver ${addPersonData.name}?</div>
+        <div class="onboarding-sub">Välj motivationsprofil.</div>
+        ${motivationProfiles.map(mp => `
+          <div class="profile-card ${addPersonData.profile===mp.id?'selected':''}" onclick="addPersonData.profile=${mp.id};renderAddPersonStep()">
+            <div class="profile-card-title">${mp.title}</div>
+            <div class="profile-card-desc">${mp.desc}</div>
+          </div>`).join('')}
+      </div>
+      <button class="btn-primary" ${addPersonData.profile?'':'disabled'} onclick="addPersonNext()">Nästa →</button>
+      <button class="btn-secondary" onclick="addPersonStep=2;renderAddPersonStep()">Tillbaka</button>`;
+
+  } else if (addPersonStep === 4) {
+    if (addPersonData.type === 'free') {
+      el.innerHTML = `
+        <div class="onboarding-step">
+          <div class="onboarding-emoji">✅</div>
+          <div class="onboarding-title">Välkommen, ${addPersonData.name}!</div>
+          <div class="onboarding-sub">Kör eget upplägg – logga dina övningar efter varje pass!</div>
+        </div>
+        <button class="btn-primary" onclick="saveNewPerson()">Lägg till ${addPersonData.name} ✓</button>
+        <button class="btn-secondary" onclick="addPersonStep=3;renderAddPersonStep()">Tillbaka</button>`;
+    } else {
+      const w = addPersonData.weights;
+      el.innerHTML = `
+        <div class="onboarding-step">
+          <div class="onboarding-title">Startvikter</div>
+          <div class="onboarding-sub">Justera i steg om 2,5 kg (latsdrag 5 kg).</div>
+          ${[{key:'bp',label:'Bänkpress',step:2.5},{key:'sq',label:'Benböj',step:2.5},{key:'dl',label:'Marklyft',step:2.5},{key:'lat',label:'Latsdrag',step:5}].map(ex => `
+            <div class="weight-row">
+              <div class="weight-row-label">${ex.label}</div>
+              <div class="stepper">
+                <button class="stepper-btn" onclick="adjNewWeight('${ex.key}',-${ex.step})">–</button>
+                <div class="stepper-val num" id="nw-${ex.key}">${w[ex.key]} kg</div>
+                <button class="stepper-btn" onclick="adjNewWeight('${ex.key}',${ex.step})">+</button>
+              </div>
+            </div>`).join('')}
+        </div>
+        <button class="btn-primary" onclick="saveNewPerson()">Lägg till ${addPersonData.name} ✓</button>
+        <button class="btn-secondary" onclick="addPersonStep=3;renderAddPersonStep()">Tillbaka</button>`;
+    }
+  }
+}
+
+function addPersonNext() {
+  if (addPersonStep === 1 && addPersonData.name.trim().length < 2) return;
+  if (addPersonStep === 3 && !addPersonData.profile) return;
+  addPersonStep++;
+  renderAddPersonStep();
+}
+
+function adjNewWeight(key, delta) {
+  addPersonData.weights[key] = Math.round(Math.max(0, addPersonData.weights[key] + delta) / Math.abs(delta)) * Math.abs(delta);
+  const el = document.getElementById('nw-' + key);
+  if (el) el.textContent = addPersonData.weights[key] + ' kg';
+}
+
+function saveNewPerson() {
+  const name = addPersonData.name.trim();
+  if (!name) return;
+
+  // Skapa unikt ID
+  const id = 'person_' + name.toLowerCase().replace(/[^a-z0-9]/g,'') + '_' + Date.now();
+
+  // Spara som dynamisk person
+  const dp = loadDynamicPeople();
+  dp[id] = {
+    name,
+    initials: name.substring(0,2).toUpperCase(),
+    color: addPersonData.color,
+    bp: addPersonData.weights.bp,
+    sq: addPersonData.weights.sq,
+    dl: addPersonData.weights.dl,
+    lat: addPersonData.weights.lat
+  };
+  saveDynamicPeople(dp);
+
+  // Spara personens state
+  localStorage.setItem('gympass_' + id, JSON.stringify({
+    onboarded: true,
+    profile: addPersonData.profile,
+    type: addPersonData.type,
+    weights: { ...addPersonData.weights },
+    progressionAdj: { bp:1.0, sq:1.0, dl:1.0, lat:1.0 }
+  }));
+  localStorage.setItem('gympass_' + id + '_history', JSON.stringify([]));
+
+  closeAddPerson();
+  renderCards();
 }
 
 // ── INIT ──────────────────────────────────────────────
