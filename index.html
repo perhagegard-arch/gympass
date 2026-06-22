@@ -1545,6 +1545,7 @@ document.getElementById('nextDay').textContent='Måndag '+nextMon.getDate()+' '+
 // ── HISTORIK MODAL ────────────────────────────────────
 function openHistorik() {
   renderHistorikContent();
+  renderHanteraPersoner();
   document.getElementById('historikOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
