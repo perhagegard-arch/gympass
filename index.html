@@ -1586,6 +1586,48 @@ function renderHistorikContent() {
       +'<div style="background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;">'+rows+'</div></div>';
   });
   el.innerHTML = hasData ? html : '<div style="padding:40px 20px;color:var(--muted);font-size:14px;text-align:center;">Inga loggade pass ännu.</div>';
+  renderHanteraPersoner();
+}
+
+function renderHanteraPersoner() {
+  var el = document.getElementById('hanteraPersoner');
+  if (!el) return;
+  var dp = loadDynamicPeople();
+  var keys = Object.keys(dp);
+  if (!keys.length) {
+    el.innerHTML = '<div style="font-size:13px;color:var(--muted);">Inga tillagda personer.</div>';
+    return;
+  }
+  el.innerHTML = keys.map(function(id) {
+    var p = dp[id];
+    return '<div style="display:flex;align-items:center;justify-content:space-between;'
+      + 'background:var(--card);border:1px solid var(--line);border-radius:12px;'
+      + 'padding:12px 16px;margin-bottom:8px;">' 
+      + '<div style="display:flex;align-items:center;gap:10px;">' 
+      + '<div style="width:32px;height:32px;border-radius:8px;background:' + p.color + ';'
+      + 'display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#111;">' + p.initials + '</div>'
+      + '<div style="font-size:14px;font-weight:600;">' + p.name + '</div>'
+      + '</div>'
+      + '<button onclick="deletePerson(\'' + id + '\')" '
+      + 'style="background:rgba(255,60,60,0.1);border:1px solid rgba(255,60,60,0.3);'
+      + 'color:#ff6060;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;">'
+      + 'Ta bort</button>'
+      + '</div>';
+  }).join('');
+}
+
+function deletePerson(id) {
+  var dp = loadDynamicPeople();
+  var name = dp[id] ? dp[id].name : id;
+  if (!confirm('Ta bort ' + name + ' och all träningsdata?')) return;
+  delete dp[id];
+  saveDynamicPeople(dp);
+  localStorage.removeItem(STORAGE_PREFIX + id);
+  localStorage.removeItem(STORAGE_PREFIX + id + '_history');
+  delete personStates[id];
+  renderCards();
+  renderEiffel();
+  renderHanteraPersoner();
 }
 </script>
 <!-- HISTORIK MODAL -->
@@ -1599,7 +1641,13 @@ function renderHistorikContent() {
       </div>
       <button class="modal-close" onclick="closeHistorik()">✕</button>
     </div>
-    <div id="historikContent" style="padding-bottom:40px;"></div>
+    <div id="historikContent" style="padding-bottom:20px;"></div>
+    
+    <!-- HANTERA PERSONER -->
+    <div style="margin:0 20px 40px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">Hantera personer</div>
+      <div id="hanteraPersoner"></div>
+    </div>
   </div>
 </div>
 
