@@ -1600,6 +1600,24 @@ function renderHistorikContent() {
   });
   el.innerHTML = hasData ? html : '<div style="padding:40px 20px;color:var(--muted);font-size:14px;text-align:center;">Inga loggade pass ännu.</div>';
 }
+
+// ── TA BORT PERSON ────────────────────────────────────
+function confirmDeletePerson(id, name) {
+  if (confirm('Ta bort ' + name + ' och all träningsdata?')) {
+    deletePerson(id);
+  }
+}
+
+function deletePerson(id) {
+  const dp = loadDynamicPeople();
+  delete dp[id];
+  saveDynamicPeople(dp);
+  localStorage.removeItem(STORAGE_PREFIX + id);
+  localStorage.removeItem(STORAGE_PREFIX + id + '_history');
+  delete personStates[id];
+  renderCards();
+  renderEiffel();
+}
 </script>
 <!-- HISTORIK MODAL -->
 <div class="modal-overlay" id="historikOverlay" onclick="closeHistorikOutside(event)">
