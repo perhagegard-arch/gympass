@@ -237,6 +237,20 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
   .print-plate-info { font-size:11px; color:#555; padding:4px 12px 6px; background:#fafafa; }
 }
 
+/* VIKT-EDITOR */
+.weight-editor { margin:14px 20px 0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
+.weight-editor-title { padding:10px 16px; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; cursor:pointer; }
+.weight-editor-body { display:none; padding:10px 16px 14px; }
+.weight-editor-body.open { display:block; }
+.we-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+.we-row:last-child { margin-bottom:0; }
+.we-label { font-size:13px; font-weight:600; color:var(--ink); }
+.we-stepper { display:flex; align-items:center; gap:8px; }
+.we-btn { width:36px; height:36px; border-radius:50%; border:1px solid var(--line); background:var(--card2); color:var(--ink); font-size:18px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; -webkit-tap-highlight-color:transparent; }
+.we-btn:active { background:var(--orange-soft); border-color:var(--orange-line); }
+.we-val { font-family:var(--disp); font-weight:700; font-size:18px; min-width:60px; text-align:center; }
+.we-save { width:100%; margin-top:12px; padding:10px; background:var(--orange); border:none; border-radius:10px; color:#1a0d06; font-family:var(--disp); font-size:16px; font-weight:700; cursor:pointer; }
+
 /* FRIPASS */
 .free-block { margin:18px 20px 0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
 .free-title { padding:13px 16px; font-family:var(--disp); font-size:16px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; }
@@ -322,6 +336,7 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
     </div>
     <div id="modalContent"></div>
     <div class="rest-note">⏱ Vila ca 2 minuter mellan varje set</div>
+    <div id="editWeightsSection"></div>
     <button class="btn-primary" onclick="finishWorkout()">Avsluta pass ✅</button>
     <div id="targetsSection"></div>
     <div id="graphSection"></div>
@@ -712,6 +727,75 @@ function renderTargets(id) {
     </div>`;
 }
 
+// ── VIKT-EDITOR ───────────────────────────────────────
+let editWeightsOpen = false;
+let editWeightsTmp = {};
+
+function renderEditWeights(id) {
+  const state = personStates[id];
+  const p = people[id];
+  const el = document.getElementById('editWeightsSection');
+  if (!el) return;
+
+  // Initiera temp-vikter
+  if (!editWeightsTmp[id]) editWeightsTmp[id] = { ...state.weights };
+  const tmp = editWeightsTmp[id];
+
+  const exercises = [
+    { key:'bp',  label:'Bänkpress', step:2.5 },
+    { key:'sq',  label:'Benböj',    step:2.5 },
+    { key:'dl',  label:'Marklyft',  step:2.5 },
+    { key:'lat', label:'Latsdrag',  step:5   } // stack-steg om 5 kg
+  ];
+
+  el.innerHTML = `
+    <div class="weight-editor">
+      <div class="weight-editor-title" onclick="toggleEditWeights('${id}')">
+        <span>⚖️ Uppdatera vikter</span>
+        <span style="color:var(--orange)">${editWeightsOpen ? '▲ Stäng' : '▼ Öppna'}</span>
+      </div>
+      <div class="weight-editor-body ${editWeightsOpen ? 'open' : ''}">
+        ${exercises.map(ex => {
+          const val = tmp[ex.key] ?? 0;
+          return `<div class="we-row">
+            <div class="we-label">${ex.label}</div>
+            <div class="we-stepper">
+              <button class="we-btn" onclick="adjustEditWeight('${id}','${ex.key}',-${ex.step})">–</button>
+              <div class="we-val num" id="we-val-${ex.key}">${val > 0 ? val + ' kg' : '–'}</div>
+              <button class="we-btn" onclick="adjustEditWeight('${id}','${ex.key}',${ex.step})">+</button>
+            </div>
+          </div>`;
+        }).join('')}
+        <button class="we-save" onclick="saveEditWeights('${id}')">Spara vikter ✓</button>
+      </div>
+    </div>`;
+}
+
+function toggleEditWeights(id) {
+  editWeightsOpen = !editWeightsOpen;
+  renderEditWeights(id);
+}
+
+function adjustEditWeight(id, key, delta) {
+  if (!editWeightsTmp[id]) editWeightsTmp[id] = { ...personStates[id].weights };
+  const current = editWeightsTmp[id][key] || 0;
+  const newVal = Math.round(Math.max(0, current + delta) / Math.abs(delta)) * Math.abs(delta);
+  editWeightsTmp[id][key] = newVal;
+  const el = document.getElementById('we-val-' + key);
+  if (el) el.textContent = newVal > 0 ? newVal + ' kg' : '–';
+}
+
+function saveEditWeights(id) {
+  const state = personStates[id];
+  state.weights = { ...editWeightsTmp[id] };
+  savePersonState(id, state);
+  editWeightsOpen = false;
+  // Uppdatera hela modalen med nya vikter
+  openModal(id);
+  // Uppdatera personkorten
+  renderCards();
+}
+
 function adjEx(id, key, delta) {
   const state = personStates[id];
   state.progressionAdj[key] = Math.round(Math.max(0.5, Math.min(2.0, (state.progressionAdj[key]||1.0) + delta)) * 100) / 100;
@@ -944,6 +1028,7 @@ function openModal(id) {
     <div class="exercise-title" style="color:${p.color}">${e.label}</div>
     ${buildSets(e.w,e.key)}</div>`).join('');
   renderTargets(id);
+  renderEditWeights(id);
   renderGraph(id);
   renderHistorySection(id);
   document.getElementById('modalOverlay').classList.add('open');
