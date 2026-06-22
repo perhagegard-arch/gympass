@@ -56,7 +56,6 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
 .person-card:active { transform:scale(0.97); }
 .person-card.per { --pc:var(--orange); } .person-card.alex { --pc:#4d9fff; }
 .person-card.nia { --pc:#ff6ea9; } .person-card.hannes { --pc:#ffd24d; }
-.person-card { --pc: #a78bfa; } /* fallback för dynamiska personer */
 .card-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
 .avatar { width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-family:var(--disp); font-weight:700; font-size:14px; background:var(--pc); color:#111; }
 .person-card.hannes .avatar { color:#3a2c00; }
@@ -285,7 +284,6 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
 </head>
 <body>
 
-<div id="main-content">
 <div class="header">
   <div class="wm">GYM<b>PASS</b></div>
   <div class="date" id="headerDate"></div>
@@ -331,8 +329,6 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
   <div class="sechint">Tryck för att se ditt pass</div>
 </div>
 <div class="cards" id="cardsContainer"></div>
-
-</div><!-- /main-content -->
 
 <!-- PERSON MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
@@ -406,27 +402,9 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
 
 <!-- BOTTOM NAV -->
 <div class="nav">
-  <a class="on" id="nav-hem" onclick="showView('hem')"><span class="ndot"></span>Hem</a>
-  <a id="nav-historik" onclick="showView('historik')"><span class="ndot"></span>Historik</a>
-  <a id="nav-profil" onclick="showView('profil')"><span class="ndot"></span>Profil</a>
-</div>
-
-<!-- HISTORIK-VY -->
-<div id="view-historik" style="display:none;padding:0 0 80px;">
-  <div style="padding:22px 20px 0;display:flex;align-items:center;justify-content:space-between;">
-    <div style="font-family:var(--disp);font-weight:800;font-size:24px;">GYM<b style='color:var(--orange)'>PASS</b></div>
-    <div style="font-size:12px;color:var(--muted)">Alla pass</div>
-  </div>
-  <div id="historik-content" style="margin-top:16px;"></div>
-</div>
-
-<!-- PROFIL-VY -->
-<div id="view-profil" style="display:none;padding:0 0 80px;">
-  <div style="padding:22px 20px 0;display:flex;align-items:center;justify-content:space-between;">
-    <div style="font-family:var(--disp);font-weight:800;font-size:24px;">GYM<b style='color:var(--orange)'>PASS</b></div>
-    <div style="font-size:12px;color:var(--muted)">Inställningar</div>
-  </div>
-  <div id="profil-content" style="margin-top:16px;"></div>
+  <a class="on"><span class="ndot"></span>Hem</a>
+  <a><span class="ndot"></span>Historik</a>
+  <a><span class="ndot"></span>Profil</a>
 </div>
 
 <script>
@@ -779,9 +757,7 @@ let editWeightsTmp = {};
 
 function renderEditWeights(id) {
   const state = personStates[id];
-  const dpEdit = loadDynamicPeople();
-  const p = people[id] || dpEdit[id];
-  if (!p) return;
+  const p = people[id];
   const el = document.getElementById('editWeightsSection');
   if (!el) return;
 
@@ -934,10 +910,7 @@ function printPass() {
     .plates{font-size:11px;color:#555;padding:4px 12px 6px;background:#fafafa;border-top:1px solid #eee;}
     .num{font-weight:700;}
     .rest{text-align:center;font-size:12px;color:#888;margin-top:8px;}
-  
-/* NAVIGATION VYER */
-#main-content.hidden { display:none; }
-</style></head><body>
+  </style></head><body>
   <h1>GYMPASS – ${p.name.toUpperCase()}</h1>
   <div class="sub">${dateStr} · Stång ${barWeight} kg</div>`;
   exArr.forEach(ex => {
@@ -983,12 +956,10 @@ function renderCards() {
     const trained = hasTrainedThisWeek(state);
     const badgeText  = p.role ? p.role : (trained ? 'Tränat ✓' : '–');
     const badgeClass = !p.role && trained ? 'trained' : '';
-    const isDynamic = !people[id];
-    const cardStyle = isDynamic ? `style="--pc:${p.color}"` : '';
     return `
-      <div class="person-card ${id}" ${cardStyle} onclick="onCardClick('${id}')">
+      <div class="person-card ${id}" onclick="onCardClick('${id}')">
         <div class="card-top">
-          <div class="avatar" style="${isDynamic ? `background:${p.color};color:#111` : ''}">${p.initials}</div>
+          <div class="avatar">${p.initials}</div>
           <div class="card-badge ${badgeClass}">${badgeText}</div>
         </div>
         <div class="card-name">${p.name}</div>
@@ -1090,13 +1061,9 @@ let feelingPersonId = null;
 
 function openModal(id) {
   currentModalPersonId = id;
-  const dp = loadDynamicPeople();
-  const p = people[id] || dp[id];
-  if (!p) return;
-  const state = personStates[id] || loadPersonState(id, dp[id]);
-  personStates[id] = state;
+  const p=people[id], state=personStates[id];
   const av=document.getElementById('modalAvatar');
-  av.textContent=p.initials; av.style.color=(p.color==='#ffd24d')?'#3a2c00':'#111'; av.style.background=p.color;
+  av.textContent=p.initials; av.style.color=id==='hannes'?'#3a2c00':'#111'; av.style.background=p.color;
   document.getElementById('modalName').textContent=p.name;
   document.getElementById('modalContent').innerHTML=[
     {key:'bp',label:'Bänkpress',w:state.weights.bp},
@@ -1129,8 +1096,7 @@ function showFeelingQuestion() {
     <div class="onboarding-step"><div class="onboarding-title">Hur kändes passet?</div></div>
     <div class="feeling-grid">
       ${feelingOptions.map(f=>`<div class="feeling-card" onclick="selectFeeling(${f.id})"><div class="feeling-emoji">${f.emoji}</div><div class="feeling-label">${f.label}</div></div>`).join('')}
-    </div>
-    <button class="btn-secondary" onclick="closeFeelingOverlay()" style="margin-top:8px;">Hoppa över</button>`;
+    </div>`;
   document.getElementById('feelingOverlay').classList.add('open');
   document.body.style.overflow='hidden';
 }
@@ -1186,9 +1152,7 @@ let newExName = '';
 function openFreepass(id) {
   freepassPersonId = id;
   freeExercises = [];
-  const dp = loadDynamicPeople();
-  const p = people[id] || dp[id];
-  if (!p) return;
+  const p = people[id];
   const av = document.getElementById('freepassAvatar');
   av.textContent = p.initials; av.style.background = p.color; av.style.color = id==='hannes'?'#3a2c00':'#111';
   document.getElementById('freepassName').textContent = p.name;
@@ -1204,9 +1168,7 @@ function closeFreepass() {
 function closeFreepassOutside(e) { if(e.target===document.getElementById('freepassOverlay')) closeFreepass(); }
 
 function renderFreepass() {
-  const dp2 = loadDynamicPeople();
-  const p = people[freepassPersonId] || dp2[freepassPersonId];
-  if (!p) return;
+  const p = people[freepassPersonId];
   document.getElementById('freepassContent').innerHTML = `
     <div style="padding:16px 20px 0;">
       <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Ditt fria pass</div>
@@ -1277,10 +1239,8 @@ function finishFreepass() {
   const state = personStates[id];
   state.history.push({ date:new Date().toISOString(), freeExercises:[...freeExercises], feeling:null });
   saveHistory(id, state.history);
-  closeFreepass();
-  renderCards(); renderWeekBar(); renderEiffel();
-  feelingPersonId = id;
-  setTimeout(() => showFeelingQuestion(), 300);
+  closeFreepass(); renderCards(); renderWeekBar(); renderEiffel();
+  feelingPersonId = id; showFeelingQuestion();
 }
 
 // ── ONBOARDING ────────────────────────────────────────
@@ -1525,9 +1485,6 @@ function addPersonNext() {
   if (addPersonStep === 3 && !addPersonData.profile) return;
   addPersonStep++;
   renderAddPersonStep();
-  // Scrolla till toppen av modalen
-  const modal = document.getElementById('addPersonModal');
-  if (modal) modal.scrollTop = 0;
 }
 
 function adjNewWeight(key, delta) {
@@ -1568,115 +1525,6 @@ function saveNewPerson() {
 
   closeAddPerson();
   renderCards();
-}
-
-// ── NAVIGERING ───────────────────────────────────────
-function showView(view) {
-  // Visa/dölj main-content
-  const main = document.getElementById('main-content');
-  const historik = document.getElementById('view-historik');
-  const profil = document.getElementById('view-profil');
-
-  if (main) main.style.display = (view === 'hem') ? '' : 'none';
-  if (historik) historik.style.display = (view === 'historik') ? '' : 'none';
-  if (profil) profil.style.display = (view === 'profil') ? '' : 'none';
-
-  // Markera aktiv nav
-  document.querySelectorAll('.nav a').forEach(a => a.classList.remove('on'));
-  const navEl = document.getElementById('nav-' + view);
-  if (navEl) navEl.classList.add('on');
-
-  // Rendera innehåll
-  if (view === 'historik') renderHistorikView();
-  if (view === 'profil') renderProfilView();
-}
-
-function renderHistorikView() {
-  const el = document.getElementById('historik-content');
-  const dp = loadDynamicPeople();
-  const allP = { ...people, ...dp };
-  let html = '';
-
-  Object.keys(allP).forEach(id => {
-    const p = allP[id];
-    const state = personStates[id] || loadPersonState(id, dp[id]);
-    const history = state.history || [];
-    if (!history.length) return;
-
-    html += `<div style="margin:0 20px 16px;">
-      <div style="font-family:var(--disp);font-weight:700;font-size:18px;color:${p.color};margin-bottom:8px;">${p.name}</div>
-      <div style="background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;">
-        ${history.slice(-10).reverse().map(h => {
-          const d = new Date(h.date);
-          const dateStr = days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()];
-          const weightsStr = h.freeExercises
-            ? h.freeExercises.map(e => e.name).join(', ')
-            : \`\${h.weights?.bp||'–'}/\${h.weights?.sq||'–'}/\${h.weights?.dl||'–'}/\${h.weights?.lat||'–'} kg\`;
-          return \`<div style="display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--line);">
-            <div style="font-size:12px;color:var(--muted);min-width:80px;">\${dateStr}</div>
-            <div style="font-size:13px;flex:1;">\${weightsStr}</div>
-            <div style="font-size:16px;">\${feelingEmoji(h.feeling)}</div>
-          </div>\`;
-        }).join('')}
-      </div>
-    </div>`;
-  });
-
-  el.innerHTML = html || '<div style="padding:20px;color:var(--muted);font-size:13px;">Inga loggade pass än.</div>';
-}
-
-function renderProfilView() {
-  const el = document.getElementById('profil-content');
-  const dp = loadDynamicPeople();
-
-  let html = `
-    <div style="padding:0 20px;">
-      <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">Stång</div>
-      <div style="display:flex;gap:8px;margin-bottom:20px;">
-        <div onclick="setBar(20)" style="flex:1;padding:12px;background:${barWeight===20?'var(--orange)':'var(--card)'};color:${barWeight===20?'#1a0d06':'var(--muted)'};border:1px solid var(--line);border-radius:12px;font-weight:700;font-size:13px;text-align:center;cursor:pointer;">20 kg olympisk</div>
-        <div onclick="setBar(15);renderProfilView();" style="flex:1;padding:12px;background:${barWeight===15?'var(--orange)':'var(--card)'};color:${barWeight===15?'#1a0d06':'var(--muted)'};border:1px solid var(--line);border-radius:12px;font-weight:700;font-size:13px;text-align:center;cursor:pointer;">15 kg standard</div>
-      </div>
-
-      <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">Hantera personer</div>`;
-
-  // Visa bara dynamiska personer med ta-bort-knapp
-  const dpKeys = Object.keys(dp);
-  if (dpKeys.length === 0) {
-    html += `<div style="font-size:13px;color:var(--muted);margin-bottom:16px;">Inga tillagda personer ännu.</div>`;
-  } else {
-    dpKeys.forEach(id => {
-      const p = dp[id];
-      html += `<div style="display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:8px;">
-        <div style="display:flex;align-items:center;gap:10px;">
-          <div style="width:32px;height:32px;border-radius:8px;background:${p.color};display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#111;">${p.initials}</div>
-          <div style="font-size:14px;font-weight:600;">${p.name}</div>
-        </div>
-        <button onclick="deletePerson('${id}')" style="background:rgba(255,60,60,0.1);border:1px solid rgba(255,60,60,0.3);color:#ff6060;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;">Ta bort</button>
-      </div>`;
-    });
-  }
-
-  html += `
-      <div style="margin-top:20px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">Data</div>
-      <div onclick="if(confirm('Är du säker? All träningsdata raderas!')) { localStorage.clear(); location.reload(); }"
-        style="background:rgba(255,60,60,0.08);border:1px solid rgba(255,60,60,0.2);border-radius:12px;padding:12px 16px;color:#ff6060;font-size:13px;font-weight:600;cursor:pointer;text-align:center;">
-        🗑️ Rensa all data
-      </div>
-    </div>`;
-
-  el.innerHTML = html;
-}
-
-function deletePerson(id) {
-  if (!confirm('Ta bort personen och all träningsdata?')) return;
-  const dp = loadDynamicPeople();
-  delete dp[id];
-  saveDynamicPeople(dp);
-  localStorage.removeItem('gympass_' + id);
-  localStorage.removeItem('gympass_' + id + '_history');
-  delete personStates[id];
-  renderCards();
-  renderProfilView();
 }
 
 // ── INIT ──────────────────────────────────────────────
