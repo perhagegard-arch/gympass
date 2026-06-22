@@ -56,6 +56,7 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
 .person-card:active { transform:scale(0.97); }
 .person-card.per { --pc:var(--orange); } .person-card.alex { --pc:#4d9fff; }
 .person-card.nia { --pc:#ff6ea9; } .person-card.hannes { --pc:#ffd24d; }
+.person-card { --pc: #a78bfa; } /* fallback för dynamiska personer */
 .card-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
 .avatar { width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-family:var(--disp); font-weight:700; font-size:14px; background:var(--pc); color:#111; }
 .person-card.hannes .avatar { color:#3a2c00; }
@@ -757,7 +758,9 @@ let editWeightsTmp = {};
 
 function renderEditWeights(id) {
   const state = personStates[id];
-  const p = people[id];
+  const dpEdit = loadDynamicPeople();
+  const p = people[id] || dpEdit[id];
+  if (!p) return;
   const el = document.getElementById('editWeightsSection');
   if (!el) return;
 
@@ -956,10 +959,12 @@ function renderCards() {
     const trained = hasTrainedThisWeek(state);
     const badgeText  = p.role ? p.role : (trained ? 'Tränat ✓' : '–');
     const badgeClass = !p.role && trained ? 'trained' : '';
+    const isDynamic = !people[id];
+    const cardStyle = isDynamic ? `style="--pc:${p.color}"` : '';
     return `
-      <div class="person-card ${id}" onclick="onCardClick('${id}')">
+      <div class="person-card ${id}" ${cardStyle} onclick="onCardClick('${id}')">
         <div class="card-top">
-          <div class="avatar">${p.initials}</div>
+          <div class="avatar" style="${isDynamic ? `background:${p.color};color:#111` : ''}">${p.initials}</div>
           <div class="card-badge ${badgeClass}">${badgeText}</div>
         </div>
         <div class="card-name">${p.name}</div>
@@ -1061,9 +1066,13 @@ let feelingPersonId = null;
 
 function openModal(id) {
   currentModalPersonId = id;
-  const p=people[id], state=personStates[id];
+  const dp = loadDynamicPeople();
+  const p = people[id] || dp[id];
+  if (!p) return;
+  const state = personStates[id] || loadPersonState(id, dp[id]);
+  personStates[id] = state;
   const av=document.getElementById('modalAvatar');
-  av.textContent=p.initials; av.style.color=id==='hannes'?'#3a2c00':'#111'; av.style.background=p.color;
+  av.textContent=p.initials; av.style.color=(p.color==='#ffd24d')?'#3a2c00':'#111'; av.style.background=p.color;
   document.getElementById('modalName').textContent=p.name;
   document.getElementById('modalContent').innerHTML=[
     {key:'bp',label:'Bänkpress',w:state.weights.bp},
@@ -1152,7 +1161,9 @@ let newExName = '';
 function openFreepass(id) {
   freepassPersonId = id;
   freeExercises = [];
-  const p = people[id];
+  const dp = loadDynamicPeople();
+  const p = people[id] || dp[id];
+  if (!p) return;
   const av = document.getElementById('freepassAvatar');
   av.textContent = p.initials; av.style.background = p.color; av.style.color = id==='hannes'?'#3a2c00':'#111';
   document.getElementById('freepassName').textContent = p.name;
@@ -1168,7 +1179,9 @@ function closeFreepass() {
 function closeFreepassOutside(e) { if(e.target===document.getElementById('freepassOverlay')) closeFreepass(); }
 
 function renderFreepass() {
-  const p = people[freepassPersonId];
+  const dp2 = loadDynamicPeople();
+  const p = people[freepassPersonId] || dp2[freepassPersonId];
+  if (!p) return;
   document.getElementById('freepassContent').innerHTML = `
     <div style="padding:16px 20px 0;">
       <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Ditt fria pass</div>
@@ -1485,6 +1498,9 @@ function addPersonNext() {
   if (addPersonStep === 3 && !addPersonData.profile) return;
   addPersonStep++;
   renderAddPersonStep();
+  // Scrolla till toppen av modalen
+  const modal = document.getElementById('addPersonModal');
+  if (modal) modal.scrollTop = 0;
 }
 
 function adjNewWeight(key, delta) {
