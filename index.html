@@ -197,6 +197,67 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
 .history-weights { font-family:var(--disp); font-weight:700; font-size:16px; flex:1; text-align:center; }
 .history-feeling { font-size:18px; }
 .history-empty { margin:8px 20px 0; padding:14px 16px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); font-size:12px; color:var(--muted); }
+
+/* PLATTEKALKYLATOR */
+.plate-info { padding:6px 16px 10px; background:rgba(0,0,0,0.2); border-top:1px solid var(--line); }
+.plate-row { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+.plate-label { font-size:10px; color:var(--muted); min-width:60px; }
+.plate-chip { font-size:10px; font-weight:700; padding:3px 7px; border-radius:6px; background:var(--card2); color:var(--ink); border:1px solid var(--line); }
+.plate-chip.p20 { background:#3a1f0a; color:#ff9055; border-color:#ff7a45; }
+.plate-chip.p15 { background:#0a2a3a; color:#5db0ff; border-color:#4d9fff; }
+.plate-chip.p10 { background:#1a2a0a; color:#a0d050; border-color:#7ab828; }
+.plate-chip.p5  { background:#2a1a2a; color:#d070d0; border-color:#a040a0; }
+.plate-chip.p25 { background:#2a2a0a; color:#d0c050; border-color:#a09020; }
+.plate-chip.p125{ background:#1a1a2a; color:#9090d0; border-color:#6060a0; }
+.bar-toggle { display:flex; gap:6px; padding:0 20px; margin-top:14px; }
+.bar-btn { flex:1; padding:8px; border:1px solid var(--line); border-radius:10px; background:var(--card2); color:var(--muted); font-size:12px; font-weight:700; cursor:pointer; text-align:center; font-family:var(--disp); }
+.bar-btn.on { background:var(--orange-soft); color:var(--orange); border-color:var(--orange-line); }
+
+/* MÅLVIKTER PER ÖVNING */
+.targets-ex-row { border-bottom:1px solid var(--line); }
+.targets-ex-row:last-child { border-bottom:none; }
+.targets-ex-header { display:grid; grid-template-columns:90px 1fr 1fr; padding:10px 16px 6px; align-items:center; }
+.targets-ex-name { font-size:13px; font-weight:700; color:var(--ink); }
+.targets-ex-val { font-family:var(--disp); font-weight:700; font-size:17px; text-align:center; }
+.targets-ex-adj { display:flex; gap:4px; padding:0 16px 10px; }
+.targets-ex-adjbtn { flex:1; padding:5px 0; border:1px solid var(--line); border-radius:8px; background:var(--card2); color:var(--muted); font-size:11px; font-weight:700; cursor:pointer; text-align:center; }
+.targets-ex-adjbtn:active { background:var(--orange-soft); color:var(--orange); }
+
+/* UTSKRIFT */
+.print-btn { position:absolute; right:60px; top:18px; width:34px; height:34px; border-radius:50%; background:var(--card2); border:none; color:var(--muted); font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+@media print {
+  body { background:#fff !important; color:#000 !important; padding:0 !important; max-width:none !important; }
+  .nav, .modal-overlay:not(#printModal), .header, .quote, .next, .week, .week-head, .eiffel-card, .cards, #cardsContainer, .bar-toggle { display:none !important; }
+  .print-content { display:block !important; }
+  .print-header { font-size:22px; font-weight:700; margin-bottom:8px; }
+  .print-exercise { margin-bottom:14px; border:1px solid #ccc; border-radius:8px; overflow:hidden; }
+  .print-ex-title { background:#f0f0f0; padding:8px 12px; font-size:14px; font-weight:700; text-transform:uppercase; }
+  .print-set-row { display:grid; grid-template-columns:30px 1fr 80px 60px; padding:6px 12px; border-bottom:1px solid #eee; font-size:13px; }
+  .print-set-row:last-child { border-bottom:none; }
+  .print-plate-info { font-size:11px; color:#555; padding:4px 12px 6px; background:#fafafa; }
+}
+
+/* FRIPASS */
+.free-block { margin:18px 20px 0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
+.free-title { padding:13px 16px; font-family:var(--disp); font-size:16px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; }
+.free-exercise { padding:12px 16px; border-bottom:1px solid var(--line); }
+.free-exercise:last-of-type { border-bottom:none; }
+.free-ex-name { font-family:var(--disp); font-weight:700; font-size:17px; margin-bottom:6px; }
+.free-ex-detail { font-size:12px; color:var(--muted); }
+.free-add { display:flex; gap:8px; padding:12px 16px; }
+.free-input { flex:1; background:var(--card2); border:1px solid var(--line); border-radius:10px; padding:10px 12px; color:var(--ink); font-size:14px; font-family:'Inter',sans-serif; }
+.free-input:focus { outline:none; border-color:var(--orange-line); }
+.free-add-btn { padding:10px 16px; background:var(--orange); border:none; border-radius:10px; color:#1a0d06; font-weight:700; font-size:14px; cursor:pointer; font-family:var(--disp); }
+.free-suggestion { display:flex; gap:6px; padding:0 16px 12px; flex-wrap:wrap; }
+.free-sug-chip { font-size:11px; padding:4px 10px; background:var(--card2); border:1px solid var(--line); border-radius:20px; cursor:pointer; color:var(--muted); }
+.free-sug-chip:active { background:var(--orange-soft); color:var(--orange); }
+.free-sets-row { display:grid; grid-template-columns:1fr 1fr 1fr 30px; gap:6px; margin-top:8px; }
+.free-set-input { background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:7px 8px; color:var(--ink); font-size:13px; font-family:'Inter',sans-serif; text-align:center; }
+.free-set-del { background:none; border:none; color:var(--muted); font-size:16px; cursor:pointer; padding:0; }
+.type-toggle { display:flex; gap:0; margin:16px 20px 0; border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+.type-btn { flex:1; padding:11px; background:var(--card2); border:none; color:var(--muted); font-size:13px; font-weight:700; cursor:pointer; font-family:var(--disp); }
+.type-btn.on { background:var(--orange); color:#1a0d06; }
+
 </style>
 </head>
 <body>
@@ -233,6 +294,13 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
 <div class="week-head"><div class="seclab">Gruppens mål 🗼</div></div>
 <div class="eiffel-card" id="eiffelCard"></div>
 
+
+<!-- STÅNGVÄLJARE -->
+<div class="bar-toggle">
+  <div class="bar-btn on" id="bar20" onclick="setBar(20)">Stång 20 kg (olympisk)</div>
+  <div class="bar-btn" id="bar15" onclick="setBar(15)">Stång 15 kg (standard)</div>
+</div>
+
 <div class="week-head">
   <div class="seclab">Välj person</div>
   <div class="sechint">Tryck för att se ditt pass</div>
@@ -248,6 +316,7 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
         <div class="modal-avatar" id="modalAvatar"></div>
         <div class="modal-name" id="modalName"></div>
       </div>
+      <button class="print-btn" onclick="printPass()" title="Skriv ut pass">🖨️</button>
       <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
     <div id="modalContent"></div>
@@ -256,6 +325,22 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
     <div id="targetsSection"></div>
     <div id="graphSection"></div>
     <div id="historySection"></div>
+  </div>
+</div>
+
+
+<!-- FRIPASS MODAL -->
+<div class="modal-overlay" id="freepassOverlay" onclick="closeFreepassOutside(event)">
+  <div class="modal" id="freepassModal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div class="modal-person">
+        <div class="modal-avatar" id="freepassAvatar"></div>
+        <div class="modal-name" id="freepassName"></div>
+      </div>
+      <button class="modal-close" onclick="closeFreepass()">✕</button>
+    </div>
+    <div id="freepassContent"></div>
   </div>
 </div>
 
@@ -293,7 +378,10 @@ const people = {
 };
 
 const EIFFEL_KG = 10100000;
-const KG_PER_PASS_EST = 24000; // ungefär per gruppass
+const PLATES = [20, 15, 10, 5, 2.5, 1.25];
+const PLATE_CLASSES = { 20:'p20', 15:'p15', 10:'p10', 5:'p5', 2.5:'p25', 1.25:'p125' };
+
+let barWeight = 20; // kg – kan ändras av användaren
 
 const comparisons = [
   { kg:5000,     emoji:'🐘', name:'elefant' },
@@ -319,10 +407,10 @@ const quotes = [
 ];
 
 const motivationProfiles = [
-  { id:1, title:'Siffrorna ljuger inte',       desc:'Du motiveras av viktutveckling och tydliga grafer på din progression.' },
-  { id:2, title:'Tillsammans är vi starkare',  desc:'Du motiveras av att träna som grupp och peppa varandra.' },
+  { id:1, title:'Siffrorna ljuger inte',         desc:'Du motiveras av viktutveckling och tydliga grafer på din progression.' },
+  { id:2, title:'Tillsammans är vi starkare',    desc:'Du motiveras av att träna som grupp och peppa varandra.' },
   { id:3, title:'Jag mår bättre när jag tränar', desc:'Du motiveras av välmående, energi och hur kroppen känns.' },
-  { id:4, title:'Jag vill överraska mig själv', desc:'Du motiveras av milstolpar, personbästa och beröm.' }
+  { id:4, title:'Jag vill överraska mig själv',  desc:'Du motiveras av milstolpar, personbästa och beröm.' }
 ];
 
 const feelingOptions = [
@@ -333,12 +421,13 @@ const feelingOptions = [
   { id:5, emoji:'🚀', label:'Maxade idag 🔥',    message:'BEAST! 🔥 Äta: kycklingfilé, ris och grönsaker inom 45 min. Drick 0,5L vatten nu. Nästa pass: öka med 2,5 kg!' }
 ];
 
+const FREE_SUGGESTIONS = ['Bicep curl','Triceps','Rodd','Axelpress','Plankan','Dips','Chins','Situps','Löpband','Cykel'];
+
 const days   = ['Söndag','Måndag','Tisdag','Onsdag','Torsdag','Fredag','Lördag'];
 const months = ['jan','feb','mar','apr','maj','jun','jul','aug','sep','okt','nov','dec'];
 
 const exerciseKeys  = ['bp','sq','dl','lat'];
 const exerciseNames = { bp:'Bänkpress', sq:'Benböj', dl:'Marklyft', lat:'Latsdrag' };
-const personColors  = { per:'#ff7a45', alex:'#4d9fff', nia:'#ff6ea9', hannes:'#ffd24d' };
 
 // ── UTILS ─────────────────────────────────────────────
 function r(w, pct) { return Math.round(w * pct / 2.5) * 2.5; }
@@ -347,15 +436,43 @@ function fmtKg(n) {
   return Math.round(n).toLocaleString('sv-SE') + ' kg';
 }
 
-// Progression: överkropp +2.5 var 2.5 vecka, underkropp +2.5 var 2 vecka
-function targetWeight(startW, weeks, isUpper) {
-  if (!startW) return null;
-  const interval = isUpper ? 2.5 : 2;
-  const increases = Math.floor(weeks / interval);
-  return Math.round((startW + increases * 2.5) / 2.5) * 2.5;
+// Plattekalkylator: räknar ut vikter per sida
+function calcPlates(totalKg) {
+  let remaining = (totalKg - barWeight) / 2;
+  if (remaining <= 0) return [];
+  const result = [];
+  for (const p of PLATES) {
+    const count = Math.floor(remaining / p);
+    if (count > 0) { result.push({ weight: p, count }); remaining = Math.round((remaining - count * p) * 100) / 100; }
+  }
+  return result;
 }
 
-// Beräkna total lyft i kg för ett pass (alla set × reps × vikt)
+function plateHTML(totalKg) {
+  if (!totalKg) return '';
+  const plates = calcPlates(totalKg);
+  if (!plates.length) return `<div class="plate-info"><div class="plate-row"><span class="plate-label">Bara stång</span><span class="plate-chip">${barWeight} kg</span></div></div>`;
+  const chips = plates.map(p => `<span class="plate-chip ${PLATE_CLASSES[p.weight]}">${p.count}×${p.weight}kg</span>`).join('');
+  return `<div class="plate-info"><div class="plate-row"><span class="plate-label">Per sida:</span>${chips}</div></div>`;
+}
+
+// Stångväljare
+function setBar(kg) {
+  barWeight = kg;
+  document.getElementById('bar20').classList.toggle('on', kg===20);
+  document.getElementById('bar15').classList.toggle('on', kg===15);
+  if (currentModalPersonId) openModal(currentModalPersonId);
+}
+
+// Progression per övning
+function targetWeight(startW, weeks, isUpper, adj) {
+  if (!startW) return null;
+  adj = adj || 1.0;
+  const interval = isUpper ? 2.5 : 2;
+  const increases = Math.floor(weeks / interval);
+  return Math.round((startW + increases * 2.5) * adj / 2.5) * 2.5;
+}
+
 function passKg(weights) {
   let total = 0;
   const sets = [
@@ -379,18 +496,25 @@ function loadPersonState(id) {
   const raw  = localStorage.getItem(STORAGE_PREFIX + id);
   const base = people[id];
   const state = raw ? JSON.parse(raw) : {
-    onboarded: false, profile: null,
-    weights: { bp:base.bp, sq:base.sq, dl:base.dl, lat:base.lat },
-    progressionAdj: 1.0
+    onboarded:false, profile:null, type:'structured',
+    weights:{ bp:base.bp, sq:base.sq, dl:base.dl, lat:base.lat },
+    progressionAdj:{ bp:1.0, sq:1.0, dl:1.0, lat:1.0 }
   };
-  if (!state.progressionAdj) state.progressionAdj = 1.0;
+  // Migrera gamla format
+  if (typeof state.progressionAdj === 'number') {
+    const old = state.progressionAdj;
+    state.progressionAdj = { bp:old, sq:old, dl:old, lat:old };
+  }
+  if (!state.progressionAdj) state.progressionAdj = { bp:1.0, sq:1.0, dl:1.0, lat:1.0 };
+  if (!state.type) state.type = 'structured';
   state.history = loadHistory(id);
   return state;
 }
+
 function savePersonState(id, state) {
   localStorage.setItem(STORAGE_PREFIX + id, JSON.stringify({
-    onboarded: state.onboarded, profile: state.profile,
-    weights: state.weights, progressionAdj: state.progressionAdj
+    onboarded:state.onboarded, profile:state.profile, type:state.type,
+    weights:state.weights, progressionAdj:state.progressionAdj
   }));
 }
 
@@ -398,7 +522,13 @@ function savePersonState(id, state) {
 function calcTotalKg() {
   let total = 0;
   Object.keys(people).forEach(id => {
-    personStates[id].history.forEach(h => { total += passKg(h.weights); });
+    personStates[id].history.forEach(h => {
+      if (h.freeExercises) {
+        h.freeExercises.forEach(ex => { total += (ex.weight||0) * (ex.reps||1) * (ex.sets||1); });
+      } else {
+        total += passKg(h.weights||{});
+      }
+    });
   });
   return total;
 }
@@ -408,7 +538,12 @@ function calcLastPassKg() {
   Object.keys(people).forEach(id => {
     personStates[id].history.forEach(h => {
       const d = new Date(h.date);
-      if (!latest || d > latest) { latest = d; latestKg = passKg(h.weights); }
+      if (!latest || d > latest) {
+        latest = d;
+        latestKg = h.freeExercises
+          ? h.freeExercises.reduce((s,ex) => s + (ex.weight||0)*(ex.reps||1)*(ex.sets||1), 0)
+          : passKg(h.weights||{});
+      }
     });
   });
   return latestKg;
@@ -425,7 +560,6 @@ function eiffelSVG(pct) {
         <stop offset="100%" stop-color="#ffd24d"/>
       </linearGradient>
     </defs>
-    <!-- grå bas -->
     <g fill="#2a2a2a" stroke="#333" stroke-width="0.3">
       <path d="M10 160 L20 115 L28 115 L26 160Z"/>
       <path d="M70 160 L60 115 L52 115 L54 160Z"/>
@@ -443,7 +577,6 @@ function eiffelSVG(pct) {
       <rect x="22" y="95" width="36" height="2" rx="1"/>
       <rect x="27" y="62" width="26" height="2" rx="1"/>
     </g>
-    <!-- färgad fyllning -->
     <g clip-path="url(#ec)" fill="url(#eg)" opacity="0.95">
       <path d="M10 160 L20 115 L28 115 L26 160Z"/>
       <path d="M70 160 L60 115 L52 115 L54 160Z"/>
@@ -465,27 +598,22 @@ function eiffelSVG(pct) {
 }
 
 function renderEiffel() {
-  const totalKg  = calcTotalKg();
-  const lastKg   = calcLastPassKg();
-  const pct      = Math.min((totalKg / EIFFEL_KG) * 100, 100);
-  const pctStr   = pct < 0.01 ? '0.00' : pct.toFixed(2);
-
-  // nästa milstolpe
-  const nextMs = milestones.find(m => totalKg < m.kg) || milestones[milestones.length-1];
-
-  // bästa jämförelse för senaste pass
+  const totalKg = calcTotalKg();
+  const lastKg  = calcLastPassKg();
+  const pct     = Math.min((totalKg / EIFFEL_KG) * 100, 100);
+  const pctStr  = pct < 0.01 ? '0.00' : pct.toFixed(2);
+  const nextMs  = milestones.find(m => totalKg < m.kg) || milestones[milestones.length-1];
   let comp = comparisons[0];
   if (lastKg > 0) comparisons.forEach(c => { if (lastKg >= c.kg * 0.3) comp = c; });
   const times = lastKg > 0 ? (lastKg / comp.kg).toFixed(1) : '–';
-
-  // bidrag per person
-  const contribs = {};
-  let maxC = 1;
+  const contribs = {}; let maxC = 1;
   Object.keys(people).forEach(id => {
-    contribs[id] = personStates[id].history.reduce((s,h) => s + passKg(h.weights), 0);
+    contribs[id] = personStates[id].history.reduce((s,h) => {
+      if (h.freeExercises) return s + h.freeExercises.reduce((ss,ex) => ss+(ex.weight||0)*(ex.reps||1)*(ex.sets||1),0);
+      return s + passKg(h.weights||{});
+    }, 0);
     if (contribs[id] > maxC) maxC = contribs[id];
   });
-
   document.getElementById('eiffelCard').innerHTML = `
     <div class="eiffel-top">
       <div class="eiffel-svg-wrap">${eiffelSVG(pct)}</div>
@@ -515,60 +643,60 @@ function renderEiffel() {
     </div>`;
 }
 
-// ── MÅLVIKTER ─────────────────────────────────────────
+// ── MÅLVIKTER PER ÖVNING ──────────────────────────────
+const exIsUpper = { bp:true, sq:false, dl:false, lat:true };
+
 function renderTargets(id) {
   const state = personStates[id];
-  const adj   = state.progressionAdj;
   const w     = state.weights;
+  const adj   = state.progressionAdj;
   const el    = document.getElementById('targetsSection');
-
-  const rows = [
-    { key:'bp',  label:'Bänkpress', upper:true  },
-    { key:'sq',  label:'Benböj',    upper:false },
-    { key:'dl',  label:'Marklyft',  upper:false },
-    { key:'lat', label:'Latsdrag',  upper:true  }
+  const rows  = [
+    { key:'bp', label:'Bänkpress 🏋️' },
+    { key:'sq', label:'Benböj 🦵' },
+    { key:'dl', label:'Marklyft 💪' },
+    { key:'lat',label:'Latsdrag 🔝' }
   ];
-
   el.innerHTML = `
     <div class="targets-block">
-      <div class="targets-title">
-        <span>🎯 Målvikter</span>
-        <span style="font-size:11px;font-weight:500;color:var(--muted)">adj: ${Math.round(adj*100)}%</span>
-      </div>
+      <div class="targets-title"><span>🎯 Målvikter</span><span style="font-size:11px;color:var(--muted);font-weight:500">justeras per övning</span></div>
       <div class="targets-head">
-        <span>Övning</span><span>Nu</span><span style="color:var(--orange)">1 mån</span><span style="color:#4d9fff">3 mån</span>
+        <span>Övning</span><span style="color:var(--orange)">Nu→1mån</span><span style="color:#4d9fff">→3mån</span>
       </div>
       ${rows.map(ro => {
         const cur = w[ro.key];
-        const m1  = cur ? Math.round(targetWeight(cur, 4,  ro.upper) * adj / 2.5) * 2.5 : null;
-        const m3  = cur ? Math.round(targetWeight(cur, 12, ro.upper) * adj / 2.5) * 2.5 : null;
-        return `<div class="targets-row">
-          <div class="targets-ex">${ro.label}</div>
-          <div class="targets-val current num">${cur ?? '–'}</div>
-          <div class="targets-val m1 num">${m1 ?? '–'}</div>
-          <div class="targets-val m3 num">${m3 ?? '–'}</div>
+        const a   = adj[ro.key] || 1.0;
+        const m1  = cur ? targetWeight(cur, 4,  exIsUpper[ro.key], a) : null;
+        const m3  = cur ? targetWeight(cur, 12, exIsUpper[ro.key], a) : null;
+        return `
+        <div class="targets-ex-row">
+          <div class="targets-ex-header">
+            <div class="targets-ex-name">${ro.label}</div>
+            <div class="targets-ex-val m1 num">${cur ?? '–'} → ${m1 ?? '–'}</div>
+            <div class="targets-ex-val m3 num" style="color:#4d9fff">${m3 ?? '–'}</div>
+          </div>
+          <div class="targets-ex-adj">
+            <div class="targets-ex-adjbtn" onclick="adjEx('${id}','${ro.key}',-0.1)">−10%</div>
+            <div class="targets-ex-adjbtn" onclick="adjEx('${id}','${ro.key}',-0.05)">−5%</div>
+            <div class="targets-ex-adjbtn" style="color:var(--muted);font-size:10px;padding:5px 0;text-align:center;flex:1;">${Math.round(a*100)}%</div>
+            <div class="targets-ex-adjbtn" onclick="adjEx('${id}','${ro.key}',0.05)">+5%</div>
+            <div class="targets-ex-adjbtn" onclick="adjEx('${id}','${ro.key}',0.1)">+10%</div>
+          </div>
         </div>`;
       }).join('')}
-      <div class="adjust-row">
-        <div class="adjust-label">Justera plan:</div>
-        <div class="adjust-btn" onclick="adjustProgression('${id}', -0.1)">−10%</div>
-        <div class="adjust-btn" onclick="adjustProgression('${id}', -0.05)">−5%</div>
-        <div class="adjust-btn" onclick="adjustProgression('${id}', 0.05)">+5%</div>
-        <div class="adjust-btn" onclick="adjustProgression('${id}', 0.1)">+10%</div>
-      </div>
     </div>`;
 }
 
-function adjustProgression(id, delta) {
+function adjEx(id, key, delta) {
   const state = personStates[id];
-  state.progressionAdj = Math.max(0.5, Math.min(2.0, (state.progressionAdj || 1.0) + delta));
+  state.progressionAdj[key] = Math.round(Math.max(0.5, Math.min(2.0, (state.progressionAdj[key]||1.0) + delta)) * 100) / 100;
   savePersonState(id, state);
   renderTargets(id);
 }
 
 // ── PROGRESSIONSGRAFER ────────────────────────────────
-let graphPersonId  = null;
-let graphActiveEx  = 'bp';
+let graphPersonId = null;
+let graphActiveEx = 'bp';
 
 function renderGraph(id) {
   graphPersonId = id;
@@ -577,90 +705,101 @@ function renderGraph(id) {
     <div class="graph-block">
       <div class="graph-title">📈 Din progression</div>
       <div class="graph-tabs">
-        ${exerciseKeys.map(k => `<div class="graph-tab ${k===graphActiveEx?'on':''}" onclick="switchGraph('${id}','${k}')">${exerciseNames[k]}</div>`).join('')}
+        ${exerciseKeys.map(k => `<div class="graph-tab ${k===graphActiveEx?'on':''}" onclick="switchGraph('${id}','${k}',this)">${exerciseNames[k]}</div>`).join('')}
       </div>
       <div id="graphCanvas"></div>
     </div>`;
   drawGraph(id, graphActiveEx);
 }
 
-function switchGraph(id, ex) {
+function switchGraph(id, ex, el) {
   graphActiveEx = ex;
-  // Uppdatera tabs
   document.querySelectorAll('.graph-tab').forEach(t => t.classList.remove('on'));
-  event.target.classList.add('on');
+  el.classList.add('on');
   drawGraph(id, ex);
 }
 
 function drawGraph(id, ex) {
   const state   = personStates[id];
-  const history = state.history;
+  const history = state.history.filter(h => !h.freeExercises);
   const canvas  = document.getElementById('graphCanvas');
   const color   = people[id].color;
-
   if (history.length < 2) {
-    canvas.innerHTML = `<div class="graph-empty">Minst 2 pass behövs för att visa grafen.<br>Kör på!</div>`;
-    return;
+    canvas.innerHTML = `<div class="graph-empty">Minst 2 pass behövs för grafen. Kör på!</div>`; return;
   }
-
-  const pts = history.map(h => ({ date: new Date(h.date), val: h.weights[ex] })).filter(p => p.val);
-  if (pts.length < 2) {
-    canvas.innerHTML = `<div class="graph-empty">Ingen data för ${exerciseNames[ex]} än.</div>`;
-    return;
-  }
-
-  const W = 360, H = 100, PAD = { t:10, r:10, b:20, l:30 };
-  const iW = W - PAD.l - PAD.r;
-  const iH = H - PAD.t - PAD.b;
-
-  const vals  = pts.map(p => p.val);
-  const minV  = Math.min(...vals) - 2.5;
-  const maxV  = Math.max(...vals) + 2.5;
-  const minT  = pts[0].date.getTime();
-  const maxT  = pts[pts.length-1].date.getTime();
-  const rangeT = maxT - minT || 1;
-
-  function cx(d) { return PAD.l + ((d.getTime()-minT)/rangeT)*iW; }
-  function cy(v) { return PAD.t + iH - ((v-minV)/(maxV-minV))*iH; }
-
-  const polyline = pts.map(p => `${cx(p.date).toFixed(1)},${cy(p.val).toFixed(1)}`).join(' ');
-  const areaPath = `M${cx(pts[0].date).toFixed(1)},${(PAD.t+iH).toFixed(1)} ` +
-    pts.map(p => `L${cx(p.date).toFixed(1)},${cy(p.val).toFixed(1)}`).join(' ') +
-    ` L${cx(pts[pts.length-1].date).toFixed(1)},${(PAD.t+iH).toFixed(1)} Z`;
-
-  // y-axis labels
-  const yLabels = [minV+2.5, (minV+maxV)/2, maxV-2.5].map(v =>
-    `<text x="${PAD.l-4}" y="${cy(v)+4}" text-anchor="end" font-size="8" fill="#666">${Math.round(v)}</text>`).join('');
-
-  // x-axis labels (first and last)
-  const fmt = d => `${d.getDate()} ${months[d.getMonth()]}`;
-  const xLabels = `
-    <text x="${PAD.l}" y="${H-4}" font-size="8" fill="#666">${fmt(pts[0].date)}</text>
-    <text x="${W-PAD.r}" y="${H-4}" font-size="8" fill="#666" text-anchor="end">${fmt(pts[pts.length-1].date)}</text>`;
-
-  // dots
-  const dots = pts.map((p,i) =>
-    `<circle cx="${cx(p.date).toFixed(1)}" cy="${cy(p.val).toFixed(1)}" r="${i===pts.length-1?4:2.5}" fill="${color}" stroke="var(--bg)" stroke-width="1.5"/>
-     ${i===pts.length-1 ? `<text x="${cx(p.date).toFixed(1)}" y="${(cy(p.val)-7).toFixed(1)}" text-anchor="middle" font-size="9" fill="${color}" font-weight="700">${p.val} kg</text>` : ''}`
-  ).join('');
-
-  canvas.innerHTML = `
-    <div class="graph-svg-wrap">
-      <svg class="graph-svg" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="gg" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="${color}" stop-opacity="0.25"/>
-            <stop offset="100%" stop-color="${color}" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-        <path d="${areaPath}" fill="url(#gg)"/>
-        <polyline points="${polyline}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-        ${yLabels}${xLabels}${dots}
-      </svg>
-    </div>`;
+  const pts = history.map(h => ({ date:new Date(h.date), val:h.weights[ex] })).filter(p => p.val);
+  if (pts.length < 2) { canvas.innerHTML = `<div class="graph-empty">Ingen data för ${exerciseNames[ex]} än.</div>`; return; }
+  const W=360,H=100,PAD={t:10,r:10,b:20,l:30};
+  const iW=W-PAD.l-PAD.r, iH=H-PAD.t-PAD.b;
+  const vals=pts.map(p=>p.val), minV=Math.min(...vals)-2.5, maxV=Math.max(...vals)+2.5;
+  const minT=pts[0].date.getTime(), maxT=pts[pts.length-1].date.getTime(), rangeT=maxT-minT||1;
+  const cx=d=>PAD.l+((d.getTime()-minT)/rangeT)*iW;
+  const cy=v=>PAD.t+iH-((v-minV)/(maxV-minV))*iH;
+  const polyline=pts.map(p=>`${cx(p.date).toFixed(1)},${cy(p.val).toFixed(1)}`).join(' ');
+  const areaPath=`M${cx(pts[0].date).toFixed(1)},${(PAD.t+iH).toFixed(1)} `+pts.map(p=>`L${cx(p.date).toFixed(1)},${cy(p.val).toFixed(1)}`).join(' ')+` L${cx(pts[pts.length-1].date).toFixed(1)},${(PAD.t+iH).toFixed(1)} Z`;
+  const fmt=d=>`${d.getDate()} ${months[d.getMonth()]}`;
+  const yL=[minV+2.5,(minV+maxV)/2,maxV-2.5].map(v=>`<text x="${PAD.l-4}" y="${cy(v)+4}" text-anchor="end" font-size="8" fill="#666">${Math.round(v)}</text>`).join('');
+  const xL=`<text x="${PAD.l}" y="${H-4}" font-size="8" fill="#666">${fmt(pts[0].date)}</text><text x="${W-PAD.r}" y="${H-4}" font-size="8" fill="#666" text-anchor="end">${fmt(pts[pts.length-1].date)}</text>`;
+  const dots=pts.map((p,i)=>`<circle cx="${cx(p.date).toFixed(1)}" cy="${cy(p.val).toFixed(1)}" r="${i===pts.length-1?4:2.5}" fill="${color}" stroke="var(--bg)" stroke-width="1.5"/>${i===pts.length-1?`<text x="${cx(p.date).toFixed(1)}" y="${(cy(p.val)-7).toFixed(1)}" text-anchor="middle" font-size="9" fill="${color}" font-weight="700">${p.val} kg</text>`:''}`).join('');
+  canvas.innerHTML=`<div class="graph-svg-wrap"><svg class="graph-svg" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${color}" stop-opacity="0.25"/><stop offset="100%" stop-color="${color}" stop-opacity="0"/></linearGradient></defs><path d="${areaPath}" fill="url(#gg)"/><polyline points="${polyline}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>${yL}${xL}${dots}</svg></div>`;
 }
 
-// ── CARDS ─────────────────────────────────────────────
+// ── UTSKRIFT ──────────────────────────────────────────
+function printPass() {
+  const id    = currentModalPersonId;
+  const p     = people[id];
+  const state = personStates[id];
+  const exArr = [
+    { key:'bp', label:'Bänkpress', w:state.weights.bp },
+    { key:'sq', label:'Benböj',    w:state.weights.sq },
+    { key:'dl', label:'Marklyft',  w:state.weights.dl },
+    { key:'lat',label:'Latsdrag',  w:state.weights.lat }
+  ];
+  const sets = [
+    { label:'Uppvärmning', pct:0.70, reps:5 },
+    { label:'Uppvärmning', pct:0.80, reps:3 },
+    { label:'Toppset',     pct:0.95, reps:1 },
+    { label:'Arbetsserie', pct:0.87, reps:5 },
+    { label:'Arbetsserie', pct:0.87, reps:5 },
+    { label:'Arbetsserie', pct:0.87, reps:5 }
+  ];
+  const now = new Date();
+  const dateStr = days[now.getDay()] + ' ' + now.getDate() + ' ' + months[now.getMonth()];
+  let html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Gympass – ${p.name}</title>
+  <style>
+    body{font-family:Arial,sans-serif;padding:20px;color:#000;max-width:600px;}
+    h1{font-size:22px;margin-bottom:4px;}
+    .sub{font-size:13px;color:#666;margin-bottom:16px;}
+    .ex{margin-bottom:16px;border:1px solid #ccc;border-radius:8px;overflow:hidden;}
+    .ex-title{background:#f0f0f0;padding:8px 12px;font-size:14px;font-weight:700;text-transform:uppercase;}
+    .row{display:grid;grid-template-columns:28px 1fr 80px 60px;padding:6px 12px;border-bottom:1px solid #eee;font-size:13px;align-items:center;}
+    .row:last-child{border-bottom:none;}
+    .plates{font-size:11px;color:#555;padding:4px 12px 6px;background:#fafafa;border-top:1px solid #eee;}
+    .num{font-weight:700;}
+    .rest{text-align:center;font-size:12px;color:#888;margin-top:8px;}
+  </style></head><body>
+  <h1>GYMPASS – ${p.name.toUpperCase()}</h1>
+  <div class="sub">${dateStr} · Stång ${barWeight} kg</div>`;
+  exArr.forEach(ex => {
+    if (!ex.w) return;
+    html += `<div class="ex"><div class="ex-title">${ex.label}</div>`;
+    sets.forEach((s,i) => {
+      const kg = r(ex.w, s.pct);
+      const plates = calcPlates(kg);
+      const platesStr = plates.length ? plates.map(p2=>`${p2.count}×${p2.weight}kg`).join(' + ') : 'bara stång';
+      html += `<div class="row"><span>${i+1}</span><span>${s.label}</span><span class="num">${kg} kg</span><span>×${s.reps}</span></div>`;
+      html += `<div class="plates">Per sida: ${platesStr}</div>`;
+    });
+    html += `</div>`;
+  });
+  html += `<div class="rest">⏱ Vila ca 2 minuter mellan varje set</div></body></html>`;
+  const w2 = window.open('','_blank');
+  w2.document.write(html);
+  w2.document.close();
+  w2.print();
+}
+
+// ── PERSON CARDS ──────────────────────────────────────
 function renderCards() {
   const container = document.getElementById('cardsContainer');
   container.innerHTML = Object.keys(people).map(id => {
@@ -689,20 +828,18 @@ function renderCards() {
 }
 
 function liftValueHtml(label, value) {
-  return `<div class="lift-item"><div class="lift-label">${label}</div>` +
-    (value == null
-      ? `<div class="lift-val">–</div>`
-      : `<div class="lift-val num">${value} <span>kg</span></div>`) + `</div>`;
+  return `<div class="lift-item"><div class="lift-label">${label}</div>`+
+    (value==null?`<div class="lift-val">–</div>`:`<div class="lift-val num">${value} <span>kg</span></div>`)+`</div>`;
 }
 
 function onCardClick(id) {
   if (!personStates[id].onboarded) startOnboarding(id);
+  else if (personStates[id].type === 'free') openFreepass(id);
   else openModal(id);
 }
 
 function getMonday(date) {
-  const d = new Date(date);
-  const diff = (d.getDay()===0 ? -6 : 1) - d.getDay();
+  const d=new Date(date); const diff=(d.getDay()===0?-6:1)-d.getDay();
   d.setDate(d.getDate()+diff); d.setHours(0,0,0,0); return d;
 }
 function hasTrainedThisWeek(state) {
@@ -713,76 +850,45 @@ function hasTrainedThisWeek(state) {
 function lastTrainedText(state) {
   if (!state.history.length) return 'Inte tränat ännu';
   const last = new Date(state.history[state.history.length-1].date);
-  return 'Senast: ' + days[last.getDay()] + ' ' + last.getDate() + ' ' + months[last.getMonth()];
+  return 'Senast: '+days[last.getDay()]+' '+last.getDate()+' '+months[last.getMonth()];
 }
-function sameDay(a,b) {
-  return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
-}
+function sameDay(a,b) { return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate(); }
 
 function renderWeekBar() {
-  const today   = new Date();
-  const monday  = getMonday(today);
-  const dayKeys = ['mon','tue','wed','thu','fri','sat','sun'];
-  const todayI  = (today.getDay()+6)%7;
-  dayKeys.forEach((key,i) => {
-    const dd = new Date(monday); dd.setDate(monday.getDate()+i);
-    const dEl = document.getElementById('d-'+key);
+  const today=new Date(), monday=getMonday(today);
+  const dayKeys=['mon','tue','wed','thu','fri','sat','sun'];
+  const todayI=(today.getDay()+6)%7;
+  dayKeys.forEach((key,i)=>{
+    const dd=new Date(monday); dd.setDate(monday.getDate()+i);
+    const dEl=document.getElementById('d-'+key);
     dEl.classList.remove('done','today');
-    if (i < todayI) dEl.classList.add('done');
-    else if (i===todayI) dEl.classList.add('today');
-    const trainedIds = Object.keys(people).filter(id =>
-      personStates[id].history.some(h => sameDay(new Date(h.date), dd)));
-    document.getElementById('wd-'+key).innerHTML = Object.keys(people).map(id =>
-      `<div class="week-dot" style="background:${trainedIds.includes(id) ? people[id].color : 'var(--card2)'}"></div>`
-    ).join('');
+    if(i<todayI) dEl.classList.add('done');
+    else if(i===todayI) dEl.classList.add('today');
+    const trainedIds=Object.keys(people).filter(id=>personStates[id].history.some(h=>sameDay(new Date(h.date),dd)));
+    document.getElementById('wd-'+key).innerHTML=Object.keys(people).map(id=>`<div class="week-dot" style="background:${trainedIds.includes(id)?people[id].color:'var(--card2)'}"></div>`).join('');
   });
 }
 
-function feelingEmoji(fid) {
-  const opt = feelingOptions.find(f => f.id===fid);
-  return opt ? opt.emoji : '–';
-}
-
-function renderHistorySection(id) {
-  const state  = personStates[id];
-  const recent = state.history.slice(-10).reverse();
-  const el = document.getElementById('historySection');
-  if (!recent.length) {
-    el.innerHTML = `<div class="week-head"><div class="seclab">Mina pass</div></div>
-      <div class="history-empty">Inga genomförda pass än.</div>`; return;
-  }
-  el.innerHTML = `<div class="week-head"><div class="seclab">Mina pass</div></div>
-    <div class="history-list">
-      ${recent.map(h => {
-        const d = new Date(h.date);
-        const dateStr = days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()];
-        return `<div class="history-row">
-          <div class="history-date">${dateStr}</div>
-          <div class="history-weights num">${h.weights.bp}/${h.weights.sq}/${h.weights.dl}/${h.weights.lat||'–'} kg</div>
-          <div class="history-feeling">${feelingEmoji(h.feeling)}</div>
-        </div>`;
-      }).join('')}
-    </div>`;
-}
-
 // ── PASS / MODAL ──────────────────────────────────────
-function buildSets(w) {
+function buildSets(w, exKey) {
   if (!w) return `<div style="padding:14px 16px;font-size:13px;color:var(--muted);">Vikt ej registrerad ännu</div>`;
-  const sets = [
-    { label:'Uppvärmning', pct:0.70, reps:5, top:false },
-    { label:'Uppvärmning', pct:0.80, reps:3, top:false },
-    { label:'Toppset 🔥',  pct:0.95, reps:1, top:true  },
-    { label:'Arbetsserie', pct:0.87, reps:5, top:false },
-    { label:'Arbetsserie', pct:0.87, reps:5, top:false },
-    { label:'Arbetsserie', pct:0.87, reps:5, top:false }
+  const sets=[
+    {label:'Uppvärmning',pct:0.70,reps:5,top:false},
+    {label:'Uppvärmning',pct:0.80,reps:3,top:false},
+    {label:'Toppset 🔥', pct:0.95,reps:1,top:true },
+    {label:'Arbetsserie',pct:0.87,reps:5,top:false},
+    {label:'Arbetsserie',pct:0.87,reps:5,top:false},
+    {label:'Arbetsserie',pct:0.87,reps:5,top:false}
   ];
-  return sets.map((s,i) => `
-    <div class="set-row ${s.top?'top-set':''}">
+  return sets.map((s,i)=>{
+    const kg = r(w,s.pct);
+    return `<div class="set-row ${s.top?'top-set':''}">
       <div class="set-num num">${i+1}</div>
       <div class="set-type">${s.label}</div>
-      <div class="set-weight num">${r(w,s.pct)}<span> kg</span></div>
+      <div class="set-weight num">${kg}<span> kg</span></div>
       <div class="set-reps num">× ${s.reps}</div>
-    </div>`).join('');
+    </div>${plateHTML(kg)}`;
+  }).join('');
 }
 
 let onboarding = null;
@@ -791,62 +897,51 @@ let feelingPersonId = null;
 
 function openModal(id) {
   currentModalPersonId = id;
-  const p     = people[id];
-  const state = personStates[id];
-  const av    = document.getElementById('modalAvatar');
-  av.textContent = p.initials;
-  av.style.color  = id==='hannes' ? '#3a2c00' : '#111';
-  av.style.background = p.color;
-  document.getElementById('modalName').textContent = p.name;
-  document.getElementById('modalContent').innerHTML = [
-    { key:'bp', label:'Bänkpress', w:state.weights.bp },
-    { key:'sq', label:'Benböj',    w:state.weights.sq },
-    { key:'dl', label:'Marklyft',  w:state.weights.dl },
-    { key:'lat',label:'Latsdrag',  w:state.weights.lat }
-  ].map(e => `<div class="exercise-block">
+  const p=people[id], state=personStates[id];
+  const av=document.getElementById('modalAvatar');
+  av.textContent=p.initials; av.style.color=id==='hannes'?'#3a2c00':'#111'; av.style.background=p.color;
+  document.getElementById('modalName').textContent=p.name;
+  document.getElementById('modalContent').innerHTML=[
+    {key:'bp',label:'Bänkpress',w:state.weights.bp},
+    {key:'sq',label:'Benböj',   w:state.weights.sq},
+    {key:'dl',label:'Marklyft', w:state.weights.dl},
+    {key:'lat',label:'Latsdrag',w:state.weights.lat}
+  ].map(e=>`<div class="exercise-block">
     <div class="exercise-title" style="color:${p.color}">${e.label}</div>
-    ${buildSets(e.w)}</div>`).join('');
+    ${buildSets(e.w,e.key)}</div>`).join('');
   renderTargets(id);
   renderGraph(id);
   renderHistorySection(id);
   document.getElementById('modalOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow='hidden';
 }
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function closeModalOutside(e) { if (e.target===document.getElementById('modalOverlay')) closeModal(); }
+function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); document.body.style.overflow=''; }
+function closeModalOutside(e) { if(e.target===document.getElementById('modalOverlay')) closeModal(); }
 
 function finishWorkout() {
-  const id    = currentModalPersonId;
-  const state = personStates[id];
-  state.history.push({ date:new Date().toISOString(), weights:{...state.weights}, feeling:null });
-  saveHistory(id, state.history);
+  const id=currentModalPersonId, state=personStates[id];
+  state.history.push({date:new Date().toISOString(),weights:{...state.weights},feeling:null});
+  saveHistory(id,state.history);
   closeModal(); renderCards(); renderWeekBar(); renderEiffel();
-  feelingPersonId = id; showFeelingQuestion();
+  feelingPersonId=id; showFeelingQuestion();
 }
 
 function showFeelingQuestion() {
-  document.getElementById('feelingContent').innerHTML = `
+  document.getElementById('feelingContent').innerHTML=`
     <div class="onboarding-step"><div class="onboarding-title">Hur kändes passet?</div></div>
     <div class="feeling-grid">
-      ${feelingOptions.map(f => `
-        <div class="feeling-card" onclick="selectFeeling(${f.id})">
-          <div class="feeling-emoji">${f.emoji}</div>
-          <div class="feeling-label">${f.label}</div>
-        </div>`).join('')}
+      ${feelingOptions.map(f=>`<div class="feeling-card" onclick="selectFeeling(${f.id})"><div class="feeling-emoji">${f.emoji}</div><div class="feeling-label">${f.label}</div></div>`).join('')}
     </div>`;
   document.getElementById('feelingOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow='hidden';
 }
 
 function selectFeeling(fid) {
-  const state = personStates[feelingPersonId];
-  state.history[state.history.length-1].feeling = fid;
-  saveHistory(feelingPersonId, state.history);
-  const opt = feelingOptions.find(f => f.id===fid);
-  document.getElementById('feelingContent').innerHTML = `
+  const state=personStates[feelingPersonId];
+  state.history[state.history.length-1].feeling=fid;
+  saveHistory(feelingPersonId,state.history);
+  const opt=feelingOptions.find(f=>f.id===fid);
+  document.getElementById('feelingContent').innerHTML=`
     <div class="onboarding-step">
       <div class="onboarding-emoji">${opt.emoji}</div>
       <div class="onboarding-title">${opt.label}</div>
@@ -856,28 +951,149 @@ function selectFeeling(fid) {
 }
 function closeFeelingOverlay() {
   document.getElementById('feelingOverlay').classList.remove('open');
-  document.body.style.overflow = ''; feelingPersonId = null; renderCards();
+  document.body.style.overflow=''; feelingPersonId=null; renderCards();
+}
+
+function feelingEmoji(fid) { const opt=feelingOptions.find(f=>f.id===fid); return opt?opt.emoji:'–'; }
+
+function renderHistorySection(id) {
+  const state=personStates[id], recent=state.history.slice(-10).reverse();
+  const el=document.getElementById('historySection');
+  if (!recent.length) {
+    el.innerHTML=`<div class="week-head"><div class="seclab">Mina pass</div></div><div class="history-empty">Inga genomförda pass än.</div>`; return;
+  }
+  el.innerHTML=`<div class="week-head"><div class="seclab">Mina pass</div></div>
+    <div class="history-list">
+      ${recent.map(h=>{
+        const d=new Date(h.date);
+        const dateStr=days[d.getDay()]+' '+d.getDate()+' '+months[d.getMonth()];
+        const weightsStr = h.freeExercises
+          ? h.freeExercises.map(e=>e.name).join(', ')
+          : `${h.weights?.bp||'–'}/${h.weights?.sq||'–'}/${h.weights?.dl||'–'}/${h.weights?.lat||'–'} kg`;
+        return `<div class="history-row">
+          <div class="history-date">${dateStr}</div>
+          <div class="history-weights num">${weightsStr}</div>
+          <div class="history-feeling">${feelingEmoji(h.feeling)}</div>
+        </div>`;
+      }).join('')}
+    </div>`;
+}
+
+// ── FRIPASS ───────────────────────────────────────────
+let freepassPersonId = null;
+let freeExercises = [];
+let newExName = '';
+
+function openFreepass(id) {
+  freepassPersonId = id;
+  freeExercises = [];
+  const p = people[id];
+  const av = document.getElementById('freepassAvatar');
+  av.textContent = p.initials; av.style.background = p.color; av.style.color = id==='hannes'?'#3a2c00':'#111';
+  document.getElementById('freepassName').textContent = p.name;
+  renderFreepass();
+  document.getElementById('freepassOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeFreepass() {
+  document.getElementById('freepassOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeFreepassOutside(e) { if(e.target===document.getElementById('freepassOverlay')) closeFreepass(); }
+
+function renderFreepass() {
+  const p = people[freepassPersonId];
+  document.getElementById('freepassContent').innerHTML = `
+    <div style="padding:16px 20px 0;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Ditt fria pass</div>
+      ${freeExercises.length ? `<div class="free-block">
+        <div class="free-title"><span>Övningar</span><span style="font-size:12px;color:var(--muted)">${freeExercises.length} st</span></div>
+        ${freeExercises.map((ex,i) => `
+          <div class="free-exercise">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div class="free-ex-name" style="color:${p.color}">${ex.name}</div>
+              <button onclick="removeFreeEx(${i})" style="background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;">×</button>
+            </div>
+            <div class="free-ex-detail">${ex.weight ? ex.weight+' kg' : ''}${ex.reps ? ' · '+ex.reps+' reps' : ''}${ex.sets ? ' · '+ex.sets+' set' : ''}</div>
+          </div>`).join('')}
+      </div>` : '<div style="font-size:13px;color:var(--muted);margin-bottom:12px;">Lägg till dina övningar nedan.</div>'}
+    </div>
+
+    <div class="free-block" style="margin:12px 20px 0;">
+      <div class="free-title">+ Lägg till övning</div>
+      <div style="padding:12px 16px 0;">
+        <input class="free-input" id="freeExInput" placeholder="Övningens namn..." value="${newExName}" oninput="newExName=this.value">
+      </div>
+      <div class="free-suggestion">
+        ${FREE_SUGGESTIONS.map(s=>`<div class="free-sug-chip" onclick="setFreeExName('${s}')">${s}</div>`).join('')}
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:0 16px 4px;">
+        <div>
+          <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">Vikt (kg)</div>
+          <input class="free-input" id="freeExWeight" type="number" placeholder="0" style="width:100%">
+        </div>
+        <div>
+          <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">Reps</div>
+          <input class="free-input" id="freeExReps" type="number" placeholder="0" style="width:100%">
+        </div>
+        <div>
+          <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">Set</div>
+          <input class="free-input" id="freeExSets" type="number" placeholder="1" style="width:100%">
+        </div>
+      </div>
+      <div style="padding:10px 16px 14px;">
+        <button class="free-add-btn" style="width:100%;padding:12px;" onclick="addFreeEx()">Lägg till ✓</button>
+      </div>
+    </div>
+
+    ${freeExercises.length > 0 ? `<button class="btn-primary" onclick="finishFreepass()" style="margin-top:16px;">Avsluta pass ✅</button>` : ''}
+    <button class="btn-secondary" onclick="closeFreepass()">Avbryt</button>`;
+}
+
+function setFreeExName(name) {
+  newExName = name;
+  document.getElementById('freeExInput').value = name;
+}
+
+function addFreeEx() {
+  const name   = (document.getElementById('freeExInput')?.value || newExName).trim();
+  const weight = parseFloat(document.getElementById('freeExWeight')?.value) || 0;
+  const reps   = parseInt(document.getElementById('freeExReps')?.value) || 0;
+  const sets   = parseInt(document.getElementById('freeExSets')?.value) || 1;
+  if (!name) return;
+  freeExercises.push({ name, weight, reps, sets });
+  newExName = '';
+  renderFreepass();
+}
+
+function removeFreeEx(i) { freeExercises.splice(i,1); renderFreepass(); }
+
+function finishFreepass() {
+  const id = freepassPersonId;
+  const state = personStates[id];
+  state.history.push({ date:new Date().toISOString(), freeExercises:[...freeExercises], feeling:null });
+  saveHistory(id, state.history);
+  closeFreepass(); renderCards(); renderWeekBar(); renderEiffel();
+  feelingPersonId = id; showFeelingQuestion();
 }
 
 // ── ONBOARDING ────────────────────────────────────────
 function startOnboarding(id) {
   const base = personStates[id].weights;
-  onboarding = { personId:id, step:1, profile:null,
-    weights:{ bp:base.bp, sq:base.sq, dl:base.dl, lat:base.lat??20 } };
+  onboarding = { personId:id, step:1, profile:null, type:'structured',
+    weights:{ bp:base.bp||45, sq:base.sq||60, dl:base.dl||60, lat:base.lat||20 } };
   document.getElementById('onboardingOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow='hidden';
   renderOnboardingStep();
 }
 function closeOnboarding() {
   document.getElementById('onboardingOverlay').classList.remove('open');
-  document.body.style.overflow = ''; onboarding = null;
+  document.body.style.overflow=''; onboarding=null;
 }
 function weightRowHtml(key, label) {
   return `<div class="weight-row">
-    <div>
-      <div class="weight-row-label">${label}</div>
-      ${key==='lat'?'<div class="weight-row-hint">Ny övning – välj startvikt</div>':''}
-    </div>
+    <div><div class="weight-row-label">${label}</div>${key==='lat'?'<div class="weight-row-hint">Ny övning – välj startvikt</div>':''}</div>
     <div class="stepper">
       <button class="stepper-btn" onclick="adjustOnboardingWeight('${key}',-2.5)">–</button>
       <div class="stepper-val num">${onboarding.weights[key]} kg</div>
@@ -886,22 +1102,36 @@ function weightRowHtml(key, label) {
   </div>`;
 }
 function renderOnboardingStep() {
-  const p = people[onboarding.personId];
-  document.getElementById('onboardingProgress').innerHTML =
-    [1,2,3,4].map(n => `<div class="progress-dot ${n<=onboarding.step?'active':''}"></div>`).join('');
-  let body = '';
+  const p=people[onboarding.personId];
+  document.getElementById('onboardingProgress').innerHTML=[1,2,3,4,5].map(n=>`<div class="progress-dot ${n<=onboarding.step?'active':''}"></div>`).join('');
+  let body='';
   if (onboarding.step===1) {
-    body = `<div class="onboarding-step">
+    body=`<div class="onboarding-step">
       <div class="onboarding-emoji">👋</div>
       <div class="onboarding-title">Välkommen, ${p.name}!</div>
       <div class="onboarding-sub">Sätt upp din profil – tar under en minut.</div>
     </div>
     <button class="btn-primary" onclick="onboardingNext()">Kom igång →</button>`;
   } else if (onboarding.step===2) {
-    body = `<div class="onboarding-step">
+    body=`<div class="onboarding-step">
+      <div class="onboarding-title">Hur vill du träna?</div>
+      <div class="onboarding-sub">Du kan alltid byta senare.</div>
+      <div class="profile-card ${onboarding.type==='structured'?'selected':''}" onclick="onboarding.type='structured';renderOnboardingStep()">
+        <div class="profile-card-title">🏋️ Strukturerat program</div>
+        <div class="profile-card-desc">Följer Per's schema med 6 set, uträknade vikter och progressionsplan.</div>
+      </div>
+      <div class="profile-card ${onboarding.type==='free'?'selected':''}" onclick="onboarding.type='free';renderOnboardingStep()">
+        <div class="profile-card-title">🎯 Eget upplägg</div>
+        <div class="profile-card-desc">Väljer egna övningar och loggar vad du vill. Bidrar fortfarande till Eiffeltornet!</div>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="onboardingNext()">Nästa →</button>
+    <button class="btn-secondary" onclick="onboardingBack()">Tillbaka</button>`;
+  } else if (onboarding.step===3) {
+    body=`<div class="onboarding-step">
       <div class="onboarding-title">Vad driver dig?</div>
       <div class="onboarding-sub">Välj profil – du kan byta senare.</div>
-      ${motivationProfiles.map(mp => `
+      ${motivationProfiles.map(mp=>`
         <div class="profile-card ${onboarding.profile===mp.id?'selected':''}" onclick="selectProfile(${mp.id})">
           <div class="profile-card-title">${mp.title}</div>
           <div class="profile-card-desc">${mp.desc}</div>
@@ -909,55 +1139,66 @@ function renderOnboardingStep() {
     </div>
     <button class="btn-primary" ${onboarding.profile?'':'disabled'} onclick="onboardingNext()">Nästa →</button>
     <button class="btn-secondary" onclick="onboardingBack()">Tillbaka</button>`;
-  } else if (onboarding.step===3) {
-    body = `<div class="onboarding-step">
-      <div class="onboarding-title">Dina startvikter</div>
-      <div class="onboarding-sub">Justera om det behövs (steg om 2,5 kg).</div>
-      ${weightRowHtml('bp','Bänkpress')}${weightRowHtml('sq','Benböj')}
-      ${weightRowHtml('dl','Marklyft')}${weightRowHtml('lat','Latsdrag')}
-    </div>
-    <button class="btn-primary" onclick="onboardingNext()">Bekräfta →</button>
-    <button class="btn-secondary" onclick="onboardingBack()">Tillbaka</button>`;
   } else if (onboarding.step===4) {
-    body = `<div class="onboarding-step">
+    if (onboarding.type==='free') {
+      body=`<div class="onboarding-step">
+        <div class="onboarding-emoji">✅</div>
+        <div class="onboarding-title">Klart, ${p.name}!</div>
+        <div class="onboarding-sub">Du kör eget upplägg. Logga dina övningar efter varje pass!</div>
+      </div>
+      <button class="btn-primary" onclick="finishOnboarding()">Starta mitt pass →</button>`;
+    } else {
+      body=`<div class="onboarding-step">
+        <div class="onboarding-title">Dina startvikter</div>
+        <div class="onboarding-sub">Justera om det behövs (steg om 2,5 kg).</div>
+        ${weightRowHtml('bp','Bänkpress')}${weightRowHtml('sq','Benböj')}
+        ${weightRowHtml('dl','Marklyft')}${weightRowHtml('lat','Latsdrag')}
+      </div>
+      <button class="btn-primary" onclick="onboardingNext()">Bekräfta →</button>
+      <button class="btn-secondary" onclick="onboardingBack()">Tillbaka</button>`;
+    }
+  } else if (onboarding.step===5) {
+    body=`<div class="onboarding-step">
       <div class="onboarding-emoji">✅</div>
       <div class="onboarding-title">Klart, ${p.name}!</div>
       <div class="onboarding-sub">Profil och vikter sparade. Nu kör vi!</div>
     </div>
     <button class="btn-primary" onclick="finishOnboarding()">Till mitt pass →</button>`;
   }
-  document.getElementById('onboardingContent').innerHTML = body;
+  document.getElementById('onboardingContent').innerHTML=body;
 }
-function adjustOnboardingWeight(key, delta) {
-  onboarding.weights[key] = Math.round(Math.max(0, onboarding.weights[key]+delta)/2.5)*2.5;
-  renderOnboardingStep();
-}
-function selectProfile(id) { onboarding.profile = id; renderOnboardingStep(); }
-function onboardingNext() { if (onboarding.step===2 && !onboarding.profile) return; onboarding.step++; renderOnboardingStep(); }
+function adjustOnboardingWeight(key,delta) { onboarding.weights[key]=Math.round(Math.max(0,onboarding.weights[key]+delta)/2.5)*2.5; renderOnboardingStep(); }
+function selectProfile(id) { onboarding.profile=id; renderOnboardingStep(); }
+function onboardingNext() { if(onboarding.step===3&&!onboarding.profile)return; if(onboarding.step===4&&onboarding.type==='free'){finishOnboarding();return;} onboarding.step++; renderOnboardingStep(); }
 function onboardingBack() { onboarding.step--; renderOnboardingStep(); }
 function finishOnboarding() {
-  const id = onboarding.personId;
-  personStates[id] = { onboarded:true, profile:onboarding.profile, weights:{...onboarding.weights}, history:[], progressionAdj:1.0 };
-  savePersonState(id, personStates[id]);
-  closeOnboarding(); renderCards(); openModal(id);
+  const id=onboarding.personId;
+  personStates[id]={
+    onboarded:true, profile:onboarding.profile, type:onboarding.type,
+    weights:{...onboarding.weights}, history:[],
+    progressionAdj:{bp:1.0,sq:1.0,dl:1.0,lat:1.0}
+  };
+  savePersonState(id,personStates[id]);
+  closeOnboarding(); renderCards();
+  if (onboarding && onboarding.type==='free') openFreepass(id);
+  else openModal(id);
+  onboarding=null;
 }
 
 // ── INIT ──────────────────────────────────────────────
 const personStates = {};
 Object.keys(people).forEach(id => { personStates[id] = loadPersonState(id); });
-
 renderCards();
 renderEiffel();
-
-const now = new Date();
-document.getElementById('headerDate').textContent = days[now.getDay()] + ' ' + now.getDate() + ' ' + months[now.getMonth()];
-const q = quotes[now.getDay() % quotes.length];
-document.getElementById('quoteText').textContent = q.text;
-document.getElementById('quoteSub').textContent  = q.sub;
+const now=new Date();
+document.getElementById('headerDate').textContent=days[now.getDay()]+' '+now.getDate()+' '+months[now.getMonth()];
+const q=quotes[now.getDay()%quotes.length];
+document.getElementById('quoteText').textContent=q.text;
+document.getElementById('quoteSub').textContent=q.sub;
 renderWeekBar();
-const daysUntilMon = (8-now.getDay())%7 || 7;
-const nextMon = new Date(now); nextMon.setDate(now.getDate()+daysUntilMon);
-document.getElementById('nextDay').textContent = 'Måndag ' + nextMon.getDate() + ' ' + months[nextMon.getMonth()];
+const daysUntilMon=(8-now.getDay())%7||7;
+const nextMon=new Date(now); nextMon.setDate(now.getDate()+daysUntilMon);
+document.getElementById('nextDay').textContent='Måndag '+nextMon.getDate()+' '+months[nextMon.getMonth()];
 </script>
 </body>
 </html>
