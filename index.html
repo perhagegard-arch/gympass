@@ -332,6 +332,8 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
 </div>
 <div class="cards" id="cardsContainer"></div>
 
+</div><!-- /main-content -->
+
 <!-- PERSON MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
   <div class="modal" id="modal">
@@ -403,7 +405,6 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
 </div>
 
 <!-- BOTTOM NAV -->
-</div><!-- /main-content -->
 <div class="nav">
   <a class="on" id="nav-hem" onclick="showView('hem')"><span class="ndot"></span>Hem</a>
   <a id="nav-historik" onclick="showView('historik')"><span class="ndot"></span>Historik</a>
@@ -1568,29 +1569,25 @@ function saveNewPerson() {
 
 // ── NAVIGERING ───────────────────────────────────────
 function showView(view) {
-  const main = document.getElementById('main-content');
+  const main     = document.getElementById('main-content');
   const historik = document.getElementById('view-historik');
-  const profil = document.getElementById('view-profil');
+  const profil   = document.getElementById('view-profil');
 
-  // Dölj alla
-  main.style.display = 'none';
-  historik.style.display = 'none';
-  profil.style.display = 'none';
+  // Dölj alla vyer
+  [main, historik, profil].forEach(el => { if(el) el.style.display = 'none'; });
 
   // Markera aktiv nav
   document.querySelectorAll('.nav a').forEach(a => a.classList.remove('on'));
 
   if (view === 'hem') {
-    main.style.display = '';
+    if(main) main.style.display = '';
     document.getElementById('nav-hem').classList.add('on');
   } else if (view === 'historik') {
-    historik.style.display = '';
+    if(historik) { historik.style.display = ''; renderHistorikView(); }
     document.getElementById('nav-historik').classList.add('on');
-    renderHistorikView();
   } else if (view === 'profil') {
-    profil.style.display = '';
+    if(profil) { profil.style.display = ''; renderProfilView(); }
     document.getElementById('nav-profil').classList.add('on');
-    renderProfilView();
   }
 }
 
