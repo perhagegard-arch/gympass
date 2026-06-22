@@ -757,9 +757,7 @@ let editWeightsTmp = {};
 
 function renderEditWeights(id) {
   const state = personStates[id];
-  const _dpE = loadDynamicPeople();
-  const p = people[id] || _dpE[id];
-  if (!p) return;
+  const p = people[id];
   const el = document.getElementById('editWeightsSection');
   if (!el) return;
 
@@ -953,40 +951,27 @@ function renderCards() {
   });
 
   container.innerHTML = Object.keys(allPeople).map(id => {
-    const p        = allPeople[id];
-    const state    = personStates[id] || loadPersonState(id, dynamicPeople[id]);
-    const isDynamic = !people[id];
-    const trained  = hasTrainedThisWeek(state);
+    const p      = allPeople[id];
+    const state  = personStates[id] || loadPersonState(id, dynamicPeople[id]);
+    const trained = hasTrainedThisWeek(state);
     const badgeText  = p.role ? p.role : (trained ? 'Tränat ✓' : '–');
     const badgeClass = !p.role && trained ? 'trained' : '';
-    const cardColor  = isDynamic ? p.color : '';
-    const avatarStyle = isDynamic ? 'background:' + p.color + ';color:#111' : '';
-    const safeId   = id.replace(/'/g, "\\'");
-    const safeName = p.name.replace(/'/g, "\\'");
-    const delBtn   = isDynamic
-      ? '<button onclick="event.stopPropagation();confirmDeletePerson(\'' + safeId + '\',\'' + safeName + '\')" '
-        + 'style="position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:50%;'
-        + 'background:rgba(255,60,60,0.15);border:1px solid rgba(255,60,60,0.35);'
-        + 'color:#ff6060;font-size:12px;cursor:pointer;line-height:1;z-index:2;">✕</button>'
-      : '';
-    return '<div class="person-card ' + id + '" '
-      + (isDynamic ? 'style="--pc:' + cardColor + ';position:relative"' : 'style="position:relative"')
-      + ' onclick="onCardClick(\'' + safeId + '\')">'
-      + delBtn
-      + '<div class="card-top">'
-      + '<div class="avatar" style="' + avatarStyle + '">' + p.initials + '</div>'
-      + '<div class="card-badge ' + badgeClass + '">' + badgeText + '</div>'
-      + '</div>'
-      + '<div class="card-name">' + p.name + '</div>'
-      + '<div class="card-last">' + lastTrainedText(state) + '</div>'
-      + '<div class="card-lifts">'
-      + liftValueHtml('Bänk',     state.weights.bp)
-      + liftValueHtml('Benböj',   state.weights.sq)
-      + liftValueHtml('Marklyft', state.weights.dl)
-      + liftValueHtml('Latsdrag', state.weights.lat)
-      + '</div>'
-      + '<div class="card-cta">' + (state.onboarded ? 'Öppna mitt pass →' : 'Kom igång →') + '</div>'
-      + '</div>`;
+    return `
+      <div class="person-card ${id}" onclick="onCardClick('${id}')">
+        <div class="card-top">
+          <div class="avatar">${p.initials}</div>
+          <div class="card-badge ${badgeClass}">${badgeText}</div>
+        </div>
+        <div class="card-name">${p.name}</div>
+        <div class="card-last">${lastTrainedText(state)}</div>
+        <div class="card-lifts">
+          ${liftValueHtml('Bänk',     state.weights.bp)}
+          ${liftValueHtml('Benböj',   state.weights.sq)}
+          ${liftValueHtml('Marklyft', state.weights.dl)}
+          ${liftValueHtml('Latsdrag', state.weights.lat)}
+        </div>
+        <div class="card-cta">${state.onboarded ? 'Öppna mitt pass →' : 'Kom igång →'}</div>
+      </div>`;
   }).join('') + `
     <div class="add-person-card" onclick="openAddPerson()">
       <div class="add-person-icon">➕</div>
@@ -1076,14 +1061,9 @@ let feelingPersonId = null;
 
 function openModal(id) {
   currentModalPersonId = id;
-  const dp = loadDynamicPeople();
-  const p = people[id] || dp[id];
-  if (!p) return;
-  const state = personStates[id];
+  const p=people[id], state=personStates[id];
   const av=document.getElementById('modalAvatar');
-  av.textContent=p.initials;
-  av.style.color = (p.color === '#ffd24d') ? '#3a2c00' : '#111';
-  av.style.background=p.color;
+  av.textContent=p.initials; av.style.color=id==='hannes'?'#3a2c00':'#111'; av.style.background=p.color;
   document.getElementById('modalName').textContent=p.name;
   document.getElementById('modalContent').innerHTML=[
     {key:'bp',label:'Bänkpress',w:state.weights.bp},
@@ -1172,13 +1152,9 @@ let newExName = '';
 function openFreepass(id) {
   freepassPersonId = id;
   freeExercises = [];
-  const dp = loadDynamicPeople();
-  const p = people[id] || dp[id];
-  if (!p) return;
+  const p = people[id];
   const av = document.getElementById('freepassAvatar');
-  av.textContent = p.initials;
-  av.style.background = p.color;
-  av.style.color = (p.color === '#ffd24d') ? '#3a2c00' : '#111';
+  av.textContent = p.initials; av.style.background = p.color; av.style.color = id==='hannes'?'#3a2c00':'#111';
   document.getElementById('freepassName').textContent = p.name;
   renderFreepass();
   document.getElementById('freepassOverlay').classList.add('open');
@@ -1192,9 +1168,7 @@ function closeFreepass() {
 function closeFreepassOutside(e) { if(e.target===document.getElementById('freepassOverlay')) closeFreepass(); }
 
 function renderFreepass() {
-  const _dp = loadDynamicPeople();
-  const p = people[freepassPersonId] || _dp[freepassPersonId];
-  if (!p) return;
+  const p = people[freepassPersonId];
   document.getElementById('freepassContent').innerHTML = `
     <div style="padding:16px 20px 0;">
       <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Ditt fria pass</div>
@@ -1612,24 +1586,6 @@ function renderHistorikContent() {
       +'<div style="background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;">'+rows+'</div></div>';
   });
   el.innerHTML = hasData ? html : '<div style="padding:40px 20px;color:var(--muted);font-size:14px;text-align:center;">Inga loggade pass ännu.</div>';
-}
-
-// ── TA BORT PERSON ────────────────────────────────────
-function confirmDeletePerson(id, name) {
-  if (confirm('Ta bort ' + name + ' och all träningsdata?')) {
-    deletePerson(id);
-  }
-}
-
-function deletePerson(id) {
-  const dp = loadDynamicPeople();
-  delete dp[id];
-  saveDynamicPeople(dp);
-  localStorage.removeItem(STORAGE_PREFIX + id);
-  localStorage.removeItem(STORAGE_PREFIX + id + '_history');
-  delete personStates[id];
-  renderCards();
-  renderEiffel();
 }
 </script>
 <!-- HISTORIK MODAL -->
