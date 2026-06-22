@@ -280,30 +280,35 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
 .add-person-label { font-family:var(--disp); font-weight:700; font-size:16px; color:var(--orange); }
 .add-person-sub { font-size:11px; color:var(--muted); margin-top:4px; text-align:center; }
 
+
+/* NAVIGERING */
+.home-el { display: block; }
+.home-el.hidden { display: none !important; }
+#view-historik { display: none; padding: 0 0 80px; }
+#view-historik.visible { display: block; }
 </style>
 </head>
 <body>
 
-<div id="main-content">
-<div class="header">
+<div class="header home-el">
   <div class="wm">GYM<b>PASS</b></div>
   <div class="date" id="headerDate"></div>
 </div>
 
-<div class="quote">
+<div class="quote home-el">
   <div class="quote-lab">Veckans motivationsord</div>
   <div class="quote-text" id="quoteText"></div>
   <div class="quote-sub" id="quoteSub"></div>
 </div>
 
-<div class="next">
+<div class="next home-el">
   <div class="next-lab">Nästa obligatoriska pass</div>
   <div class="next-day" id="nextDay">Måndag</div>
   <div class="next-sub">Bänkpress · Benböj · Marklyft · Latsdrag</div>
 </div>
 
-<div class="week-head"><div class="seclab">Denna vecka</div></div>
-<div class="week">
+<div class="week-head home-el"><div class="seclab">Denna vecka</div></div>
+<div class="week home-el">
   <div class="d" id="d-mon"><div class="pill" id="w-mon">M</div><div class="week-dots" id="wd-mon"></div><div class="nm">Mån</div></div>
   <div class="d" id="d-tue"><div class="pill" id="w-tue">T</div><div class="week-dots" id="wd-tue"></div><div class="nm">Tis</div></div>
   <div class="d" id="d-wed"><div class="pill" id="w-wed">O</div><div class="week-dots" id="wd-wed"></div><div class="nm">Ons</div></div>
@@ -314,23 +319,22 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
 </div>
 
 <!-- EIFFELTORNET -->
-<div class="week-head"><div class="seclab">Gruppens mål 🗼</div></div>
-<div class="eiffel-card" id="eiffelCard"></div>
+<div class="week-head home-el"><div class="seclab">Gruppens mål 🗼</div></div>
+<div class="eiffel-card home-el" id="eiffelCard"></div>
 
 
 <!-- STÅNGVÄLJARE -->
-<div class="bar-toggle">
+<div class="bar-toggle home-el">
   <div class="bar-btn on" id="bar20" onclick="setBar(20)">Stång 20 kg (olympisk)</div>
   <div class="bar-btn" id="bar15" onclick="setBar(15)">Stång 15 kg (standard)</div>
   <div style="width:100%;text-align:center;font-size:10px;color:var(--muted);margin-top:6px;padding:0 8px;">Latsdrag: viktstack 35–115 kg visas automatiskt 📍</div>
 </div>
 
-<div class="week-head">
+<div class="week-head home-el">
   <div class="seclab">Välj person</div>
   <div class="sechint">Tryck för att se ditt pass</div>
 </div>
-<div class="cards" id="cardsContainer"></div>
-</div><!-- /main-content -->
+<div class="cards home-el" id="cardsContainer"></div>
 
 <!-- PERSON MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
@@ -408,6 +412,8 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
   <a id="nav-historik" onclick="navGo('historik')"><span class="ndot"></span>Historik</a>
   <a><span class="ndot"></span>Profil</a>
 </div>
+
+<div id="view-historik"></div>
 
 <script>
 // ── DATA ──────────────────────────────────────────────
@@ -1546,47 +1552,60 @@ document.getElementById('nextDay').textContent='Måndag '+nextMon.getDate()+' '+
 
 // ── NAVIGERING ────────────────────────────────────────
 function navGo(view) {
-  const main     = document.getElementById('main-content');
+  const homeEls = document.querySelectorAll('.home-el');
   const historik = document.getElementById('view-historik');
-  if (!main || !historik) return;
 
-  if (view === 'hem') {
-    main.style.display     = '';
-    historik.style.display = 'none';
-    document.getElementById('nav-hem').classList.add('on');
-    document.getElementById('nav-historik').classList.remove('on');
-  } else if (view === 'historik') {
-    main.style.display     = 'none';
-    historik.style.display = '';
-    document.getElementById('nav-hem').classList.remove('on');
-    document.getElementById('nav-historik').classList.add('on');
-    renderHistorikView();
+  homeEls.forEach(function(el) {
+    el.classList.toggle('hidden', view !== 'hem');
+  });
+
+  if (historik) {
+    historik.classList.toggle('visible', view === 'historik');
   }
+
+  document.querySelectorAll('.nav a').forEach(function(a) {
+    a.classList.remove('on');
+  });
+  var activeEl = document.getElementById('nav-' + view);
+  if (activeEl) activeEl.classList.add('on');
+
+  if (view === 'historik') renderHistorikView();
 }
 
 function renderHistorikView() {
-  const el = document.getElementById('view-historik');
+  var el = document.getElementById('view-historik');
   if (!el) return;
-  const dp   = loadDynamicPeople();
-  const allP = { ...people, ...dp };
-  let html   = '<div style="padding:20px 20px 0;">';
 
-  Object.keys(allP).forEach(id => {
-    const p     = allP[id];
-    const state = personStates[id] || loadPersonState(id, dp[id]);
-    const hist  = (state && state.history) ? state.history : [];
+  var dp   = loadDynamicPeople ? loadDynamicPeople() : {};
+  var allP = Object.assign({}, people, dp);
+  var html = '<div style="padding:20px 20px 0;">';
+  var hasData = false;
+
+  Object.keys(allP).forEach(function(id) {
+    var p     = allP[id];
+    var state = personStates[id];
+    if (!state) return;
+    var hist  = state.history || [];
     if (!hist.length) return;
+    hasData = true;
 
-    const rows = hist.slice(-10).reverse().map(h => {
-      const d       = new Date(h.date);
-      const dateStr = days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()];
-      const detail  = h.freeExercises
-        ? h.freeExercises.map(function(e){ return e.name; }).join(', ')
-        : (h.weights ? [h.weights.bp, h.weights.sq, h.weights.dl, h.weights.lat].map(function(v){ return v ? v+'kg' : '-'; }).join(' / ') : '-');
+    var rows = hist.slice(-10).reverse().map(function(h) {
+      var d       = new Date(h.date);
+      var dateStr = days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()];
+      var detail;
+      if (h.freeExercises) {
+        detail = h.freeExercises.map(function(e){ return e.name; }).join(', ');
+      } else if (h.weights) {
+        detail = [h.weights.bp, h.weights.sq, h.weights.dl, h.weights.lat]
+          .map(function(v){ return v ? v + 'kg' : '-'; }).join(' / ');
+      } else {
+        detail = '-';
+      }
+      var emoji = feelingEmoji ? (feelingEmoji(h.feeling) || '') : '';
       return '<div style="display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--line);">'
         + '<div style="font-size:12px;color:var(--muted);min-width:80px;">' + dateStr + '</div>'
         + '<div style="font-size:13px;flex:1;">' + detail + '</div>'
-        + '<div style="font-size:16px;">' + (feelingEmoji(h.feeling) || '') + '</div>'
+        + '<div style="font-size:16px;">' + emoji + '</div>'
         + '</div>';
     }).join('');
 
@@ -1598,15 +1617,16 @@ function renderHistorikView() {
 
   html += '</div>';
 
-  el.innerHTML = '<div style="padding:22px 20px 16px;display:flex;align-items:center;justify-content:space-between;">'
+  if (!hasData) {
+    html = '<div style="padding:40px 20px;color:var(--muted);font-size:14px;text-align:center;">Inga loggade pass ännu.</div>';
+  }
+
+  el.innerHTML =
+    '<div style="padding:22px 20px 16px;display:flex;align-items:center;justify-content:space-between;">'
     + '<div style="font-family:var(--disp);font-weight:800;font-size:24px;">GYM<b style='color:var(--orange)'>PASS</b></div>'
-    + '<div style="font-size:12px;color:var(--muted)">Alla pass</div></div>'
-    + (html || '<div style="padding:20px;color:var(--muted);font-size:13px;">Inga loggade pass ännu.</div>');
+    + '<div style="font-size:12px;color:var(--muted);">Alla pass</div></div>'
+    + html;
 }
-
 </script>
-<!-- HISTORIK-VY -->
-<div id="view-historik" style="display:none;padding:0 0 80px;"></div>
-
 </body>
 </html>
