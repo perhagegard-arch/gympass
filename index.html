@@ -5,287 +5,254 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gympass</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --bg:#0b0b0d; --card:#15151a; --card2:#1c1c22; --line:rgba(255,255,255,0.07);
-  --ink:#ececf0; --muted:#83838c;
-  --orange:#ff7a45; --orange-soft:rgba(255,122,69,0.14); --orange-line:rgba(255,122,69,0.3);
-  --disp:'Barlow Condensed','Inter',sans-serif; --radius:18px;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b0b0d;--card:#15151a;--card2:#1c1c22;--line:rgba(255,255,255,0.07);
+  --ink:#ececf0;--muted:#83838c;
+  --orange:#ff7a45;--orange-soft:rgba(255,122,69,0.14);--orange-line:rgba(255,122,69,0.3);
+  --disp:'Barlow Condensed',sans-serif;--radius:18px;
 }
-body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); min-height:100vh; padding:0 0 90px; max-width:440px; margin:0 auto; -webkit-font-smoothing:antialiased; }
-.num { font-variant-numeric:tabular-nums; }
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;padding:0 0 90px;max-width:440px;margin:0 auto;-webkit-font-smoothing:antialiased}
 
 /* HEADER */
-.header { padding:22px 20px 0; display:flex; align-items:center; justify-content:space-between; }
-.wm { font-family:var(--disp); font-weight:800; font-size:24px; letter-spacing:.02em; text-transform:uppercase; }
-.wm b { color:var(--orange); }
-.date { font-size:12px; color:var(--muted); font-weight:500; }
+.header{padding:22px 20px 0;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--disp);font-weight:800;font-size:24px;letter-spacing:.02em}
+.logo b{color:var(--orange)}
+.date{font-size:12px;color:var(--muted);font-weight:500}
 
-/* HERO QUOTE */
-.quote { margin:18px 20px 0; }
-.quote-lab { font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin-bottom:7px; }
-.quote-text { font-family:var(--disp); font-weight:600; font-size:24px; line-height:1.05; }
-.quote-sub { font-size:12px; color:var(--muted); margin-top:6px; }
+/* QUOTE */
+.quote{padding:18px 20px 0}
+.quote-lab{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.quote-text{font-family:var(--disp);font-weight:600;font-size:22px;line-height:1.1}
+.quote-sub{font-size:12px;color:var(--muted);margin-top:6px}
 
-/* NEXT PASS */
-.next { margin:18px 20px 0; background:linear-gradient(135deg,#241410,#15110f); border:1px solid var(--orange-line); border-radius:var(--radius); padding:18px; position:relative; overflow:hidden; }
-.next::after { content:'🏋️'; position:absolute; right:-6px; bottom:-12px; font-size:80px; opacity:.12; }
-.next-lab { font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--orange); }
-.next-day { font-family:var(--disp); font-weight:700; font-size:34px; line-height:1; margin-top:8px; }
-.next-sub { font-size:12px; color:var(--muted); margin-top:6px; }
+/* NÄSTA PASS */
+.next{margin:18px 20px 0;background:linear-gradient(135deg,#241410,#15110f);border:1px solid var(--orange-line);border-radius:var(--radius);padding:18px;position:relative;overflow:hidden}
+.next::after{content:'🏋️';position:absolute;right:-6px;bottom:-12px;font-size:80px;opacity:.12}
+.next-lab{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)}
+.next-day{font-family:var(--disp);font-weight:700;font-size:34px;line-height:1;margin-top:8px}
+.next-sub{font-size:12px;color:var(--muted);margin-top:6px}
 
-/* WEEK */
-.week-head { display:flex; align-items:center; justify-content:space-between; padding:24px 20px 10px; }
-.seclab { font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
-.sechint { font-size:11px; color:var(--muted); opacity:.7; }
-.week { display:flex; gap:6px; padding:0 20px; }
-.week .d { flex:1; text-align:center; }
-.week .pill { height:32px; border-radius:9px; background:var(--card); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; font-family:var(--disp); font-weight:700; font-size:14px; color:var(--muted); }
-.week .d.done .pill { background:var(--orange-soft); color:var(--orange); border-color:var(--orange-line); }
-.week .d.today .pill { background:var(--orange); color:#1a0d06; border-color:var(--orange); }
-.week .nm { font-size:9px; color:var(--muted); margin-top:5px; text-transform:uppercase; letter-spacing:.06em; }
-.week-dots { display:flex; gap:3px; justify-content:center; margin-top:5px; height:6px; }
-.week-dot { width:5px; height:5px; border-radius:50%; background:var(--card2); }
-
-/* PERSON CARDS */
-.cards { padding:0 20px; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.person-card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px; cursor:pointer; transition:transform .15s, border-color .15s; -webkit-tap-highlight-color:transparent; }
-.person-card:active { transform:scale(0.97); }
-.person-card.per { --pc:var(--orange); } .person-card.alex { --pc:#4d9fff; }
-.person-card.nia { --pc:#ff6ea9; } .person-card.hannes { --pc:#ffd24d; }
-.card-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
-.avatar { width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-family:var(--disp); font-weight:700; font-size:14px; background:var(--pc); color:#111; }
-.person-card.hannes .avatar { color:#3a2c00; }
-.card-badge { font-size:9px; font-weight:700; letter-spacing:.05em; padding:3px 8px; border-radius:20px; background:rgba(255,255,255,0.05); color:var(--muted); }
-.card-badge.trained { background:var(--orange-soft); color:var(--orange); }
-.card-name { font-family:var(--disp); font-weight:700; font-size:20px; line-height:1; }
-.card-last { font-size:10px; color:var(--muted); margin-top:3px; }
-.card-lifts { display:grid; grid-template-columns:1fr 1fr; gap:9px 6px; margin-top:12px; }
-.lift-item { display:flex; flex-direction:column; }
-.lift-label { font-size:8px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
-.lift-val { font-family:var(--disp); font-weight:700; font-size:22px; line-height:1; margin-top:1px; }
-.lift-val span { font-size:10px; font-family:'Inter'; font-weight:500; color:var(--muted); }
-.card-cta { margin-top:13px; border-top:1px solid var(--line); padding-top:11px; font-size:12px; font-weight:600; color:var(--pc); }
+/* VECKA */
+.week-head{display:flex;align-items:center;justify-content:space-between;padding:24px 20px 10px}
+.seclab{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.sechint{font-size:11px;color:var(--muted);opacity:.7}
+.week{display:flex;gap:6px;padding:0 20px}
+.week .d{flex:1;text-align:center}
+.week .pill{height:32px;border-radius:9px;background:var(--card);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-weight:700;font-size:14px;color:var(--muted)}
+.week .d.done .pill{background:var(--orange-soft);color:var(--orange);border-color:var(--orange-line)}
+.week .d.today .pill{background:var(--orange);color:#1a0d06;border-color:var(--orange)}
+.week .nm{font-size:9px;color:var(--muted);margin-top:5px;text-transform:uppercase;letter-spacing:.06em}
+.week-dots{display:flex;gap:3px;justify-content:center;margin-top:5px;height:6px}
+.week-dot{width:5px;height:5px;border-radius:50%;background:var(--card2)}
 
 /* EIFFELTORNET */
-.eiffel-card { margin:18px 20px 0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px; }
-.eiffel-top { display:flex; align-items:flex-start; gap:16px; margin-bottom:16px; }
-.eiffel-svg-wrap { flex-shrink:0; width:80px; }
-.eiffel-info { flex:1; }
-.eiffel-label { font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
-.eiffel-pct { font-family:var(--disp); font-weight:800; font-size:42px; line-height:1; color:var(--orange); }
-.eiffel-kg { font-size:12px; color:var(--muted); margin-top:4px; }
-.eiffel-milestone { font-size:12px; color:var(--ink); margin-top:6px; font-weight:500; }
-.eiffel-bar { height:6px; background:var(--card2); border-radius:3px; overflow:hidden; margin-bottom:10px; }
-.eiffel-bar-fill { height:100%; border-radius:3px; background:linear-gradient(90deg,var(--orange),#ff6ea9,#4d9fff,#ffd24d); transition:width 1s ease; }
-.eiffel-last { background:var(--card2); border-radius:12px; padding:10px 14px; display:flex; align-items:center; justify-content:space-between; }
-.eiffel-last-label { font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:3px; }
-.eiffel-last-val { font-family:var(--disp); font-weight:700; font-size:18px; }
-.eiffel-last-compare { font-size:11px; color:var(--muted); }
-.eiffel-contribs { display:flex; gap:6px; margin-top:10px; }
-.eiffel-contrib { flex:1; background:var(--card2); border-radius:10px; padding:8px; text-align:center; }
-.eiffel-contrib-name { font-size:9px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-bottom:4px; }
-.eiffel-contrib-bar { height:4px; background:var(--line); border-radius:2px; overflow:hidden; margin-bottom:4px; }
-.eiffel-contrib-fill { height:100%; border-radius:2px; }
-.eiffel-contrib-kg { font-family:var(--disp); font-weight:700; font-size:13px; }
+.eiffel-card{margin:0 20px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.eiffel-top{display:flex;align-items:flex-start;gap:16px;margin-bottom:16px}
+.eiffel-svg-wrap{flex-shrink:0;width:80px}
+.eiffel-info{}
+.eiffel-label{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.eiffel-pct{font-family:var(--disp);font-weight:800;font-size:42px;line-height:1;color:var(--orange)}
+.eiffel-kg{font-size:12px;color:var(--muted);margin-top:4px}
+.eiffel-milestone{font-size:12px;color:var(--ink);margin-top:6px;font-weight:500}
+.eiffel-bar{height:6px;background:var(--card2);border-radius:3px;overflow:hidden;margin-bottom:10px}
+.eiffel-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--orange),#ff6ea9,#4d9fff,#ffd24d);transition:width 1s ease}
+.eiffel-last{background:var(--card2);border-radius:12px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between}
+.eiffel-last-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.eiffel-last-val{font-family:var(--disp);font-weight:700;font-size:18px}
+.eiffel-last-compare{font-size:11px;color:var(--muted)}
+.eiffel-contribs{display:flex;gap:6px;margin-top:10px}
+.eiffel-contrib{flex:1;background:var(--card2);border-radius:10px;padding:8px;text-align:center}
+.eiffel-contrib-name{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.eiffel-contrib-bar{height:4px;background:var(--line);border-radius:2px;overflow:hidden;margin-bottom:4px}
+.eiffel-contrib-fill{height:100%;border-radius:2px}
+.eiffel-contrib-kg{font-family:var(--disp);font-weight:700;font-size:13px}
 
-/* BOTTOM NAV */
-.nav { position:fixed; left:50%; transform:translateX(-50%); bottom:0; width:100%; max-width:440px; height:72px; border-top:1px solid var(--line); background:rgba(11,11,13,0.92); backdrop-filter:blur(10px); display:flex; align-items:center; justify-content:space-around; padding-bottom:10px; z-index:50; }
-.nav a { display:flex; flex-direction:column; align-items:center; gap:4px; font-size:10px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); cursor:pointer; }
-.nav a.on { color:var(--orange); }
-.nav .ndot { width:20px; height:20px; border:2px solid currentColor; border-radius:6px; }
-.nav a:nth-child(2) .ndot { border-radius:50%; } .nav a:nth-child(3) .ndot { border-radius:4px; }
+/* STÅNGVÄLJARE */
+.bar-toggle{display:flex;gap:6px;padding:0 20px;margin-top:14px;flex-wrap:wrap}
+.bar-btn{flex:1;padding:8px;border:1px solid var(--line);border-radius:10px;background:var(--card2);color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;text-align:center;font-family:var(--disp)}
+.bar-btn.on{background:var(--orange-soft);color:var(--orange);border-color:var(--orange-line)}
+
+/* PERSONKORT */
+.cards{padding:0 20px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.person-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;cursor:pointer;transition:transform .15s;-webkit-tap-highlight-color:transparent;position:relative}
+.person-card:active{transform:scale(0.97)}
+.card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.avatar{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-weight:700;font-size:14px;color:#111}
+.card-badge{font-size:9px;font-weight:700;letter-spacing:.05em;padding:3px 8px;border-radius:20px;background:rgba(255,255,255,0.05);color:var(--muted)}
+.card-badge.trained{background:var(--orange-soft);color:var(--orange)}
+.card-name{font-family:var(--disp);font-weight:700;font-size:20px;line-height:1}
+.card-last{font-size:10px;color:var(--muted);margin-top:3px}
+.card-lifts{display:grid;grid-template-columns:1fr 1fr;gap:9px 6px;margin-top:12px}
+.lift-item{display:flex;flex-direction:column}
+.lift-label{font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.lift-val{font-family:var(--disp);font-weight:700;font-size:22px;line-height:1;margin-top:1px}
+.lift-val span{font-size:10px;font-family:'Inter';font-weight:500;color:var(--muted)}
+.card-cta{margin-top:13px;border-top:1px solid var(--line);padding-top:11px;font-size:12px;font-weight:600}
+
+/* NY PERSON KORT */
+.add-card{background:var(--card);border:1.5px dashed rgba(255,122,69,0.3);border-radius:16px;padding:14px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:160px;-webkit-tap-highlight-color:transparent}
+.add-card:active{background:var(--orange-soft);border-color:var(--orange)}
+.add-icon{font-size:32px;margin-bottom:8px}
+.add-label{font-family:var(--disp);font-weight:700;font-size:16px;color:var(--orange)}
+.add-sub{font-size:11px;color:var(--muted);margin-top:4px;text-align:center}
+
+/* NAV */
+.nav{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:440px;height:72px;border-top:1px solid var(--line);background:rgba(11,11,13,0.95);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:space-around;padding-bottom:10px;z-index:50}
+.nav a{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.nav a.on{color:var(--orange)}
+.nav .ndot{width:20px;height:20px;border:2px solid currentColor;border-radius:6px}
+.nav a:nth-child(2) .ndot{border-radius:50%}
+.nav a:nth-child(3) .ndot{border-radius:4px}
 
 /* MODAL */
-.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:100; display:flex; flex-direction:column; overflow-y:auto; opacity:0; pointer-events:none; transition:opacity .2s; }
-.modal-overlay.open { opacity:1; pointer-events:all; }
-.modal { background:var(--bg); border-radius:24px 24px 0 0; margin-top:auto; padding:0 0 40px; min-height:86vh; max-width:440px; width:100%; margin-left:auto; margin-right:auto; transform:translateY(40px); transition:transform .25s cubic-bezier(0.32,0,0,1); border-top:1px solid var(--line); }
-.modal-overlay.open .modal { transform:translateY(0); }
-.modal-handle { width:36px; height:4px; background:rgba(255,255,255,0.15); border-radius:2px; margin:14px auto 0; }
-.modal-header { padding:18px 20px 0; display:flex; align-items:center; justify-content:space-between; }
-.modal-person { display:flex; align-items:center; gap:12px; }
-.modal-avatar { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-family:var(--disp); font-weight:700; font-size:16px; }
-.modal-name { font-family:var(--disp); font-weight:700; font-size:26px; line-height:1; }
-.modal-close { width:34px; height:34px; border-radius:50%; background:var(--card2); border:none; color:var(--muted); font-size:15px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
-.exercise-block { margin:18px 20px 0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
-.exercise-title { padding:13px 16px; font-family:var(--disp); font-size:18px; font-weight:700; letter-spacing:.02em; text-transform:uppercase; border-bottom:1px solid var(--line); }
-.set-row { display:grid; grid-template-columns:24px 1fr 86px 54px; align-items:center; padding:11px 16px; border-bottom:1px solid var(--line); gap:8px; }
-.set-row:last-child { border-bottom:none; }
-.set-num { font-family:var(--disp); font-weight:700; font-size:14px; color:var(--muted); text-align:center; }
-.set-type { font-size:12px; color:var(--muted); }
-.set-weight { font-family:var(--disp); font-weight:700; font-size:22px; text-align:right; line-height:1; }
-.set-weight span { font-size:11px; font-family:'Inter'; font-weight:500; color:var(--muted); }
-.set-reps { font-family:var(--disp); font-weight:600; font-size:15px; color:var(--muted); text-align:right; }
-.set-row.top-set { background:var(--orange-soft); }
-.set-row.top-set .set-weight { color:var(--orange); }
-.set-row.top-set .set-type { color:var(--orange); }
-.rest-note { margin:14px 20px 0; text-align:center; font-size:12px; color:var(--muted); }
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:100;display:flex;flex-direction:column;overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:var(--bg);border-radius:24px 24px 0 0;margin-top:auto;padding:0 0 40px;min-height:86vh;max-width:440px;width:100%;margin-left:auto;margin-right:auto;transform:translateY(40px);transition:transform .25s cubic-bezier(0.32,0,0,1);border-top:1px solid var(--line)}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal-handle{width:36px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;margin:14px auto 0}
+.modal-header{padding:18px 20px 0;display:flex;align-items:center;justify-content:space-between}
+.modal-person{display:flex;align-items:center;gap:12px}
+.modal-avatar{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-weight:700;font-size:16px}
+.modal-name{font-family:var(--disp);font-weight:700;font-size:26px;line-height:1}
+.modal-close{width:34px;height:34px;border-radius:50%;background:var(--card2);border:none;color:var(--muted);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.modal-actions{display:flex;gap:8px}
+.print-btn{width:34px;height:34px;border-radius:50%;background:var(--card2);border:none;color:var(--muted);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+/* PASS-VY */
+.exercise-block{margin:18px 20px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.exercise-title{padding:13px 16px;font-family:var(--disp);font-size:18px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;border-bottom:1px solid var(--line)}
+.set-row{display:grid;grid-template-columns:24px 1fr 86px 54px;align-items:center;padding:11px 16px;border-bottom:1px solid var(--line);gap:8px}
+.set-row:last-child{border-bottom:none}
+.set-num{font-family:var(--disp);font-weight:700;font-size:14px;color:var(--muted);text-align:center}
+.set-type{font-size:12px;color:var(--muted)}
+.set-weight{font-family:var(--disp);font-weight:700;font-size:22px;text-align:right;line-height:1}
+.set-weight span{font-size:11px;font-family:'Inter';font-weight:500;color:var(--muted)}
+.set-reps{font-family:var(--disp);font-weight:600;font-size:15px;color:var(--muted);text-align:right}
+.set-row.top-set{background:var(--orange-soft)}
+.set-row.top-set .set-weight{color:var(--orange)}
+.set-row.top-set .set-type{color:var(--orange)}
+.rest-note{margin:14px 20px 0;text-align:center;font-size:12px;color:var(--muted)}
+.plate-info{padding:6px 16px 10px;background:rgba(0,0,0,0.2);border-top:1px solid var(--line)}
+.plate-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.plate-label{font-size:10px;color:var(--muted);min-width:60px}
+.plate-chip{font-size:10px;font-weight:700;padding:3px 7px;border-radius:6px;background:var(--card2);color:var(--ink);border:1px solid var(--line)}
+.plate-chip.p20{background:#3a1f0a;color:#ff9055;border-color:#ff7a45}
+.plate-chip.p15{background:#0a2a3a;color:#5db0ff;border-color:#4d9fff}
+.plate-chip.p10{background:#1a2a0a;color:#a0d050;border-color:#7ab828}
+.plate-chip.p5{background:#2a1a2a;color:#d070d0;border-color:#a040a0}
+.plate-chip.p25{background:#2a2a0a;color:#d0c050;border-color:#a09020}
+.plate-chip.p125{background:#1a1a2a;color:#9090d0;border-color:#6060a0}
 
 /* MÅLVIKTER */
-.targets-block { margin:18px 20px 0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
-.targets-title { padding:13px 16px; font-family:var(--disp); font-size:16px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; }
-.targets-grid { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:0; }
-.targets-head { display:grid; grid-template-columns:80px 1fr 1fr 1fr; padding:8px 16px; border-bottom:1px solid var(--line); }
-.targets-head span { font-size:9px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); text-align:center; }
-.targets-head span:first-child { text-align:left; }
-.targets-row { display:grid; grid-template-columns:80px 1fr 1fr 1fr; padding:10px 16px; border-bottom:1px solid var(--line); align-items:center; }
-.targets-row:last-child { border-bottom:none; }
-.targets-ex { font-size:12px; font-weight:600; color:var(--muted); }
-.targets-val { font-family:var(--disp); font-weight:700; font-size:18px; text-align:center; }
-.targets-val.current { color:var(--ink); }
-.targets-val.m1 { color:var(--orange); }
-.targets-val.m3 { color:#4d9fff; }
-.targets-val.m6 { color:#ff6ea9; }
-.adjust-row { padding:12px 16px; border-top:1px solid var(--line); display:flex; gap:8px; align-items:center; }
-.adjust-btn { flex:1; padding:9px; border:1px solid var(--line); border-radius:10px; background:var(--card2); color:var(--muted); font-size:12px; font-weight:600; cursor:pointer; text-align:center; }
-.adjust-btn:hover { border-color:var(--orange-line); color:var(--orange); }
-.adjust-label { font-size:11px; color:var(--muted); }
+.targets-block{margin:18px 20px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.targets-title{padding:13px 16px;font-family:var(--disp);font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--line)}
+.targets-head{display:grid;grid-template-columns:90px 1fr 1fr;padding:8px 16px;border-bottom:1px solid var(--line)}
+.targets-head span{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center}
+.targets-head span:first-child{text-align:left}
+.targets-ex-row{border-bottom:1px solid var(--line)}
+.targets-ex-row:last-child{border-bottom:none}
+.targets-ex-header{display:grid;grid-template-columns:90px 1fr 1fr;padding:10px 16px 6px;align-items:center}
+.targets-ex-name{font-size:12px;font-weight:600;color:var(--muted)}
+.targets-ex-val{font-family:var(--disp);font-weight:700;font-size:17px;text-align:center}
+.targets-ex-adj{display:flex;gap:4px;padding:0 16px 10px}
+.targets-ex-adjbtn{flex:1;padding:5px 0;border:1px solid var(--line);border-radius:8px;background:var(--card2);color:var(--muted);font-size:11px;font-weight:700;cursor:pointer;text-align:center}
+.targets-ex-adjbtn:active{background:var(--orange-soft);color:var(--orange)}
 
-/* PROGRESSIONSGRAFER */
-.graph-block { margin:18px 20px 0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
-.graph-title { padding:13px 16px 10px; font-family:var(--disp); font-size:16px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; border-bottom:1px solid var(--line); }
-.graph-tabs { display:flex; gap:0; padding:10px 16px 0; }
-.graph-tab { font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:6px 10px; border-radius:8px; cursor:pointer; color:var(--muted); }
-.graph-tab.on { background:var(--orange-soft); color:var(--orange); }
-.graph-svg-wrap { padding:10px 16px 14px; }
-.graph-svg { width:100%; height:120px; display:block; }
-.graph-empty { padding:20px 16px; font-size:12px; color:var(--muted); text-align:center; }
-.graph-legend { display:flex; gap:12px; padding:0 16px 14px; flex-wrap:wrap; }
-.graph-legend-item { display:flex; align-items:center; gap:5px; font-size:10px; color:var(--muted); }
-.graph-legend-dot { width:8px; height:8px; border-radius:50%; }
+/* GRAFER */
+.graph-block{margin:18px 20px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.graph-title{padding:13px 16px 10px;font-family:var(--disp);font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--line)}
+.graph-tabs{display:flex;gap:0;padding:10px 16px 0}
+.graph-tab{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border-radius:8px;cursor:pointer;color:var(--muted)}
+.graph-tab.on{background:var(--orange-soft);color:var(--orange)}
+.graph-svg-wrap{padding:10px 16px 14px}
+.graph-svg{width:100%;height:120px;display:block}
+.graph-empty{padding:20px 16px;font-size:12px;color:var(--muted);text-align:center}
 
-/* ONBOARDING */
-.progress-dots { display:flex; gap:6px; padding:20px 20px 0; }
-.progress-dot { height:4px; flex:1; border-radius:2px; background:var(--card2); }
-.progress-dot.active { background:var(--orange); }
-.onboarding-step { padding:26px 20px 10px; }
-.onboarding-emoji { font-size:40px; margin-bottom:14px; }
-.onboarding-title { font-family:var(--disp); font-weight:700; font-size:30px; line-height:1; margin-bottom:10px; }
-.onboarding-sub { font-size:14px; color:var(--muted); line-height:1.5; margin-bottom:20px; }
-.profile-card { background:var(--card); border:1.5px solid var(--line); border-radius:var(--radius); padding:15px; margin-bottom:10px; cursor:pointer; -webkit-tap-highlight-color:transparent; transition:border-color .15s, background .15s; }
-.profile-card.selected { border-color:var(--orange); background:var(--orange-soft); }
-.profile-card-title { font-family:var(--disp); font-weight:700; font-size:19px; line-height:1; margin-bottom:5px; }
-.profile-card.selected .profile-card-title { color:var(--orange); }
-.profile-card-desc { font-size:12px; color:var(--muted); line-height:1.4; }
-.weight-row { display:flex; align-items:center; justify-content:space-between; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:13px 16px; margin-bottom:10px; }
-.weight-row-label { font-family:var(--disp); font-weight:700; font-size:18px; }
-.weight-row-hint { font-size:11px; color:var(--muted); margin-top:2px; }
-.stepper { display:flex; align-items:center; gap:10px; }
-.stepper-btn { width:42px; height:42px; border-radius:50%; border:1px solid var(--line); background:var(--card2); color:var(--ink); font-size:20px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; -webkit-tap-highlight-color:transparent; }
-.stepper-btn:active { background:var(--orange-soft); border-color:var(--orange-line); }
-.stepper-val { font-family:var(--disp); font-weight:700; font-size:20px; min-width:64px; text-align:center; }
-.btn-primary { display:block; width:calc(100% - 40px); margin:24px 20px 0; padding:17px; border:none; border-radius:var(--radius); background:var(--orange); color:#1a0d06; font-family:var(--disp); font-size:20px; font-weight:700; letter-spacing:.02em; text-transform:uppercase; cursor:pointer; -webkit-tap-highlight-color:transparent; }
-.btn-primary:disabled { opacity:.35; cursor:not-allowed; }
-.btn-secondary { display:block; width:calc(100% - 40px); margin:10px 20px 0; padding:13px; border:none; border-radius:var(--radius); background:transparent; color:var(--muted); font-size:14px; font-weight:600; cursor:pointer; }
-
-/* FEELING */
-.feeling-grid { padding:4px 20px 0; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.feeling-card { background:var(--card); border:1.5px solid var(--line); border-radius:var(--radius); padding:18px 10px; text-align:center; cursor:pointer; -webkit-tap-highlight-color:transparent; transition:border-color .15s, background .15s; }
-.feeling-card:active { border-color:var(--orange); background:var(--orange-soft); }
-.feeling-card:last-child { grid-column:1 / -1; }
-.feeling-emoji { font-size:28px; margin-bottom:6px; }
-.feeling-label { font-family:var(--disp); font-weight:700; font-size:17px; }
-
-/* HISTORY */
-.history-list { margin:8px 20px 0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
-.history-row { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 16px; border-bottom:1px solid var(--line); }
-.history-row:last-child { border-bottom:none; }
-.history-date { font-size:12px; color:var(--muted); min-width:74px; }
-.history-weights { font-family:var(--disp); font-weight:700; font-size:16px; flex:1; text-align:center; }
-.history-feeling { font-size:18px; }
-.history-empty { margin:8px 20px 0; padding:14px 16px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); font-size:12px; color:var(--muted); }
-
-/* PLATTEKALKYLATOR */
-.plate-info { padding:6px 16px 10px; background:rgba(0,0,0,0.2); border-top:1px solid var(--line); }
-.plate-row { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
-.plate-label { font-size:10px; color:var(--muted); min-width:60px; }
-.plate-chip { font-size:10px; font-weight:700; padding:3px 7px; border-radius:6px; background:var(--card2); color:var(--ink); border:1px solid var(--line); }
-.plate-chip.p20 { background:#3a1f0a; color:#ff9055; border-color:#ff7a45; }
-.plate-chip.p15 { background:#0a2a3a; color:#5db0ff; border-color:#4d9fff; }
-.plate-chip.p10 { background:#1a2a0a; color:#a0d050; border-color:#7ab828; }
-.plate-chip.p5  { background:#2a1a2a; color:#d070d0; border-color:#a040a0; }
-.plate-chip.p25 { background:#2a2a0a; color:#d0c050; border-color:#a09020; }
-.plate-chip.p125{ background:#1a1a2a; color:#9090d0; border-color:#6060a0; }
-.bar-toggle { display:flex; gap:6px; padding:0 20px; margin-top:14px; }
-.bar-btn { flex:1; padding:8px; border:1px solid var(--line); border-radius:10px; background:var(--card2); color:var(--muted); font-size:12px; font-weight:700; cursor:pointer; text-align:center; font-family:var(--disp); }
-.bar-btn.on { background:var(--orange-soft); color:var(--orange); border-color:var(--orange-line); }
-
-/* MÅLVIKTER PER ÖVNING */
-.targets-ex-row { border-bottom:1px solid var(--line); }
-.targets-ex-row:last-child { border-bottom:none; }
-.targets-ex-header { display:grid; grid-template-columns:90px 1fr 1fr; padding:10px 16px 6px; align-items:center; }
-.targets-ex-name { font-size:13px; font-weight:700; color:var(--ink); }
-.targets-ex-val { font-family:var(--disp); font-weight:700; font-size:17px; text-align:center; }
-.targets-ex-adj { display:flex; gap:4px; padding:0 16px 10px; }
-.targets-ex-adjbtn { flex:1; padding:5px 0; border:1px solid var(--line); border-radius:8px; background:var(--card2); color:var(--muted); font-size:11px; font-weight:700; cursor:pointer; text-align:center; }
-.targets-ex-adjbtn:active { background:var(--orange-soft); color:var(--orange); }
-
-/* UTSKRIFT */
-.print-btn { position:absolute; right:60px; top:18px; width:34px; height:34px; border-radius:50%; background:var(--card2); border:none; color:var(--muted); font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
-@media print {
-  body { background:#fff !important; color:#000 !important; padding:0 !important; max-width:none !important; }
-  .nav, .modal-overlay:not(#printModal), .header, .quote, .next, .week, .week-head, .eiffel-card, .cards, #cardsContainer, .bar-toggle { display:none !important; }
-  .print-content { display:block !important; }
-  .print-header { font-size:22px; font-weight:700; margin-bottom:8px; }
-  .print-exercise { margin-bottom:14px; border:1px solid #ccc; border-radius:8px; overflow:hidden; }
-  .print-ex-title { background:#f0f0f0; padding:8px 12px; font-size:14px; font-weight:700; text-transform:uppercase; }
-  .print-set-row { display:grid; grid-template-columns:30px 1fr 80px 60px; padding:6px 12px; border-bottom:1px solid #eee; font-size:13px; }
-  .print-set-row:last-child { border-bottom:none; }
-  .print-plate-info { font-size:11px; color:#555; padding:4px 12px 6px; background:#fafafa; }
-}
+/* HISTORIK */
+.history-list{margin:8px 20px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.history-row{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.history-row:last-child{border-bottom:none}
+.history-date{font-size:12px;color:var(--muted);min-width:74px}
+.history-weights{font-family:var(--disp);font-weight:700;font-size:16px;flex:1;text-align:center}
+.history-feeling{font-size:18px}
+.history-empty{margin:8px 20px 0;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);font-size:12px;color:var(--muted)}
 
 /* VIKT-EDITOR */
-.weight-editor { margin:14px 20px 0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
-.weight-editor-title { padding:10px 16px; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; cursor:pointer; }
-.weight-editor-body { display:none; padding:10px 16px 14px; }
-.weight-editor-body.open { display:block; }
-.we-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
-.we-row:last-child { margin-bottom:0; }
-.we-label { font-size:13px; font-weight:600; color:var(--ink); }
-.we-stepper { display:flex; align-items:center; gap:8px; }
-.we-btn { width:36px; height:36px; border-radius:50%; border:1px solid var(--line); background:var(--card2); color:var(--ink); font-size:18px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; -webkit-tap-highlight-color:transparent; }
-.we-btn:active { background:var(--orange-soft); border-color:var(--orange-line); }
-.we-val { font-family:var(--disp); font-weight:700; font-size:18px; min-width:60px; text-align:center; }
-.we-save { width:100%; margin-top:12px; padding:10px; background:var(--orange); border:none; border-radius:10px; color:#1a0d06; font-family:var(--disp); font-size:16px; font-weight:700; cursor:pointer; }
+.weight-editor{margin:14px 20px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.weight-editor-title{padding:10px 16px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+.weight-editor-body{display:none;padding:10px 16px 14px}
+.weight-editor-body.open{display:block}
+.we-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.we-row:last-child{margin-bottom:0}
+.we-label{font-size:13px;font-weight:600;color:var(--ink)}
+.we-stepper{display:flex;align-items:center;gap:8px}
+.we-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--card2);color:var(--ink);font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.we-btn:active{background:var(--orange-soft);border-color:var(--orange-line)}
+.we-val{font-family:var(--disp);font-weight:700;font-size:18px;min-width:60px;text-align:center}
+.we-save{width:100%;margin-top:12px;padding:10px;background:var(--orange);border:none;border-radius:10px;color:#1a0d06;font-family:var(--disp);font-size:16px;font-weight:700;cursor:pointer}
 
 /* FRIPASS */
-.free-block { margin:18px 20px 0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
-.free-title { padding:13px 16px; font-family:var(--disp); font-size:16px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; }
-.free-exercise { padding:12px 16px; border-bottom:1px solid var(--line); }
-.free-exercise:last-of-type { border-bottom:none; }
-.free-ex-name { font-family:var(--disp); font-weight:700; font-size:17px; margin-bottom:6px; }
-.free-ex-detail { font-size:12px; color:var(--muted); }
-.free-add { display:flex; gap:8px; padding:12px 16px; }
-.free-input { flex:1; background:var(--card2); border:1px solid var(--line); border-radius:10px; padding:10px 12px; color:var(--ink); font-size:14px; font-family:'Inter',sans-serif; }
-.free-input:focus { outline:none; border-color:var(--orange-line); }
-.free-add-btn { padding:10px 16px; background:var(--orange); border:none; border-radius:10px; color:#1a0d06; font-weight:700; font-size:14px; cursor:pointer; font-family:var(--disp); }
-.free-suggestion { display:flex; gap:6px; padding:0 16px 12px; flex-wrap:wrap; }
-.free-sug-chip { font-size:11px; padding:4px 10px; background:var(--card2); border:1px solid var(--line); border-radius:20px; cursor:pointer; color:var(--muted); }
-.free-sug-chip:active { background:var(--orange-soft); color:var(--orange); }
-.free-sets-row { display:grid; grid-template-columns:1fr 1fr 1fr 30px; gap:6px; margin-top:8px; }
-.free-set-input { background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:7px 8px; color:var(--ink); font-size:13px; font-family:'Inter',sans-serif; text-align:center; }
-.free-set-del { background:none; border:none; color:var(--muted); font-size:16px; cursor:pointer; padding:0; }
-.type-toggle { display:flex; gap:0; margin:16px 20px 0; border:1px solid var(--line); border-radius:12px; overflow:hidden; }
-.type-btn { flex:1; padding:11px; background:var(--card2); border:none; color:var(--muted); font-size:13px; font-weight:700; cursor:pointer; font-family:var(--disp); }
-.type-btn.on { background:var(--orange); color:#1a0d06; }
+.free-block{margin:18px 20px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.free-title{padding:13px 16px;font-family:var(--disp);font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.free-exercise{padding:12px 16px;border-bottom:1px solid var(--line)}
+.free-exercise:last-of-type{border-bottom:none}
+.free-ex-name{font-family:var(--disp);font-weight:700;font-size:17px;margin-bottom:6px}
+.free-ex-detail{font-size:12px;color:var(--muted)}
+.free-input{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--ink);font-size:14px;font-family:'Inter',sans-serif;width:100%}
+.free-input:focus{outline:none;border-color:var(--orange-line)}
+.free-add-btn{padding:10px 16px;background:var(--orange);border:none;border-radius:10px;color:#1a0d06;font-weight:700;font-size:14px;cursor:pointer;font-family:var(--disp);width:100%}
+.free-suggestion{display:flex;gap:6px;padding:8px 16px;flex-wrap:wrap}
+.free-sug-chip{font-size:11px;padding:4px 10px;background:var(--card2);border:1px solid var(--line);border-radius:20px;cursor:pointer;color:var(--muted)}
+.free-sug-chip:active{background:var(--orange-soft);color:var(--orange)}
 
+/* KNAPPAR */
+.btn-primary{display:block;width:calc(100% - 40px);margin:24px 20px 0;padding:17px;border:none;border-radius:var(--radius);background:var(--orange);color:#1a0d06;font-family:var(--disp);font-size:20px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.btn-primary:disabled{opacity:.35;cursor:not-allowed}
+.btn-secondary{display:block;width:calc(100% - 40px);margin:10px 20px 0;padding:13px;border:none;border-radius:var(--radius);background:transparent;color:var(--muted);font-size:14px;font-weight:600;cursor:pointer}
 
-/* NY PERSON */
-.add-person-card { background:var(--card); border:1.5px dashed rgba(255,122,69,0.3); border-radius:16px; padding:14px; cursor:pointer; transition:border-color .15s, background .15s; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:160px; -webkit-tap-highlight-color:transparent; }
-.add-person-card:active { background:var(--orange-soft); border-color:var(--orange); }
-.add-person-icon { font-size:32px; margin-bottom:8px; }
-.add-person-label { font-family:var(--disp); font-weight:700; font-size:16px; color:var(--orange); }
-.add-person-sub { font-size:11px; color:var(--muted); margin-top:4px; text-align:center; }
+/* ONBOARDING */
+.progress-dots{display:flex;gap:6px;padding:20px 20px 0}
+.progress-dot{height:4px;flex:1;border-radius:2px;background:var(--card2)}
+.progress-dot.active{background:var(--orange)}
+.onboarding-step{padding:26px 20px 10px}
+.onboarding-emoji{font-size:40px;margin-bottom:14px}
+.onboarding-title{font-family:var(--disp);font-weight:700;font-size:30px;line-height:1;margin-bottom:10px}
+.onboarding-sub{font-size:14px;color:var(--muted);line-height:1.5;margin-bottom:20px}
+.profile-card{background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);padding:15px;margin-bottom:10px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s,background .15s}
+.profile-card.selected{border-color:var(--orange);background:var(--orange-soft)}
+.profile-card-title{font-family:var(--disp);font-weight:700;font-size:19px;line-height:1;margin-bottom:5px}
+.profile-card.selected .profile-card-title{color:var(--orange)}
+.profile-card-desc{font-size:12px;color:var(--muted);line-height:1.4}
+.weight-row{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:13px 16px;margin-bottom:10px}
+.weight-row-label{font-family:var(--disp);font-weight:700;font-size:18px}
+.weight-row-hint{font-size:11px;color:var(--muted);margin-top:2px}
+.stepper{display:flex;align-items:center;gap:10px}
+.stepper-btn{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--card2);color:var(--ink);font-size:20px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
+.stepper-btn:active{background:var(--orange-soft);border-color:var(--orange-line)}
+.stepper-val{font-family:var(--disp);font-weight:700;font-size:20px;min-width:64px;text-align:center}
 
+/* KÄNSLA */
+.feeling-grid{padding:4px 20px 0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.feeling-card{background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);padding:18px 10px;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s,background .15s}
+.feeling-card:active{border-color:var(--orange);background:var(--orange-soft)}
+.feeling-card:last-child{grid-column:1 / -1}
+.feeling-emoji{font-size:28px;margin-bottom:6px}
+.feeling-label{font-family:var(--disp);font-weight:700;font-size:17px}
+
+/* FÄRGVÄLJARE */
+.color-picker{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.color-dot{width:36px;height:36px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:border .15s}
+.color-dot.selected{border-color:#fff}
 </style>
 </head>
 <body>
 
+<!-- STARTSIDA -->
 <div class="header">
-  <div class="wm">GYM<b>PASS</b></div>
+  <div class="logo">GYM<b>PASS</b></div>
   <div class="date" id="headerDate"></div>
 </div>
 
@@ -312,16 +279,13 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
   <div class="d" id="d-sun"><div class="pill" id="w-sun">S</div><div class="week-dots" id="wd-sun"></div><div class="nm">Sön</div></div>
 </div>
 
-<!-- EIFFELTORNET -->
 <div class="week-head"><div class="seclab">Gruppens mål 🗼</div></div>
 <div class="eiffel-card" id="eiffelCard"></div>
 
-
-<!-- STÅNGVÄLJARE -->
+<div style="margin:14px 20px 0;font-size:10px;color:var(--muted);text-align:center;">Latsdrag: viktstack 35–115 kg · välj stång nedan</div>
 <div class="bar-toggle">
   <div class="bar-btn on" id="bar20" onclick="setBar(20)">Stång 20 kg (olympisk)</div>
   <div class="bar-btn" id="bar15" onclick="setBar(15)">Stång 15 kg (standard)</div>
-  <div style="width:100%;text-align:center;font-size:10px;color:var(--muted);margin-top:6px;padding:0 8px;">Latsdrag: viktstack 35–115 kg visas automatiskt 📍</div>
 </div>
 
 <div class="week-head">
@@ -330,69 +294,55 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
 </div>
 <div class="cards" id="cardsContainer"></div>
 
-<!-- PERSON MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
-  <div class="modal" id="modal">
+<!-- PASS MODAL -->
+<div class="modal-overlay" id="passOverlay" onclick="closePassOutside(event)">
+  <div class="modal" id="passModal">
     <div class="modal-handle"></div>
     <div class="modal-header">
       <div class="modal-person">
-        <div class="modal-avatar" id="modalAvatar"></div>
-        <div class="modal-name" id="modalName"></div>
+        <div class="modal-avatar" id="passAvatar"></div>
+        <div class="modal-name" id="passName"></div>
       </div>
-      <button class="print-btn" onclick="printPass()" title="Skriv ut pass">🖨️</button>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-actions">
+        <button class="print-btn" onclick="printPass()" title="Skriv ut">🖨️</button>
+        <button class="modal-close" onclick="closePass()">✕</button>
+      </div>
     </div>
-    <div id="modalContent"></div>
+    <div id="passContent"></div>
     <div class="rest-note">⏱ Vila ca 2 minuter mellan varje set</div>
-    <div id="editWeightsSection"></div>
+    <div id="weightsEditorSection"></div>
     <button class="btn-primary" onclick="finishWorkout()">Avsluta pass ✅</button>
     <div id="targetsSection"></div>
     <div id="graphSection"></div>
-    <div id="historySection"></div>
-  </div>
-</div>
-
-
-<!-- LÄGG TILL PERSON MODAL -->
-<div class="modal-overlay" id="addPersonOverlay" onclick="closeAddPersonOutside(event)">
-  <div class="modal" id="addPersonModal">
-    <div class="modal-handle"></div>
-    <div class="modal-header">
-      <div class="modal-person">
-        <div class="modal-avatar" id="addPersonAvatar" style="background:#ff7a45;color:#111;">➕</div>
-        <div class="modal-name">Ny person</div>
-      </div>
-      <button class="modal-close" onclick="closeAddPerson()">✕</button>
-    </div>
-    <div id="addPersonContent"></div>
+    <div id="passHistorySection"></div>
   </div>
 </div>
 
 <!-- FRIPASS MODAL -->
-<div class="modal-overlay" id="freepassOverlay" onclick="closeFreepassOutside(event)">
-  <div class="modal" id="freepassModal">
+<div class="modal-overlay" id="freeOverlay" onclick="closeFreeOutside(event)">
+  <div class="modal" id="freeModal">
     <div class="modal-handle"></div>
     <div class="modal-header">
       <div class="modal-person">
-        <div class="modal-avatar" id="freepassAvatar"></div>
-        <div class="modal-name" id="freepassName"></div>
+        <div class="modal-avatar" id="freeAvatar"></div>
+        <div class="modal-name" id="freeName"></div>
       </div>
-      <button class="modal-close" onclick="closeFreepass()">✕</button>
+      <button class="modal-close" onclick="closeFree()">✕</button>
     </div>
-    <div id="freepassContent"></div>
+    <div id="freeContent"></div>
   </div>
 </div>
 
-<!-- ONBOARDING -->
-<div class="modal-overlay" id="onboardingOverlay">
-  <div class="modal" id="onboardingModal">
+<!-- ONBOARDING MODAL -->
+<div class="modal-overlay" id="onboardOverlay">
+  <div class="modal" id="onboardModal">
     <div class="modal-handle"></div>
-    <div id="onboardingProgress" class="progress-dots"></div>
-    <div id="onboardingContent"></div>
+    <div id="onboardProgress" class="progress-dots"></div>
+    <div id="onboardContent"></div>
   </div>
 </div>
 
-<!-- FEELING -->
+<!-- KÄNSLA MODAL -->
 <div class="modal-overlay" id="feelingOverlay">
   <div class="modal" id="feelingModal">
     <div class="modal-handle"></div>
@@ -400,1252 +350,6 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
   </div>
 </div>
 
-<!-- BOTTOM NAV -->
-<div class="nav">
-  <a class="on" id="nav-hem"><span class="ndot"></span>Hem</a>
-  <a onclick="openHistorik()"><span class="ndot"></span>Historik</a>
-  <a><span class="ndot"></span>Profil</a>
-</div>
-
-<script>
-// ── DATA ──────────────────────────────────────────────
-const people = {
-  per:    { name:'Per',    initials:'PH', color:'#ff7a45', role:'Coach', bp:45, sq:60, dl:60, lat:null },
-  alex:   { name:'Alex',   initials:'AL', color:'#4d9fff',              bp:45, sq:60, dl:60, lat:null },
-  nia:    { name:'Nia',    initials:'NI', color:'#ff6ea9',              bp:35, sq:20, dl:30, lat:null },
-  hannes: { name:'Hannes', initials:'HA', color:'#ffd24d',              bp:27, sq:22, dl:27, lat:null }
-};
-
-const EIFFEL_KG = 10100000;
-const PLATES = [20, 15, 10, 5, 2.5, 1.25];
-const PLATE_CLASSES = { 20:'p20', 15:'p15', 10:'p10', 5:'p5', 2.5:'p25', 1.25:'p125' };
-
-let barWeight = 20; // kg – kan ändras av användaren
-
-const comparisons = [
-  { kg:5000,     emoji:'🐘', name:'elefant' },
-  { kg:150000,   emoji:'🐋', name:'blåval' },
-  { kg:500000,   emoji:'✈️', name:'Boeing 747' },
-  { kg:3000000,  emoji:'🚀', name:'rymdraket' },
-  { kg:10100000, emoji:'🗼', name:'Eiffeltorn' }
-];
-
-const milestones = [
-  { kg:1600000,  label:'Våning 1 🎯', pct:15.8 },
-  { kg:3200000,  label:'Våning 2 🥂', pct:31.7 },
-  { kg:7800000,  label:'Våning 3 👁',  pct:77.2 },
-  { kg:10100000, label:'Toppen 🗼',    pct:100  }
-];
-
-const quotes = [
-  { text:'Varje lyft räknas. Varje set bygger något.', sub:'Konsistens slår motivation – varje gång.' },
-  { text:'Du är starkare idag än igår.',               sub:'Progressiv överbelastning är magin.' },
-  { text:'Gymmet är inte ett straff. Det är din tid.', sub:'Fyra övningar. Sex set. Klar.' },
-  { text:'Tekniken först. Vikten kommer.',             sub:'Rätt rörelse är grunden till allt.' },
-  { text:'Ingen regret efter ett gympass.',            sub:'Det vet ni allihopa nu.' }
-];
-
-const motivationProfiles = [
-  { id:1, title:'Siffrorna ljuger inte',         desc:'Du motiveras av viktutveckling och tydliga grafer på din progression.' },
-  { id:2, title:'Tillsammans är vi starkare',    desc:'Du motiveras av att träna som grupp och peppa varandra.' },
-  { id:3, title:'Jag mår bättre när jag tränar', desc:'Du motiveras av välmående, energi och hur kroppen känns.' },
-  { id:4, title:'Jag vill överraska mig själv',  desc:'Du motiveras av milstolpar, personbästa och beröm.' }
-];
-
-const feelingOptions = [
-  { id:1, emoji:'🙂', label:'Bra att jag kom',  message:'Det räcker. Varje pass bygger vanan.' },
-  { id:2, emoji:'😐', label:'Okej pass',         message:'Solid insats. Kroppen anpassar sig.' },
-  { id:3, emoji:'💪', label:'Bra pass',          message:'Bra jobbat! Nästa måndag – dags att öka?' },
-  { id:4, emoji:'🔥', label:'Starkt pass',       message:'Du är på rätt spår. Få i dig protein inom 30 min!' },
-  { id:5, emoji:'🚀', label:'Maxade idag 🔥',    message:'BEAST! 🔥 Äta: kycklingfilé, ris och grönsaker inom 45 min. Drick 0,5L vatten nu. Nästa pass: öka med 2,5 kg!' }
-];
-
-const FREE_SUGGESTIONS = ['Bicep curl','Triceps','Rodd','Axelpress','Plankan','Dips','Chins','Situps','Löpband','Cykel'];
-
-const days   = ['Söndag','Måndag','Tisdag','Onsdag','Torsdag','Fredag','Lördag'];
-const months = ['jan','feb','mar','apr','maj','jun','jul','aug','sep','okt','nov','dec'];
-
-const exerciseKeys  = ['bp','sq','dl','lat'];
-const exerciseNames = { bp:'Bänkpress', sq:'Benböj', dl:'Marklyft', lat:'Latsdrag' };
-
-// ── UTILS ─────────────────────────────────────────────
-function r(w, pct) { return Math.round(w * pct / 2.5) * 2.5; }
-function fmtKg(n) {
-  if (n >= 1000000) return (n/1000000).toFixed(2) + 'M kg';
-  return Math.round(n).toLocaleString('sv-SE') + ' kg';
-}
-
-// Plattekalkylator: räknar ut vikter per sida
-function calcPlates(totalKg) {
-  let remaining = (totalKg - barWeight) / 2;
-  if (remaining <= 0) return [];
-  const result = [];
-  for (const p of PLATES) {
-    const count = Math.floor(remaining / p);
-    if (count > 0) { result.push({ weight: p, count }); remaining = Math.round((remaining - count * p) * 100) / 100; }
-  }
-  return result;
-}
-
-// Latsdrag-stack: 35-115 kg i steg om 5 kg
-const LAT_STACK = [35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115];
-
-function latStackLevel(kg) {
-  if (!kg) return null;
-  // Hitta närmaste nivå på stacken
-  let nearest = LAT_STACK[0];
-  let minDiff = Math.abs(kg - LAT_STACK[0]);
-  for (const level of LAT_STACK) {
-    const diff = Math.abs(kg - level);
-    if (diff < minDiff) { minDiff = diff; nearest = level; }
-  }
-  return nearest;
-}
-
-function plateHTML(totalKg, isLat) {
-  if (!totalKg) return '';
-  if (isLat) {
-    const level = latStackLevel(totalKg);
-    if (!level) return '';
-    const exact = totalKg === level;
-    return `<div class="plate-info"><div class="plate-row">
-      <span class="plate-label">Stack:</span>
-      <span class="plate-chip p10" style="font-size:11px;">📍 Nivå ${level} kg${!exact ? ` (≈${totalKg} kg)` : ''}</span>
-    </div></div>`;
-  }
-  const plates = calcPlates(totalKg);
-  if (!plates.length) return `<div class="plate-info"><div class="plate-row"><span class="plate-label">Bara stång</span><span class="plate-chip">${barWeight} kg</span></div></div>`;
-  const chips = plates.map(p => `<span class="plate-chip ${PLATE_CLASSES[p.weight]}">${p.count}×${p.weight}kg</span>`).join('');
-  return `<div class="plate-info"><div class="plate-row"><span class="plate-label">Per sida:</span>${chips}</div></div>`;
-}
-
-// Stångväljare
-function setBar(kg) {
-  barWeight = kg;
-  document.getElementById('bar20').classList.toggle('on', kg===20);
-  document.getElementById('bar15').classList.toggle('on', kg===15);
-  if (currentModalPersonId) openModal(currentModalPersonId);
-}
-
-// Progression per övning
-function targetWeight(startW, weeks, isUpper, adj) {
-  if (!startW) return null;
-  adj = adj || 1.0;
-  const interval = isUpper ? 2.5 : 2;
-  const increases = Math.floor(weeks / interval);
-  return Math.round((startW + increases * 2.5) * adj / 2.5) * 2.5;
-}
-
-function passKg(weights) {
-  let total = 0;
-  const sets = [
-    { pct:0.70, reps:5 }, { pct:0.80, reps:3 }, { pct:0.95, reps:1 },
-    { pct:0.87, reps:5 }, { pct:0.87, reps:5 }, { pct:0.87, reps:5 }
-  ];
-  ['bp','sq','dl','lat'].forEach(k => {
-    const w = weights[k];
-    if (w) sets.forEach(s => { total += r(w, s.pct) * s.reps; });
-  });
-  return total;
-}
-
-// ── STORAGE ───────────────────────────────────────────
-const STORAGE_PREFIX = 'gympass_';
-function historyKey(id)  { return STORAGE_PREFIX + id + '_history'; }
-function loadHistory(id) { const raw = localStorage.getItem(historyKey(id)); return raw ? JSON.parse(raw) : []; }
-function saveHistory(id, h) { localStorage.setItem(historyKey(id), JSON.stringify(h)); }
-
-function loadPersonState(id, dynamicBase) {
-  const raw  = localStorage.getItem(STORAGE_PREFIX + id);
-  const base = people[id] || dynamicBase || {};
-  const state = raw ? JSON.parse(raw) : {
-    onboarded: dynamicBase ? true : false,
-    profile:null, type:'structured',
-    weights:{ bp:base.bp||40, sq:base.sq||50, dl:base.dl||50, lat:base.lat||60 },
-    progressionAdj:{ bp:1.0, sq:1.0, dl:1.0, lat:1.0 }
-  };
-  // Migrera gamla format
-  if (typeof state.progressionAdj === 'number') {
-    const old = state.progressionAdj;
-    state.progressionAdj = { bp:old, sq:old, dl:old, lat:old };
-  }
-  if (!state.progressionAdj) state.progressionAdj = { bp:1.0, sq:1.0, dl:1.0, lat:1.0 };
-  if (!state.type) state.type = 'structured';
-  state.history = loadHistory(id);
-  return state;
-}
-
-function savePersonState(id, state) {
-  localStorage.setItem(STORAGE_PREFIX + id, JSON.stringify({
-    onboarded:state.onboarded, profile:state.profile, type:state.type,
-    weights:state.weights, progressionAdj:state.progressionAdj
-  }));
-}
-
-// ── EIFFELTORNET ──────────────────────────────────────
-function calcTotalKg() {
-  let total = 0;
-  Object.keys(people).forEach(id => {
-    personStates[id].history.forEach(h => {
-      if (h.freeExercises) {
-        h.freeExercises.forEach(ex => { total += (ex.weight||0) * (ex.reps||1) * (ex.sets||1); });
-      } else {
-        total += passKg(h.weights||{});
-      }
-    });
-  });
-  return total;
-}
-
-function calcLastPassKg() {
-  let latest = null; let latestKg = 0;
-  Object.keys(people).forEach(id => {
-    personStates[id].history.forEach(h => {
-      const d = new Date(h.date);
-      if (!latest || d > latest) {
-        latest = d;
-        latestKg = h.freeExercises
-          ? h.freeExercises.reduce((s,ex) => s + (ex.weight||0)*(ex.reps||1)*(ex.sets||1), 0)
-          : passKg(h.weights||{});
-      }
-    });
-  });
-  return latestKg;
-}
-
-function eiffelSVG(pct) {
-  const fillH = Math.round(pct / 100 * 160);
-  return `<svg viewBox="0 0 80 160" xmlns="http://www.w3.org/2000/svg" width="80" height="160">
-    <defs>
-      <clipPath id="ec"><rect x="0" y="${160-fillH}" width="80" height="${fillH}"/></clipPath>
-      <linearGradient id="eg" x1="0" y1="1" x2="0" y2="0">
-        <stop offset="0%" stop-color="#ff7a45"/>
-        <stop offset="50%" stop-color="#ff6ea9"/>
-        <stop offset="100%" stop-color="#ffd24d"/>
-      </linearGradient>
-    </defs>
-    <g fill="#2a2a2a" stroke="#333" stroke-width="0.3">
-      <path d="M10 160 L20 115 L28 115 L26 160Z"/>
-      <path d="M70 160 L60 115 L52 115 L54 160Z"/>
-      <rect x="8" y="112" width="64" height="5" rx="1"/>
-      <path d="M20 115 L26 78 L32 78 L30 115Z"/>
-      <path d="M60 115 L54 78 L48 78 L50 115Z"/>
-      <rect x="18" y="75" width="44" height="5" rx="1"/>
-      <path d="M26 78 L32 48 L38 48 L36 78Z"/>
-      <path d="M54 78 L48 48 L42 48 L44 78Z"/>
-      <rect x="24" y="45" width="32" height="4" rx="1"/>
-      <path d="M32 48 L37 18 L43 18 L48 48Z"/>
-      <path d="M36 18 L40 4 L44 18Z"/>
-      <rect x="14" y="130" width="52" height="3" rx="1"/>
-      <rect x="16" y="120" width="48" height="2" rx="1"/>
-      <rect x="22" y="95" width="36" height="2" rx="1"/>
-      <rect x="27" y="62" width="26" height="2" rx="1"/>
-    </g>
-    <g clip-path="url(#ec)" fill="url(#eg)" opacity="0.95">
-      <path d="M10 160 L20 115 L28 115 L26 160Z"/>
-      <path d="M70 160 L60 115 L52 115 L54 160Z"/>
-      <rect x="8" y="112" width="64" height="5" rx="1"/>
-      <path d="M20 115 L26 78 L32 78 L30 115Z"/>
-      <path d="M60 115 L54 78 L48 78 L50 115Z"/>
-      <rect x="18" y="75" width="44" height="5" rx="1"/>
-      <path d="M26 78 L32 48 L38 48 L36 78Z"/>
-      <path d="M54 78 L48 48 L42 48 L44 78Z"/>
-      <rect x="24" y="45" width="32" height="4" rx="1"/>
-      <path d="M32 48 L37 18 L43 18 L48 48Z"/>
-      <path d="M36 18 L40 4 L44 18Z"/>
-      <rect x="14" y="130" width="52" height="3" rx="1"/>
-      <rect x="16" y="120" width="48" height="2" rx="1"/>
-      <rect x="22" y="95" width="36" height="2" rx="1"/>
-      <rect x="27" y="62" width="26" height="2" rx="1"/>
-    </g>
-  </svg>`;
-}
-
-function renderEiffel() {
-  const totalKg = calcTotalKg();
-  const lastKg  = calcLastPassKg();
-  const pct     = Math.min((totalKg / EIFFEL_KG) * 100, 100);
-  const pctStr  = pct < 0.01 ? '0.00' : pct.toFixed(2);
-  const nextMs  = milestones.find(m => totalKg < m.kg) || milestones[milestones.length-1];
-  let comp = comparisons[0];
-  if (lastKg > 0) comparisons.forEach(c => { if (lastKg >= c.kg * 0.3) comp = c; });
-  const times = lastKg > 0 ? (lastKg / comp.kg).toFixed(1) : '–';
-  const contribs = {}; let maxC = 1;
-  Object.keys(people).forEach(id => {
-    contribs[id] = personStates[id].history.reduce((s,h) => {
-      if (h.freeExercises) return s + h.freeExercises.reduce((ss,ex) => ss+(ex.weight||0)*(ex.reps||1)*(ex.sets||1),0);
-      return s + passKg(h.weights||{});
-    }, 0);
-    if (contribs[id] > maxC) maxC = contribs[id];
-  });
-  document.getElementById('eiffelCard').innerHTML = `
-    <div class="eiffel-top">
-      <div class="eiffel-svg-wrap">${eiffelSVG(pct)}</div>
-      <div class="eiffel-info">
-        <div class="eiffel-label">Lyft mot Eiffeltornet</div>
-        <div class="eiffel-pct num">${pctStr}%</div>
-        <div class="eiffel-kg num">${fmtKg(totalKg)} av ${fmtKg(EIFFEL_KG)}</div>
-        <div class="eiffel-milestone">▶ Nästa: ${nextMs.label}</div>
-      </div>
-    </div>
-    <div class="eiffel-bar"><div class="eiffel-bar-fill" style="width:${pctStr}%"></div></div>
-    <div class="eiffel-last">
-      <div>
-        <div class="eiffel-last-label">Senaste passet</div>
-        <div class="eiffel-last-val num">${lastKg > 0 ? fmtKg(lastKg) : '–'}</div>
-        <div class="eiffel-last-compare">${lastKg > 0 ? `= ${times}× ${comp.name} ${comp.emoji}` : 'Logga ert första pass!'}</div>
-      </div>
-      <div style="font-size:32px">${lastKg > 0 ? comp.emoji : '🏋️'}</div>
-    </div>
-    <div class="eiffel-contribs">
-      ${Object.keys(people).map(id => `
-        <div class="eiffel-contrib">
-          <div class="eiffel-contrib-name">${people[id].name}</div>
-          <div class="eiffel-contrib-bar"><div class="eiffel-contrib-fill" style="width:${maxC>0?(contribs[id]/maxC*100):0}%;background:${people[id].color}"></div></div>
-          <div class="eiffel-contrib-kg" style="color:${people[id].color}">${contribs[id]>0 ? fmtKg(contribs[id]) : '–'}</div>
-        </div>`).join('')}
-    </div>`;
-}
-
-// ── MÅLVIKTER PER ÖVNING ──────────────────────────────
-const exIsUpper = { bp:true, sq:false, dl:false, lat:true };
-
-function renderTargets(id) {
-  const state = personStates[id];
-  const w     = state.weights;
-  const adj   = state.progressionAdj;
-  const el    = document.getElementById('targetsSection');
-  const rows  = [
-    { key:'bp', label:'Bänkpress 🏋️' },
-    { key:'sq', label:'Benböj 🦵' },
-    { key:'dl', label:'Marklyft 💪' },
-    { key:'lat',label:'Latsdrag 🔝' }
-  ];
-  el.innerHTML = `
-    <div class="targets-block">
-      <div class="targets-title"><span>🎯 Målvikter</span><span style="font-size:11px;color:var(--muted);font-weight:500">justeras per övning</span></div>
-      <div class="targets-head">
-        <span>Övning</span><span style="color:var(--orange)">Nu→1mån</span><span style="color:#4d9fff">→3mån</span>
-      </div>
-      ${rows.map(ro => {
-        const cur = w[ro.key];
-        const a   = adj[ro.key] || 1.0;
-        const m1  = cur ? targetWeight(cur, 4,  exIsUpper[ro.key], a) : null;
-        const m3  = cur ? targetWeight(cur, 12, exIsUpper[ro.key], a) : null;
-        return `
-        <div class="targets-ex-row">
-          <div class="targets-ex-header">
-            <div class="targets-ex-name">${ro.label}</div>
-            <div class="targets-ex-val m1 num">${cur ?? '–'} → ${m1 ?? '–'}</div>
-            <div class="targets-ex-val m3 num" style="color:#4d9fff">${m3 ?? '–'}</div>
-          </div>
-          <div class="targets-ex-adj">
-            <div class="targets-ex-adjbtn" onclick="adjEx('${id}','${ro.key}',-0.1)">−10%</div>
-            <div class="targets-ex-adjbtn" onclick="adjEx('${id}','${ro.key}',-0.05)">−5%</div>
-            <div class="targets-ex-adjbtn" style="color:var(--muted);font-size:10px;padding:5px 0;text-align:center;flex:1;">${Math.round(a*100)}%</div>
-            <div class="targets-ex-adjbtn" onclick="adjEx('${id}','${ro.key}',0.05)">+5%</div>
-            <div class="targets-ex-adjbtn" onclick="adjEx('${id}','${ro.key}',0.1)">+10%</div>
-          </div>
-        </div>`;
-      }).join('')}
-    </div>`;
-}
-
-// ── VIKT-EDITOR ───────────────────────────────────────
-let editWeightsOpen = false;
-let editWeightsTmp = {};
-
-function renderEditWeights(id) {
-  const state = personStates[id];
-  const p = people[id];
-  const el = document.getElementById('editWeightsSection');
-  if (!el) return;
-
-  // Initiera temp-vikter
-  if (!editWeightsTmp[id]) editWeightsTmp[id] = { ...state.weights };
-  const tmp = editWeightsTmp[id];
-
-  const exercises = [
-    { key:'bp',  label:'Bänkpress', step:2.5 },
-    { key:'sq',  label:'Benböj',    step:2.5 },
-    { key:'dl',  label:'Marklyft',  step:2.5 },
-    { key:'lat', label:'Latsdrag',  step:5   } // stack-steg om 5 kg
-  ];
-
-  el.innerHTML = `
-    <div class="weight-editor">
-      <div class="weight-editor-title" onclick="toggleEditWeights('${id}')">
-        <span>⚖️ Uppdatera vikter</span>
-        <span style="color:var(--orange)">${editWeightsOpen ? '▲ Stäng' : '▼ Öppna'}</span>
-      </div>
-      <div class="weight-editor-body ${editWeightsOpen ? 'open' : ''}">
-        ${exercises.map(ex => {
-          const val = tmp[ex.key] ?? 0;
-          return `<div class="we-row">
-            <div class="we-label">${ex.label}</div>
-            <div class="we-stepper">
-              <button class="we-btn" onclick="adjustEditWeight('${id}','${ex.key}',-${ex.step})">–</button>
-              <div class="we-val num" id="we-val-${ex.key}">${val > 0 ? val + ' kg' : '–'}</div>
-              <button class="we-btn" onclick="adjustEditWeight('${id}','${ex.key}',${ex.step})">+</button>
-            </div>
-          </div>`;
-        }).join('')}
-        <button class="we-save" onclick="saveEditWeights('${id}')">Spara vikter ✓</button>
-      </div>
-    </div>`;
-}
-
-function toggleEditWeights(id) {
-  editWeightsOpen = !editWeightsOpen;
-  renderEditWeights(id);
-}
-
-function adjustEditWeight(id, key, delta) {
-  if (!editWeightsTmp[id]) editWeightsTmp[id] = { ...personStates[id].weights };
-  const current = editWeightsTmp[id][key] || 0;
-  const newVal = Math.round(Math.max(0, current + delta) / Math.abs(delta)) * Math.abs(delta);
-  editWeightsTmp[id][key] = newVal;
-  const el = document.getElementById('we-val-' + key);
-  if (el) el.textContent = newVal > 0 ? newVal + ' kg' : '–';
-}
-
-function saveEditWeights(id) {
-  const state = personStates[id];
-  state.weights = { ...editWeightsTmp[id] };
-  savePersonState(id, state);
-  editWeightsOpen = false;
-  // Uppdatera hela modalen med nya vikter
-  openModal(id);
-  // Uppdatera personkorten
-  renderCards();
-}
-
-function adjEx(id, key, delta) {
-  const state = personStates[id];
-  state.progressionAdj[key] = Math.round(Math.max(0.5, Math.min(2.0, (state.progressionAdj[key]||1.0) + delta)) * 100) / 100;
-  savePersonState(id, state);
-  renderTargets(id);
-}
-
-// ── PROGRESSIONSGRAFER ────────────────────────────────
-let graphPersonId = null;
-let graphActiveEx = 'bp';
-
-function renderGraph(id) {
-  graphPersonId = id;
-  const el = document.getElementById('graphSection');
-  el.innerHTML = `
-    <div class="graph-block">
-      <div class="graph-title">📈 Din progression</div>
-      <div class="graph-tabs">
-        ${exerciseKeys.map(k => `<div class="graph-tab ${k===graphActiveEx?'on':''}" onclick="switchGraph('${id}','${k}',this)">${exerciseNames[k]}</div>`).join('')}
-      </div>
-      <div id="graphCanvas"></div>
-    </div>`;
-  drawGraph(id, graphActiveEx);
-}
-
-function switchGraph(id, ex, el) {
-  graphActiveEx = ex;
-  document.querySelectorAll('.graph-tab').forEach(t => t.classList.remove('on'));
-  el.classList.add('on');
-  drawGraph(id, ex);
-}
-
-function drawGraph(id, ex) {
-  const state   = personStates[id];
-  const history = state.history.filter(h => !h.freeExercises);
-  const canvas  = document.getElementById('graphCanvas');
-  const color   = people[id].color;
-  if (history.length < 2) {
-    canvas.innerHTML = `<div class="graph-empty">Minst 2 pass behövs för grafen. Kör på!</div>`; return;
-  }
-  const pts = history.map(h => ({ date:new Date(h.date), val:h.weights[ex] })).filter(p => p.val);
-  if (pts.length < 2) { canvas.innerHTML = `<div class="graph-empty">Ingen data för ${exerciseNames[ex]} än.</div>`; return; }
-  const W=360,H=100,PAD={t:10,r:10,b:20,l:30};
-  const iW=W-PAD.l-PAD.r, iH=H-PAD.t-PAD.b;
-  const vals=pts.map(p=>p.val), minV=Math.min(...vals)-2.5, maxV=Math.max(...vals)+2.5;
-  const minT=pts[0].date.getTime(), maxT=pts[pts.length-1].date.getTime(), rangeT=maxT-minT||1;
-  const cx=d=>PAD.l+((d.getTime()-minT)/rangeT)*iW;
-  const cy=v=>PAD.t+iH-((v-minV)/(maxV-minV))*iH;
-  const polyline=pts.map(p=>`${cx(p.date).toFixed(1)},${cy(p.val).toFixed(1)}`).join(' ');
-  const areaPath=`M${cx(pts[0].date).toFixed(1)},${(PAD.t+iH).toFixed(1)} `+pts.map(p=>`L${cx(p.date).toFixed(1)},${cy(p.val).toFixed(1)}`).join(' ')+` L${cx(pts[pts.length-1].date).toFixed(1)},${(PAD.t+iH).toFixed(1)} Z`;
-  const fmt=d=>`${d.getDate()} ${months[d.getMonth()]}`;
-  const yL=[minV+2.5,(minV+maxV)/2,maxV-2.5].map(v=>`<text x="${PAD.l-4}" y="${cy(v)+4}" text-anchor="end" font-size="8" fill="#666">${Math.round(v)}</text>`).join('');
-  const xL=`<text x="${PAD.l}" y="${H-4}" font-size="8" fill="#666">${fmt(pts[0].date)}</text><text x="${W-PAD.r}" y="${H-4}" font-size="8" fill="#666" text-anchor="end">${fmt(pts[pts.length-1].date)}</text>`;
-  const dots=pts.map((p,i)=>`<circle cx="${cx(p.date).toFixed(1)}" cy="${cy(p.val).toFixed(1)}" r="${i===pts.length-1?4:2.5}" fill="${color}" stroke="var(--bg)" stroke-width="1.5"/>${i===pts.length-1?`<text x="${cx(p.date).toFixed(1)}" y="${(cy(p.val)-7).toFixed(1)}" text-anchor="middle" font-size="9" fill="${color}" font-weight="700">${p.val} kg</text>`:''}`).join('');
-  canvas.innerHTML=`<div class="graph-svg-wrap"><svg class="graph-svg" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${color}" stop-opacity="0.25"/><stop offset="100%" stop-color="${color}" stop-opacity="0"/></linearGradient></defs><path d="${areaPath}" fill="url(#gg)"/><polyline points="${polyline}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>${yL}${xL}${dots}</svg></div>`;
-}
-
-// ── UTSKRIFT ──────────────────────────────────────────
-function printPass() {
-  const id    = currentModalPersonId;
-  const p     = people[id];
-  const state = personStates[id];
-  const exArr = [
-    { key:'bp', label:'Bänkpress', w:state.weights.bp },
-    { key:'sq', label:'Benböj',    w:state.weights.sq },
-    { key:'dl', label:'Marklyft',  w:state.weights.dl },
-    { key:'lat',label:'Latsdrag',  w:state.weights.lat }
-  ];
-  const sets = [
-    { label:'Uppvärmning', pct:0.70, reps:5 },
-    { label:'Uppvärmning', pct:0.80, reps:3 },
-    { label:'Toppset',     pct:0.95, reps:1 },
-    { label:'Arbetsserie', pct:0.87, reps:5 },
-    { label:'Arbetsserie', pct:0.87, reps:5 },
-    { label:'Arbetsserie', pct:0.87, reps:5 }
-  ];
-  const now = new Date();
-  const dateStr = days[now.getDay()] + ' ' + now.getDate() + ' ' + months[now.getMonth()];
-  let html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Gympass – ${p.name}</title>
-  <style>
-    body{font-family:Arial,sans-serif;padding:20px;color:#000;max-width:600px;}
-    h1{font-size:22px;margin-bottom:4px;}
-    .sub{font-size:13px;color:#666;margin-bottom:16px;}
-    .ex{margin-bottom:16px;border:1px solid #ccc;border-radius:8px;overflow:hidden;}
-    .ex-title{background:#f0f0f0;padding:8px 12px;font-size:14px;font-weight:700;text-transform:uppercase;}
-    .row{display:grid;grid-template-columns:28px 1fr 80px 60px;padding:6px 12px;border-bottom:1px solid #eee;font-size:13px;align-items:center;}
-    .row:last-child{border-bottom:none;}
-    .plates{font-size:11px;color:#555;padding:4px 12px 6px;background:#fafafa;border-top:1px solid #eee;}
-    .num{font-weight:700;}
-    .rest{text-align:center;font-size:12px;color:#888;margin-top:8px;}
-  </style></head><body>
-  <h1>GYMPASS – ${p.name.toUpperCase()}</h1>
-  <div class="sub">${dateStr} · Stång ${barWeight} kg</div>`;
-  exArr.forEach(ex => {
-    if (!ex.w) return;
-    html += `<div class="ex"><div class="ex-title">${ex.label}</div>`;
-    sets.forEach((s,i) => {
-      const kg = r(ex.w, s.pct);
-      let infoStr;
-      if (ex.key === 'lat') {
-        const level = latStackLevel(kg);
-        infoStr = `Stack: nivå ${level} kg`;
-      } else {
-        const plates = calcPlates(kg);
-        infoStr = plates.length ? 'Per sida: ' + plates.map(p2=>`${p2.count}×${p2.weight}kg`).join(' + ') : 'Bara stång';
-      }
-      html += `<div class="row"><span>${i+1}</span><span>${s.label}</span><span class="num">${kg} kg</span><span>×${s.reps}</span></div>`;
-      html += `<div class="plates">${infoStr}</div>`;
-    });
-    html += `</div>`;
-  });
-  html += `<div class="rest">⏱ Vila ca 2 minuter mellan varje set</div></body></html>`;
-  const w2 = window.open('','_blank');
-  w2.document.write(html);
-  w2.document.close();
-  w2.print();
-}
-
-// ── PERSON CARDS ──────────────────────────────────────
-function renderCards() {
-  const container = document.getElementById('cardsContainer');
-  // Hämta dynamiska personer från localStorage
-  const dynamicPeople = loadDynamicPeople();
-  const allPeople = { ...people, ...dynamicPeople };
-
-  // Ladda states för dynamiska personer
-  Object.keys(dynamicPeople).forEach(id => {
-    if (!personStates[id]) personStates[id] = loadPersonState(id, dynamicPeople[id]);
-  });
-
-  container.innerHTML = Object.keys(allPeople).map(id => {
-    const p      = allPeople[id];
-    const state  = personStates[id] || loadPersonState(id, dynamicPeople[id]);
-    const trained = hasTrainedThisWeek(state);
-    const badgeText  = p.role ? p.role : (trained ? 'Tränat ✓' : '–');
-    const badgeClass = !p.role && trained ? 'trained' : '';
-    return `
-      <div class="person-card ${id}" onclick="onCardClick('${id}')">
-        <div class="card-top">
-          <div class="avatar">${p.initials}</div>
-          <div class="card-badge ${badgeClass}">${badgeText}</div>
-        </div>
-        <div class="card-name">${p.name}</div>
-        <div class="card-last">${lastTrainedText(state)}</div>
-        <div class="card-lifts">
-          ${liftValueHtml('Bänk',     state.weights.bp)}
-          ${liftValueHtml('Benböj',   state.weights.sq)}
-          ${liftValueHtml('Marklyft', state.weights.dl)}
-          ${liftValueHtml('Latsdrag', state.weights.lat)}
-        </div>
-        <div class="card-cta">${state.onboarded ? 'Öppna mitt pass →' : 'Kom igång →'}</div>
-      </div>`;
-  }).join('') + `
-    <div class="add-person-card" onclick="openAddPerson()">
-      <div class="add-person-icon">➕</div>
-      <div class="add-person-label">Ny person</div>
-      <div class="add-person-sub">Lägg till en träningskompis</div>
-    </div>`;
-}
-
-function liftValueHtml(label, value) {
-  return `<div class="lift-item"><div class="lift-label">${label}</div>`+
-    (value==null?`<div class="lift-val">–</div>`:`<div class="lift-val num">${value} <span>kg</span></div>`)+`</div>`;
-}
-
-function onCardClick(id) {
-  const _dpC = loadDynamicPeople();
-  // Ladda state om saknas
-  if (!personStates[id]) {
-    if (_dpC[id]) {
-      personStates[id] = loadPersonState(id, _dpC[id]);
-    } else if (people[id]) {
-      personStates[id] = loadPersonState(id);
-    }
-  }
-  if (!personStates[id]) return;
-  const type = personStates[id].type || 'structured';
-  if (!personStates[id].onboarded) startOnboarding(id);
-  else if (type === 'free') openFreepass(id);
-  else openModal(id);
-}
-
-function getMonday(date) {
-  const d=new Date(date); const diff=(d.getDay()===0?-6:1)-d.getDay();
-  d.setDate(d.getDate()+diff); d.setHours(0,0,0,0); return d;
-}
-function hasTrainedThisWeek(state) {
-  if (!state.history.length) return false;
-  const monday = getMonday(new Date());
-  return state.history.some(h => new Date(h.date) >= monday);
-}
-function lastTrainedText(state) {
-  if (!state.history.length) return 'Inte tränat ännu';
-  const last = new Date(state.history[state.history.length-1].date);
-  return 'Senast: '+days[last.getDay()]+' '+last.getDate()+' '+months[last.getMonth()];
-}
-function sameDay(a,b) { return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate(); }
-
-function renderWeekBar() {
-  const today=new Date(), monday=getMonday(today);
-  const dayKeys=['mon','tue','wed','thu','fri','sat','sun'];
-  const todayI=(today.getDay()+6)%7;
-  dayKeys.forEach((key,i)=>{
-    const dd=new Date(monday); dd.setDate(monday.getDate()+i);
-    const dEl=document.getElementById('d-'+key);
-    dEl.classList.remove('done','today');
-    if(i<todayI) dEl.classList.add('done');
-    else if(i===todayI) dEl.classList.add('today');
-    const trainedIds=Object.keys(people).filter(id=>personStates[id].history.some(h=>sameDay(new Date(h.date),dd)));
-    document.getElementById('wd-'+key).innerHTML=Object.keys(people).map(id=>`<div class="week-dot" style="background:${trainedIds.includes(id)?people[id].color:'var(--card2)'}"></div>`).join('');
-  });
-}
-
-// ── PASS / MODAL ──────────────────────────────────────
-function buildSets(w, exKey) {
-  if (!w) return `<div style="padding:14px 16px;font-size:13px;color:var(--muted);">Vikt ej registrerad ännu</div>`;
-  const isLat = exKey === 'lat';
-  const sets=[
-    {label:'Uppvärmning',pct:0.70,reps:5,top:false},
-    {label:'Uppvärmning',pct:0.80,reps:3,top:false},
-    {label:'Toppset 🔥', pct:0.95,reps:1,top:true },
-    {label:'Arbetsserie',pct:0.87,reps:5,top:false},
-    {label:'Arbetsserie',pct:0.87,reps:5,top:false},
-    {label:'Arbetsserie',pct:0.87,reps:5,top:false}
-  ];
-  return sets.map((s,i)=>{
-    const kg = r(w,s.pct);
-    // För latsdrag: avrunda till närmaste stacknivå
-    const displayKg = isLat ? (latStackLevel(kg) || kg) : kg;
-    return `<div class="set-row ${s.top?'top-set':''}">
-      <div class="set-num num">${i+1}</div>
-      <div class="set-type">${s.label}</div>
-      <div class="set-weight num">${displayKg}<span> kg</span></div>
-      <div class="set-reps num">× ${s.reps}</div>
-    </div>${plateHTML(kg, isLat)}`;
-  }).join('');
-}
-
-let onboarding = null;
-let currentModalPersonId = null;
-let feelingPersonId = null;
-
-function openModal(id) {
-  currentModalPersonId = id;
-  const _dp = loadDynamicPeople();
-  const p = people[id] || _dp[id];
-  if (!p) { console.error('Person saknas:', id); return; }
-  const state = personStates[id] || loadPersonState(id, _dp[id]);
-  personStates[id] = state;
-  const av=document.getElementById('modalAvatar');
-  av.textContent=p.initials;
-  av.style.color = '#111';
-  av.style.background=p.color;
-  document.getElementById('modalName').textContent=p.name;
-  document.getElementById('modalContent').innerHTML=[
-    {key:'bp',label:'Bänkpress',w:state.weights.bp},
-    {key:'sq',label:'Benböj',   w:state.weights.sq},
-    {key:'dl',label:'Marklyft', w:state.weights.dl},
-    {key:'lat',label:'Latsdrag',w:state.weights.lat}
-  ].map(e=>`<div class="exercise-block">
-    <div class="exercise-title" style="color:${p.color}">${e.label}</div>
-    ${buildSets(e.w,e.key)}</div>`).join('');
-  renderTargets(id);
-  renderEditWeights(id);
-  renderGraph(id);
-  renderHistorySection(id);
-  document.getElementById('modalOverlay').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); document.body.style.overflow=''; }
-function closeModalOutside(e) { if(e.target===document.getElementById('modalOverlay')) closeModal(); }
-
-function finishWorkout() {
-  const id=currentModalPersonId, state=personStates[id];
-  state.history.push({date:new Date().toISOString(),weights:{...state.weights},feeling:null});
-  saveHistory(id,state.history);
-  closeModal(); renderCards(); renderWeekBar(); renderEiffel();
-  feelingPersonId=id; showFeelingQuestion();
-}
-
-function showFeelingQuestion() {
-  document.getElementById('feelingContent').innerHTML=`
-    <div class="onboarding-step"><div class="onboarding-title">Hur kändes passet?</div></div>
-    <div class="feeling-grid">
-      ${feelingOptions.map(f=>`<div class="feeling-card" onclick="selectFeeling(${f.id})"><div class="feeling-emoji">${f.emoji}</div><div class="feeling-label">${f.label}</div></div>`).join('')}
-    </div>`;
-  document.getElementById('feelingOverlay').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-
-function selectFeeling(fid) {
-  const state=personStates[feelingPersonId];
-  state.history[state.history.length-1].feeling=fid;
-  saveHistory(feelingPersonId,state.history);
-  const opt=feelingOptions.find(f=>f.id===fid);
-  document.getElementById('feelingContent').innerHTML=`
-    <div class="onboarding-step">
-      <div class="onboarding-emoji">${opt.emoji}</div>
-      <div class="onboarding-title">${opt.label}</div>
-      <div class="onboarding-sub">${opt.message}</div>
-    </div>
-    <button class="btn-primary" onclick="closeFeelingOverlay()">Klart</button>`;
-}
-function closeFeelingOverlay() {
-  document.getElementById('feelingOverlay').classList.remove('open');
-  document.body.style.overflow=''; feelingPersonId=null; renderCards();
-}
-
-function feelingEmoji(fid) { const opt=feelingOptions.find(f=>f.id===fid); return opt?opt.emoji:'–'; }
-
-function renderHistorySection(id) {
-  const state=personStates[id], recent=state.history.slice(-10).reverse();
-  const el=document.getElementById('historySection');
-  if (!recent.length) {
-    el.innerHTML=`<div class="week-head"><div class="seclab">Mina pass</div></div><div class="history-empty">Inga genomförda pass än.</div>`; return;
-  }
-  el.innerHTML=`<div class="week-head"><div class="seclab">Mina pass</div></div>
-    <div class="history-list">
-      ${recent.map(h=>{
-        const d=new Date(h.date);
-        const dateStr=days[d.getDay()]+' '+d.getDate()+' '+months[d.getMonth()];
-        const weightsStr = h.freeExercises
-          ? h.freeExercises.map(e=>e.name).join(', ')
-          : `${h.weights?.bp||'–'}/${h.weights?.sq||'–'}/${h.weights?.dl||'–'}/${h.weights?.lat||'–'} kg`;
-        return `<div class="history-row">
-          <div class="history-date">${dateStr}</div>
-          <div class="history-weights num">${weightsStr}</div>
-          <div class="history-feeling">${feelingEmoji(h.feeling)}</div>
-        </div>`;
-      }).join('')}
-    </div>`;
-}
-
-// ── FRIPASS ───────────────────────────────────────────
-let freepassPersonId = null;
-let freeExercises = [];
-let newExName = '';
-
-function openFreepass(id) {
-  freepassPersonId = id;
-  freeExercises = [];
-  const _dp2 = loadDynamicPeople();
-  const p = people[id] || _dp2[id];
-  if (!p) { console.error('Person saknas:', id); return; }
-  const av = document.getElementById('freepassAvatar');
-  av.textContent = p.initials;
-  av.style.background = p.color;
-  av.style.color = '#111';
-  document.getElementById('freepassName').textContent = p.name;
-  renderFreepass();
-  document.getElementById('freepassOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeFreepass() {
-  document.getElementById('freepassOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function closeFreepassOutside(e) { if(e.target===document.getElementById('freepassOverlay')) closeFreepass(); }
-
-function renderFreepass() {
-  const _dpF = loadDynamicPeople();
-  const p = people[freepassPersonId] || _dpF[freepassPersonId];
-  if (!p) return;
-  document.getElementById('freepassContent').innerHTML = `
-    <div style="padding:16px 20px 0;">
-      <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Ditt fria pass</div>
-      ${freeExercises.length ? `<div class="free-block">
-        <div class="free-title"><span>Övningar</span><span style="font-size:12px;color:var(--muted)">${freeExercises.length} st</span></div>
-        ${freeExercises.map((ex,i) => `
-          <div class="free-exercise">
-            <div style="display:flex;align-items:center;justify-content:space-between">
-              <div class="free-ex-name" style="color:${p.color}">${ex.name}</div>
-              <button onclick="removeFreeEx(${i})" style="background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;">×</button>
-            </div>
-            <div class="free-ex-detail">${ex.weight ? ex.weight+' kg' : ''}${ex.reps ? ' · '+ex.reps+' reps' : ''}${ex.sets ? ' · '+ex.sets+' set' : ''}</div>
-          </div>`).join('')}
-      </div>` : '<div style="font-size:13px;color:var(--muted);margin-bottom:12px;">Lägg till dina övningar nedan.</div>'}
-    </div>
-
-    <div class="free-block" style="margin:12px 20px 0;">
-      <div class="free-title">+ Lägg till övning</div>
-      <div style="padding:12px 16px 0;">
-        <input class="free-input" id="freeExInput" placeholder="Övningens namn..." value="${newExName}" oninput="newExName=this.value">
-      </div>
-      <div class="free-suggestion">
-        ${FREE_SUGGESTIONS.map(s=>`<div class="free-sug-chip" onclick="setFreeExName('${s}')">${s}</div>`).join('')}
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:0 16px 4px;">
-        <div>
-          <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">Vikt (kg)</div>
-          <input class="free-input" id="freeExWeight" type="number" placeholder="0" style="width:100%">
-        </div>
-        <div>
-          <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">Reps</div>
-          <input class="free-input" id="freeExReps" type="number" placeholder="0" style="width:100%">
-        </div>
-        <div>
-          <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">Set</div>
-          <input class="free-input" id="freeExSets" type="number" placeholder="1" style="width:100%">
-        </div>
-      </div>
-      <div style="padding:10px 16px 14px;">
-        <button class="free-add-btn" style="width:100%;padding:12px;" onclick="addFreeEx()">Lägg till ✓</button>
-      </div>
-    </div>
-
-    ${freeExercises.length > 0 ? `<button class="btn-primary" onclick="finishFreepass()" style="margin-top:16px;">Avsluta pass ✅</button>` : ''}
-    <button class="btn-secondary" onclick="closeFreepass()">Avbryt</button>`;
-}
-
-function setFreeExName(name) {
-  newExName = name;
-  document.getElementById('freeExInput').value = name;
-}
-
-function addFreeEx() {
-  const name   = (document.getElementById('freeExInput')?.value || newExName).trim();
-  const weight = parseFloat(document.getElementById('freeExWeight')?.value) || 0;
-  const reps   = parseInt(document.getElementById('freeExReps')?.value) || 0;
-  const sets   = parseInt(document.getElementById('freeExSets')?.value) || 1;
-  if (!name) return;
-  freeExercises.push({ name, weight, reps, sets });
-  newExName = '';
-  renderFreepass();
-}
-
-function removeFreeEx(i) { freeExercises.splice(i,1); renderFreepass(); }
-
-function finishFreepass() {
-  const id = freepassPersonId;
-  const state = personStates[id];
-  state.history.push({ date:new Date().toISOString(), freeExercises:[...freeExercises], feeling:null });
-  saveHistory(id, state.history);
-  closeFreepass(); renderCards(); renderWeekBar(); renderEiffel();
-  feelingPersonId = id; showFeelingQuestion();
-}
-
-// ── ONBOARDING ────────────────────────────────────────
-function startOnboarding(id) {
-  const base = personStates[id].weights;
-  onboarding = { personId:id, step:1, profile:null, type:'structured',
-    weights:{ bp:base.bp||45, sq:base.sq||60, dl:base.dl||60, lat:base.lat||20 } };
-  document.getElementById('onboardingOverlay').classList.add('open');
-  document.body.style.overflow='hidden';
-  renderOnboardingStep();
-}
-function closeOnboarding() {
-  document.getElementById('onboardingOverlay').classList.remove('open');
-  document.body.style.overflow=''; onboarding=null;
-}
-function weightRowHtml(key, label) {
-  return `<div class="weight-row">
-    <div><div class="weight-row-label">${label}</div>${key==='lat'?'<div class="weight-row-hint">Ny övning – välj startvikt</div>':''}</div>
-    <div class="stepper">
-      <button class="stepper-btn" onclick="adjustOnboardingWeight('${key}',-2.5)">–</button>
-      <div class="stepper-val num">${onboarding.weights[key]} kg</div>
-      <button class="stepper-btn" onclick="adjustOnboardingWeight('${key}',2.5)">+</button>
-    </div>
-  </div>`;
-}
-function renderOnboardingStep() {
-  const p=people[onboarding.personId];
-  document.getElementById('onboardingProgress').innerHTML=[1,2,3,4,5].map(n=>`<div class="progress-dot ${n<=onboarding.step?'active':''}"></div>`).join('');
-  let body='';
-  if (onboarding.step===1) {
-    body=`<div class="onboarding-step">
-      <div class="onboarding-emoji">👋</div>
-      <div class="onboarding-title">Välkommen, ${p.name}!</div>
-      <div class="onboarding-sub">Sätt upp din profil – tar under en minut.</div>
-    </div>
-    <button class="btn-primary" onclick="onboardingNext()">Kom igång →</button>`;
-  } else if (onboarding.step===2) {
-    body=`<div class="onboarding-step">
-      <div class="onboarding-title">Hur vill du träna?</div>
-      <div class="onboarding-sub">Du kan alltid byta senare.</div>
-      <div class="profile-card ${onboarding.type==='structured'?'selected':''}" onclick="onboarding.type='structured';renderOnboardingStep()">
-        <div class="profile-card-title">🏋️ Strukturerat program</div>
-        <div class="profile-card-desc">Följer Per's schema med 6 set, uträknade vikter och progressionsplan.</div>
-      </div>
-      <div class="profile-card ${onboarding.type==='free'?'selected':''}" onclick="onboarding.type='free';renderOnboardingStep()">
-        <div class="profile-card-title">🎯 Eget upplägg</div>
-        <div class="profile-card-desc">Väljer egna övningar och loggar vad du vill. Bidrar fortfarande till Eiffeltornet!</div>
-      </div>
-    </div>
-    <button class="btn-primary" onclick="onboardingNext()">Nästa →</button>
-    <button class="btn-secondary" onclick="onboardingBack()">Tillbaka</button>`;
-  } else if (onboarding.step===3) {
-    body=`<div class="onboarding-step">
-      <div class="onboarding-title">Vad driver dig?</div>
-      <div class="onboarding-sub">Välj profil – du kan byta senare.</div>
-      ${motivationProfiles.map(mp=>`
-        <div class="profile-card ${onboarding.profile===mp.id?'selected':''}" onclick="selectProfile(${mp.id})">
-          <div class="profile-card-title">${mp.title}</div>
-          <div class="profile-card-desc">${mp.desc}</div>
-        </div>`).join('')}
-    </div>
-    <button class="btn-primary" ${onboarding.profile?'':'disabled'} onclick="onboardingNext()">Nästa →</button>
-    <button class="btn-secondary" onclick="onboardingBack()">Tillbaka</button>`;
-  } else if (onboarding.step===4) {
-    if (onboarding.type==='free') {
-      body=`<div class="onboarding-step">
-        <div class="onboarding-emoji">✅</div>
-        <div class="onboarding-title">Klart, ${p.name}!</div>
-        <div class="onboarding-sub">Du kör eget upplägg. Logga dina övningar efter varje pass!</div>
-      </div>
-      <button class="btn-primary" onclick="finishOnboarding()">Starta mitt pass →</button>`;
-    } else {
-      body=`<div class="onboarding-step">
-        <div class="onboarding-title">Dina startvikter</div>
-        <div class="onboarding-sub">Justera om det behövs (steg om 2,5 kg).</div>
-        ${weightRowHtml('bp','Bänkpress')}${weightRowHtml('sq','Benböj')}
-        ${weightRowHtml('dl','Marklyft')}${weightRowHtml('lat','Latsdrag')}
-      </div>
-      <button class="btn-primary" onclick="onboardingNext()">Bekräfta →</button>
-      <button class="btn-secondary" onclick="onboardingBack()">Tillbaka</button>`;
-    }
-  } else if (onboarding.step===5) {
-    body=`<div class="onboarding-step">
-      <div class="onboarding-emoji">✅</div>
-      <div class="onboarding-title">Klart, ${p.name}!</div>
-      <div class="onboarding-sub">Profil och vikter sparade. Nu kör vi!</div>
-    </div>
-    <button class="btn-primary" onclick="finishOnboarding()">Till mitt pass →</button>`;
-  }
-  document.getElementById('onboardingContent').innerHTML=body;
-}
-function adjustOnboardingWeight(key,delta) { onboarding.weights[key]=Math.round(Math.max(0,onboarding.weights[key]+delta)/2.5)*2.5; renderOnboardingStep(); }
-function selectProfile(id) { onboarding.profile=id; renderOnboardingStep(); }
-function onboardingNext() { if(onboarding.step===3&&!onboarding.profile)return; if(onboarding.step===4&&onboarding.type==='free'){finishOnboarding();return;} onboarding.step++; renderOnboardingStep(); }
-function onboardingBack() { onboarding.step--; renderOnboardingStep(); }
-function finishOnboarding() {
-  const id=onboarding.personId;
-  personStates[id]={
-    onboarded:true, profile:onboarding.profile, type:onboarding.type,
-    weights:{...onboarding.weights}, history:[],
-    progressionAdj:{bp:1.0,sq:1.0,dl:1.0,lat:1.0}
-  };
-  savePersonState(id,personStates[id]);
-  closeOnboarding(); renderCards();
-  if (onboarding && onboarding.type==='free') openFreepass(id);
-  else openModal(id);
-  onboarding=null;
-}
-
-// ── DYNAMISKA PERSONER ───────────────────────────────
-const DYNAMIC_KEY = 'gympass_dynamic_people';
-const PERSON_COLORS_LIST = ['#a78bfa','#34d399','#f472b6','#60a5fa','#fb923c','#e879f9','#2dd4bf','#facc15'];
-
-function loadDynamicPeople() {
-  const raw = localStorage.getItem(DYNAMIC_KEY);
-  return raw ? JSON.parse(raw) : {};
-}
-
-function saveDynamicPeople(dp) {
-  localStorage.setItem(DYNAMIC_KEY, JSON.stringify(dp));
-}
-
-function getAllPeople() {
-  return { ...people, ...loadDynamicPeople() };
-}
-
-let addPersonStep = 1;
-let addPersonData = { name:'', initials:'', color:'', type:'structured', profile:null, weights:{ bp:40, sq:50, dl:50, lat:60 } };
-
-function openAddPerson() {
-  addPersonStep = 1;
-  addPersonData = { name:'', initials:'', color:PERSON_COLORS_LIST[0], type:'structured', profile:null, weights:{ bp:40, sq:50, dl:50, lat:60 } };
-  renderAddPersonStep();
-  document.getElementById('addPersonOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeAddPerson() {
-  document.getElementById('addPersonOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function closeAddPersonOutside(e) {
-  if (e.target === document.getElementById('addPersonOverlay')) closeAddPerson();
-}
-
-function renderAddPersonStep() {
-  const el = document.getElementById('addPersonContent');
-  const av = document.getElementById('addPersonAvatar');
-
-  // Uppdatera avatar med vald färg och initialer
-  if (addPersonData.name) {
-    av.textContent = addPersonData.initials || addPersonData.name.substring(0,2).toUpperCase();
-    av.style.background = addPersonData.color;
-  } else {
-    av.textContent = '➕';
-    av.style.background = '#ff7a45';
-  }
-
-  if (addPersonStep === 1) {
-    el.innerHTML = `
-      <div class="onboarding-step">
-        <div class="onboarding-title">Vad heter du?</div>
-        <div class="onboarding-sub">Skriv in ditt namn så sätter vi upp ditt kort.</div>
-        <input class="free-input" id="newPersonName" placeholder="Namn..." value="${addPersonData.name}"
-          oninput="addPersonData.name=this.value; addPersonData.initials=this.value.substring(0,2).toUpperCase(); document.getElementById('addPersonAvatar').textContent=addPersonData.initials||'➕';"
-          style="width:100%;margin-bottom:16px;font-size:16px;padding:14px;">
-        <div style="font-size:12px;color:var(--muted);margin-bottom:10px;font-weight:600;">Välj färg på ditt kort:</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          ${PERSON_COLORS_LIST.map(c => `
-            <div onclick="addPersonData.color='${c}';document.getElementById('addPersonAvatar').style.background='${c}';renderAddPersonStep();"
-              style="width:36px;height:36px;border-radius:50%;background:${c};cursor:pointer;border:3px solid ${addPersonData.color===c?'#fff':'transparent'};transition:border .15s;"></div>`).join('')}
-        </div>
-      </div>
-      <button class="btn-primary" ${addPersonData.name.trim().length>1?'':'disabled'} onclick="addPersonNext()">Nästa →</button>`;
-
-  } else if (addPersonStep === 2) {
-    el.innerHTML = `
-      <div class="onboarding-step">
-        <div class="onboarding-title">Hur vill ${addPersonData.name} träna?</div>
-        <div class="onboarding-sub">Du kan byta senare.</div>
-        <div class="profile-card ${addPersonData.type==='structured'?'selected':''}" onclick="addPersonData.type='structured';renderAddPersonStep()">
-          <div class="profile-card-title">🏋️ Strukturerat program</div>
-          <div class="profile-card-desc">Följer Per's schema med 6 set och uträknade vikter.</div>
-        </div>
-        <div class="profile-card ${addPersonData.type==='free'?'selected':''}" onclick="addPersonData.type='free';renderAddPersonStep()">
-          <div class="profile-card-title">🎯 Eget upplägg</div>
-          <div class="profile-card-desc">Väljer egna övningar och loggar fritt.</div>
-        </div>
-      </div>
-      <button class="btn-primary" onclick="addPersonNext()">Nästa →</button>
-      <button class="btn-secondary" onclick="addPersonStep=1;renderAddPersonStep()">Tillbaka</button>`;
-
-  } else if (addPersonStep === 3) {
-    el.innerHTML = `
-      <div class="onboarding-step">
-        <div class="onboarding-title">Vad driver ${addPersonData.name}?</div>
-        <div class="onboarding-sub">Välj motivationsprofil.</div>
-        ${motivationProfiles.map(mp => `
-          <div class="profile-card ${addPersonData.profile===mp.id?'selected':''}" onclick="addPersonData.profile=${mp.id};renderAddPersonStep()">
-            <div class="profile-card-title">${mp.title}</div>
-            <div class="profile-card-desc">${mp.desc}</div>
-          </div>`).join('')}
-      </div>
-      <button class="btn-primary" ${addPersonData.profile?'':'disabled'} onclick="addPersonNext()">Nästa →</button>
-      <button class="btn-secondary" onclick="addPersonStep=2;renderAddPersonStep()">Tillbaka</button>`;
-
-  } else if (addPersonStep === 4) {
-    if (addPersonData.type === 'free') {
-      el.innerHTML = `
-        <div class="onboarding-step">
-          <div class="onboarding-emoji">✅</div>
-          <div class="onboarding-title">Välkommen, ${addPersonData.name}!</div>
-          <div class="onboarding-sub">Kör eget upplägg – logga dina övningar efter varje pass!</div>
-        </div>
-        <button class="btn-primary" onclick="saveNewPerson()">Lägg till ${addPersonData.name} ✓</button>
-        <button class="btn-secondary" onclick="addPersonStep=3;renderAddPersonStep()">Tillbaka</button>`;
-    } else {
-      const w = addPersonData.weights;
-      el.innerHTML = `
-        <div class="onboarding-step">
-          <div class="onboarding-title">Startvikter</div>
-          <div class="onboarding-sub">Justera i steg om 2,5 kg (latsdrag 5 kg).</div>
-          ${[{key:'bp',label:'Bänkpress',step:2.5},{key:'sq',label:'Benböj',step:2.5},{key:'dl',label:'Marklyft',step:2.5},{key:'lat',label:'Latsdrag',step:5}].map(ex => `
-            <div class="weight-row">
-              <div class="weight-row-label">${ex.label}</div>
-              <div class="stepper">
-                <button class="stepper-btn" onclick="adjNewWeight('${ex.key}',-${ex.step})">–</button>
-                <div class="stepper-val num" id="nw-${ex.key}">${w[ex.key]} kg</div>
-                <button class="stepper-btn" onclick="adjNewWeight('${ex.key}',${ex.step})">+</button>
-              </div>
-            </div>`).join('')}
-        </div>
-        <button class="btn-primary" onclick="saveNewPerson()">Lägg till ${addPersonData.name} ✓</button>
-        <button class="btn-secondary" onclick="addPersonStep=3;renderAddPersonStep()">Tillbaka</button>`;
-    }
-  }
-}
-
-function addPersonNext() {
-  if (addPersonStep === 1 && addPersonData.name.trim().length < 2) return;
-  if (addPersonStep === 3 && !addPersonData.profile) return;
-  addPersonStep++;
-  renderAddPersonStep();
-}
-
-function adjNewWeight(key, delta) {
-  addPersonData.weights[key] = Math.round(Math.max(0, addPersonData.weights[key] + delta) / Math.abs(delta)) * Math.abs(delta);
-  const el = document.getElementById('nw-' + key);
-  if (el) el.textContent = addPersonData.weights[key] + ' kg';
-}
-
-function saveNewPerson() {
-  const name = addPersonData.name.trim();
-  if (!name) return;
-
-  // Skapa unikt ID
-  const id = 'person_' + name.toLowerCase().replace(/[^a-z0-9]/g,'') + '_' + Date.now();
-
-  // Spara som dynamisk person
-  const dp = loadDynamicPeople();
-  dp[id] = {
-    name,
-    initials: name.substring(0,2).toUpperCase(),
-    color: addPersonData.color,
-    bp: addPersonData.weights.bp,
-    sq: addPersonData.weights.sq,
-    dl: addPersonData.weights.dl,
-    lat: addPersonData.weights.lat
-  };
-  saveDynamicPeople(dp);
-
-  // Spara personens state
-  localStorage.setItem('gympass_' + id, JSON.stringify({
-    onboarded: true,
-    profile: addPersonData.profile,
-    type: addPersonData.type,
-    weights: { ...addPersonData.weights },
-    progressionAdj: { bp:1.0, sq:1.0, dl:1.0, lat:1.0 }
-  }));
-  localStorage.setItem('gympass_' + id + '_history', JSON.stringify([]));
-
-  closeAddPerson();
-  renderCards();
-}
-
-// ── INIT ──────────────────────────────────────────────
-const personStates = {};
-Object.keys(people).forEach(id => { personStates[id] = loadPersonState(id); });
-renderCards();
-renderEiffel();
-const now=new Date();
-document.getElementById('headerDate').textContent=days[now.getDay()]+' '+now.getDate()+' '+months[now.getMonth()];
-const q=quotes[now.getDay()%quotes.length];
-document.getElementById('quoteText').textContent=q.text;
-document.getElementById('quoteSub').textContent=q.sub;
-renderWeekBar();
-const daysUntilMon=(8-now.getDay())%7||7;
-const nextMon=new Date(now); nextMon.setDate(now.getDate()+daysUntilMon);
-document.getElementById('nextDay').textContent='Måndag '+nextMon.getDate()+' '+months[nextMon.getMonth()];
-
-// ── HISTORIK MODAL ────────────────────────────────────
-function openHistorik() {
-  renderHistorikContent();
-  renderHanteraPersoner();
-  document.getElementById('historikOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeHistorik() {
-  document.getElementById('historikOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function closeHistorikOutside(e) {
-  if (e.target === document.getElementById('historikOverlay')) closeHistorik();
-}
-function renderHistorikContent() {
-  var el = document.getElementById('historikContent');
-  if (!el) return;
-  var dp = loadDynamicPeople();
-  var allP = Object.assign({}, people, dp);
-  var html = '';
-  var hasData = false;
-  Object.keys(allP).forEach(function(id) {
-    var p = allP[id];
-    var state = personStates[id];
-    if (!state) return;
-    var hist = state.history || [];
-    if (!hist.length) return;
-    hasData = true;
-    var rows = hist.slice(-10).reverse().map(function(h) {
-      var d = new Date(h.date);
-      var dateStr = days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()];
-      var detail = h.freeExercises
-        ? h.freeExercises.map(function(e){ return e.name; }).join(', ')
-        : (h.weights ? [h.weights.bp,h.weights.sq,h.weights.dl,h.weights.lat].map(function(v){ return v?v+'kg':'-'; }).join(' / ') : '-');
-      var emoji = feelingEmoji ? (feelingEmoji(h.feeling)||'') : '';
-      return '<div style="display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--line);">'
-        +'<div style="font-size:12px;color:var(--muted);min-width:80px;">'+dateStr+'</div>'
-        +'<div style="font-size:13px;flex:1;">'+detail+'</div>'
-        +'<div style="font-size:16px;">'+emoji+'</div></div>';
-    }).join('');
-    html += '<div style="margin:16px 20px 0;">'
-      +'<div style="font-family:var(--disp);font-weight:700;font-size:20px;color:'+p.color+';margin-bottom:8px;">'+p.name+'</div>'
-      +'<div style="background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;">'+rows+'</div></div>';
-  });
-  el.innerHTML = hasData ? html : '<div style="padding:40px 20px;color:var(--muted);font-size:14px;text-align:center;">Inga loggade pass ännu.</div>';
-  renderHanteraPersoner();
-}
-
-function renderHanteraPersoner() {
-  var el = document.getElementById('hanteraPersoner');
-  if (!el) return;
-  var dp = loadDynamicPeople();
-  var keys = Object.keys(dp);
-  if (!keys.length) {
-    el.innerHTML = '<div style="font-size:13px;color:var(--muted);">Inga tillagda personer.</div>';
-    return;
-  }
-  el.innerHTML = keys.map(function(id) {
-    var p = dp[id];
-    return '<div style="display:flex;align-items:center;justify-content:space-between;'
-      + 'background:var(--card);border:1px solid var(--line);border-radius:12px;'
-      + 'padding:12px 16px;margin-bottom:8px;">' 
-      + '<div style="display:flex;align-items:center;gap:10px;">' 
-      + '<div style="width:32px;height:32px;border-radius:8px;background:' + p.color + ';'
-      + 'display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#111;">' + p.initials + '</div>'
-      + '<div style="font-size:14px;font-weight:600;">' + p.name + '</div>'
-      + '</div>'
-      + '<button onclick="deletePerson(\'' + id + '\')" '
-      + 'style="background:rgba(255,60,60,0.1);border:1px solid rgba(255,60,60,0.3);'
-      + 'color:#ff6060;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;">'
-      + 'Ta bort</button>'
-      + '</div>';
-  }).join('');
-}
-
-function deletePerson(id) {
-  var dp = loadDynamicPeople();
-  var name = dp[id] ? dp[id].name : id;
-  if (!confirm('Ta bort ' + name + ' och all träningsdata?')) return;
-  delete dp[id];
-  saveDynamicPeople(dp);
-  localStorage.removeItem(STORAGE_PREFIX + id);
-  localStorage.removeItem(STORAGE_PREFIX + id + '_history');
-  delete personStates[id];
-  renderCards();
-  renderEiffel();
-  renderHanteraPersoner();
-}
-</script>
 <!-- HISTORIK MODAL -->
 <div class="modal-overlay" id="historikOverlay" onclick="closeHistorikOutside(event)">
   <div class="modal" id="historikModal">
@@ -1658,8 +362,6 @@ function deletePerson(id) {
       <button class="modal-close" onclick="closeHistorik()">✕</button>
     </div>
     <div id="historikContent" style="padding-bottom:20px;"></div>
-    
-    <!-- HANTERA PERSONER -->
     <div style="margin:0 20px 40px;">
       <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">Hantera personer</div>
       <div id="hanteraPersoner"></div>
@@ -1667,5 +369,1112 @@ function deletePerson(id) {
   </div>
 </div>
 
+<!-- NAV -->
+<div class="nav">
+  <a class="on" onclick="/* hem */">
+    <span class="ndot"></span>Hem
+  </a>
+  <a onclick="openHistorik()">
+    <span class="ndot"></span>Historik
+  </a>
+  <a onclick="openAddPerson()">
+    <span class="ndot"></span>+ Person
+  </a>
+</div>
+
+<!-- NY PERSON MODAL -->
+<div class="modal-overlay" id="addPersonOverlay" onclick="closeAddPersonOutside(event)">
+  <div class="modal" id="addPersonModal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div class="modal-person">
+        <div class="modal-avatar" id="addPersonAvatar" style="background:var(--orange);color:#111;">➕</div>
+        <div class="modal-name">Ny person</div>
+      </div>
+      <button class="modal-close" onclick="closeAddPerson()">✕</button>
+    </div>
+    <div id="addPersonContent"></div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════
+// KONSTANTER
+// ════════════════════════════════════════════════════
+const STORAGE_KEY   = 'gympass_persons_v2';
+const EIFFEL_KG     = 10100000;
+const PLATES        = [20,15,10,5,2.5,1.25];
+const PLATE_CLS     = {20:'p20',15:'p15',10:'p10',5:'p5',2.5:'p25',1.25:'p125'};
+const LAT_STACK     = [35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115];
+const COLORS        = ['#ff7a45','#4d9fff','#ff6ea9','#ffd24d','#a78bfa','#34d399','#f472b6','#60a5fa'];
+const FREE_SUGG     = ['Bicep curl','Triceps','Rodd','Axelpress','Plankan','Dips','Chins','Situps','Löpband','Cykel'];
+
+const DAYS   = ['Söndag','Måndag','Tisdag','Onsdag','Torsdag','Fredag','Lördag'];
+const MONTHS = ['jan','feb','mar','apr','maj','jun','jul','aug','sep','okt','nov','dec'];
+
+const EX_KEYS  = ['bp','sq','dl','lat'];
+const EX_NAMES = {bp:'Bänkpress',sq:'Benböj',dl:'Marklyft',lat:'Latsdrag'};
+const EX_UPPER = {bp:true,sq:false,dl:false,lat:true};
+
+const QUOTES = [
+  {text:'Varje lyft räknas. Varje set bygger något.',sub:'Konsistens slår motivation – varje gång.'},
+  {text:'Du är starkare idag än igår.',sub:'Progressiv överbelastning är magin.'},
+  {text:'Gymmet är inte ett straff. Det är din tid.',sub:'Fyra övningar. Sex set. Klar.'},
+  {text:'Tekniken först. Vikten kommer.',sub:'Rätt rörelse är grunden till allt.'},
+  {text:'Ingen regret efter ett gympass.',sub:'Det vet ni allihopa nu.'}
+];
+
+const MOTIVATION = [
+  {id:1,title:'Siffrorna ljuger inte',desc:'Du motiveras av viktutveckling och tydliga grafer.'},
+  {id:2,title:'Tillsammans är vi starkare',desc:'Du motiveras av att träna som grupp.'},
+  {id:3,title:'Jag mår bättre när jag tränar',desc:'Du motiveras av välmående och energi.'},
+  {id:4,title:'Jag vill överraska mig själv',desc:'Du motiveras av milstolpar och beröm.'}
+];
+
+const FEELINGS = [
+  {id:1,emoji:'🙂',label:'Bra att jag kom',msg:'Det räcker. Varje pass bygger vanan.'},
+  {id:2,emoji:'😐',label:'Okej pass',msg:'Solid insats. Kroppen anpassar sig.'},
+  {id:3,emoji:'💪',label:'Bra pass',msg:'Bra jobbat! Nästa måndag – dags att öka?'},
+  {id:4,emoji:'🔥',label:'Starkt pass',msg:'Du är på rätt spår. Protein inom 30 min!'},
+  {id:5,emoji:'🚀',label:'Maxade idag 🔥',msg:'BEAST! 🔥 Kycklingfilé, ris och grönsaker inom 45 min. Drick 0,5L vatten nu!'}
+];
+
+// ════════════════════════════════════════════════════
+// PERSONSYSTEM – ETT STÄLLE FÖR ALLA
+// ════════════════════════════════════════════════════
+const DEFAULT_PERSONS = [
+  {id:'per',    name:'Per',    initials:'PH', color:'#ff7a45', role:'Coach', bp:45,sq:60,dl:60,lat:null},
+  {id:'alex',   name:'Alex',   initials:'AL', color:'#4d9fff', role:null,    bp:45,sq:60,dl:60,lat:null},
+  {id:'nia',    name:'Nia',    initials:'NI', color:'#ff6ea9', role:null,    bp:35,sq:20,dl:30,lat:null},
+  {id:'hannes', name:'Hannes', initials:'HA', color:'#ffd24d', role:null,    bp:27,sq:22,dl:27,lat:null},
+];
+
+function loadPersons() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (raw) return JSON.parse(raw);
+  // Första gången – initiera med default-personer
+  const initial = DEFAULT_PERSONS.map(p => ({
+    ...p,
+    onboarded: false,
+    type: 'structured',
+    profile: null,
+    weights: {bp:p.bp, sq:p.sq, dl:p.dl, lat:p.lat},
+    progressionAdj: {bp:1,sq:1,dl:1,lat:1},
+    history: []
+  }));
+  savePersons(initial);
+  return initial;
+}
+
+function savePersons(persons) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(persons));
+}
+
+function getPerson(id) {
+  return loadPersons().find(p => p.id === id);
+}
+
+function updatePerson(id, changes) {
+  const persons = loadPersons();
+  const idx = persons.findIndex(p => p.id === id);
+  if (idx === -1) return;
+  persons[idx] = {...persons[idx], ...changes};
+  savePersons(persons);
+}
+
+function addHistory(id, entry) {
+  const persons = loadPersons();
+  const idx = persons.findIndex(p => p.id === id);
+  if (idx === -1) return;
+  if (!persons[idx].history) persons[idx].history = [];
+  persons[idx].history.push(entry);
+  savePersons(persons);
+}
+
+function removePerson(id) {
+  const persons = loadPersons().filter(p => p.id !== id);
+  savePersons(persons);
+}
+
+// ════════════════════════════════════════════════════
+// UTILS
+// ════════════════════════════════════════════════════
+let barWeight = 20;
+
+function r(w, pct) { return Math.round(w * pct / 2.5) * 2.5; }
+
+function fmtKg(n) {
+  if (n >= 1000000) return (n/1000000).toFixed(2) + 'M kg';
+  return Math.round(n).toLocaleString('sv-SE') + ' kg';
+}
+
+function setBar(kg) {
+  barWeight = kg;
+  document.getElementById('bar20').classList.toggle('on', kg===20);
+  document.getElementById('bar15').classList.toggle('on', kg===15);
+  if (currentPassId) renderPassContent(currentPassId);
+}
+
+function calcPlates(kg) {
+  let rem = (kg - barWeight) / 2;
+  if (rem <= 0) return [];
+  const result = [];
+  for (const p of PLATES) {
+    const cnt = Math.floor(rem / p + 0.001);
+    if (cnt > 0) { result.push({w:p,cnt}); rem = Math.round((rem - cnt*p)*100)/100; }
+  }
+  return result;
+}
+
+function latLevel(kg) {
+  if (!kg) return null;
+  return LAT_STACK.reduce((prev,cur) => Math.abs(cur-kg) < Math.abs(prev-kg) ? cur : prev);
+}
+
+function plateHTML(kg, isLat) {
+  if (!kg) return '';
+  if (isLat) {
+    const lv = latLevel(kg);
+    return '<div class="plate-info"><div class="plate-row"><span class="plate-label">Stack:</span>'
+      + '<span class="plate-chip p10">📍 Nivå ' + lv + ' kg</span></div></div>';
+  }
+  const plates = calcPlates(kg);
+  if (!plates.length) return '<div class="plate-info"><div class="plate-row"><span class="plate-label">Bara stång</span></div></div>';
+  const chips = plates.map(p => '<span class="plate-chip ' + PLATE_CLS[p.w] + '">' + p.cnt + '×' + p.w + 'kg</span>').join('');
+  return '<div class="plate-info"><div class="plate-row"><span class="plate-label">Per sida:</span>' + chips + '</div></div>';
+}
+
+function targetWeight(startW, weeks, isUpper, adj) {
+  if (!startW) return null;
+  const interval = isUpper ? 2.5 : 2;
+  return Math.round((startW + Math.floor(weeks/interval)*2.5) * adj / 2.5) * 2.5;
+}
+
+function passKg(p) {
+  const sets = [{pct:.70,reps:5},{pct:.80,reps:3},{pct:.95,reps:1},{pct:.87,reps:5},{pct:.87,reps:5},{pct:.87,reps:5}];
+  let tot = 0;
+  EX_KEYS.forEach(k => { const w=p.weights[k]; if(w) sets.forEach(s=>{ tot+=r(w,s.pct)*s.reps; }); });
+  return tot;
+}
+
+function feelingEmoji(fid) {
+  const f = FEELINGS.find(x => x.id===fid);
+  return f ? f.emoji : '';
+}
+
+function getMonday(d) {
+  const dd = new Date(d);
+  const diff = (dd.getDay()===0?-6:1) - dd.getDay();
+  dd.setDate(dd.getDate()+diff); dd.setHours(0,0,0,0); return dd;
+}
+
+function sameDay(a,b) {
+  return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
+}
+
+function hasTrainedThisWeek(person) {
+  const monday = getMonday(new Date());
+  return (person.history||[]).some(h => new Date(h.date) >= monday);
+}
+
+function lastTrainedText(person) {
+  const hist = person.history || [];
+  if (!hist.length) return 'Inte tränat ännu';
+  const d = new Date(hist[hist.length-1].date);
+  return 'Senast: ' + DAYS[d.getDay()] + ' ' + d.getDate() + ' ' + MONTHS[d.getMonth()];
+}
+
+// ════════════════════════════════════════════════════
+// EIFFELTORNET
+// ════════════════════════════════════════════════════
+function calcTotalKg() {
+  return loadPersons().reduce((tot, p) => {
+    return tot + (p.history||[]).reduce((s,h) => {
+      if (h.freeExercises) return s + h.freeExercises.reduce((ss,ex) => ss+(ex.weight||0)*(ex.reps||1)*(ex.sets||1),0);
+      return s + passKg(p);
+    }, 0);
+  }, 0);
+}
+
+function renderEiffel() {
+  const total = calcTotalKg();
+  const pct   = Math.min((total/EIFFEL_KG)*100, 100);
+  const pctS  = pct < 0.01 ? '0.00' : pct.toFixed(2);
+  const fillH = Math.round(pct/100*160);
+  const milestones = [{kg:1600000,label:'Våning 1 🎯'},{kg:3200000,label:'Våning 2 🥂'},{kg:7800000,label:'Våning 3 👁'},{kg:10100000,label:'Toppen 🗼'}];
+  const nextMs = milestones.find(m => total < m.kg) || milestones[milestones.length-1];
+  const comparisons = [{kg:5000,emoji:'🐘',name:'elefant'},{kg:150000,emoji:'🐋',name:'blåval'},{kg:500000,emoji:'✈️',name:'Boeing 747'},{kg:3000000,emoji:'🚀',name:'rymdraket'},{kg:10100000,emoji:'🗼',name:'Eiffeltorn'}];
+  let comp = comparisons[0];
+  if (total > 0) comparisons.forEach(c => { if(total >= c.kg*0.3) comp=c; });
+
+  const persons = loadPersons();
+  const contribs = persons.map(p => ({
+    name:p.name, color:p.color,
+    kg:(p.history||[]).reduce((s,h) => {
+      if(h.freeExercises) return s+h.freeExercises.reduce((ss,ex)=>ss+(ex.weight||0)*(ex.reps||1)*(ex.sets||1),0);
+      return s+passKg(p);
+    },0)
+  }));
+  const maxC = Math.max(1, ...contribs.map(c=>c.kg));
+
+  const svg = `<svg viewBox="0 0 80 160" xmlns="http://www.w3.org/2000/svg" width="80" height="160">
+    <defs>
+      <clipPath id="ec"><rect x="0" y="${160-fillH}" width="80" height="${fillH}"/></clipPath>
+      <linearGradient id="eg" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0%" stop-color="#ff7a45"/><stop offset="50%" stop-color="#ff6ea9"/><stop offset="100%" stop-color="#ffd24d"/>
+      </linearGradient>
+    </defs>
+    <g fill="#2a2a2a" stroke="#333" stroke-width="0.3">
+      <path d="M10 160 L20 115 L28 115 L26 160Z"/><path d="M70 160 L60 115 L52 115 L54 160Z"/>
+      <rect x="8" y="112" width="64" height="5" rx="1"/>
+      <path d="M20 115 L26 78 L32 78 L30 115Z"/><path d="M60 115 L54 78 L48 78 L50 115Z"/>
+      <rect x="18" y="75" width="44" height="5" rx="1"/>
+      <path d="M26 78 L32 48 L38 48 L36 78Z"/><path d="M54 78 L48 48 L42 48 L44 78Z"/>
+      <rect x="24" y="45" width="32" height="4" rx="1"/>
+      <path d="M32 48 L37 18 L43 18 L48 48Z"/><path d="M36 18 L40 4 L44 18Z"/>
+      <rect x="14" y="130" width="52" height="3" rx="1"/><rect x="16" y="120" width="48" height="2" rx="1"/>
+      <rect x="22" y="95" width="36" height="2" rx="1"/><rect x="27" y="62" width="26" height="2" rx="1"/>
+    </g>
+    <g clip-path="url(#ec)" fill="url(#eg)" opacity="0.95">
+      <path d="M10 160 L20 115 L28 115 L26 160Z"/><path d="M70 160 L60 115 L52 115 L54 160Z"/>
+      <rect x="8" y="112" width="64" height="5" rx="1"/>
+      <path d="M20 115 L26 78 L32 78 L30 115Z"/><path d="M60 115 L54 78 L48 78 L50 115Z"/>
+      <rect x="18" y="75" width="44" height="5" rx="1"/>
+      <path d="M26 78 L32 48 L38 48 L36 78Z"/><path d="M54 78 L48 48 L42 48 L44 78Z"/>
+      <rect x="24" y="45" width="32" height="4" rx="1"/>
+      <path d="M32 48 L37 18 L43 18 L48 48Z"/><path d="M36 18 L40 4 L44 18Z"/>
+      <rect x="14" y="130" width="52" height="3" rx="1"/><rect x="16" y="120" width="48" height="2" rx="1"/>
+      <rect x="22" y="95" width="36" height="2" rx="1"/><rect x="27" y="62" width="26" height="2" rx="1"/>
+    </g>
+  </svg>`;
+
+  document.getElementById('eiffelCard').innerHTML =
+    '<div class="eiffel-top">'
+    + '<div class="eiffel-svg-wrap">' + svg + '</div>'
+    + '<div class="eiffel-info">'
+    + '<div class="eiffel-label">Lyft mot Eiffeltornet</div>'
+    + '<div class="eiffel-pct">' + pctS + '%</div>'
+    + '<div class="eiffel-kg">' + fmtKg(total) + ' av ' + fmtKg(EIFFEL_KG) + '</div>'
+    + '<div class="eiffel-milestone">▶ Nästa: ' + nextMs.label + '</div>'
+    + '</div></div>'
+    + '<div class="eiffel-bar"><div class="eiffel-bar-fill" style="width:' + pctS + '%"></div></div>'
+    + '<div class="eiffel-last">'
+    + '<div><div class="eiffel-last-label">Totalt lyft</div>'
+    + '<div class="eiffel-last-val">' + fmtKg(total) + '</div>'
+    + '<div class="eiffel-last-compare">= ' + (total/comp.kg).toFixed(1) + '× ' + comp.name + ' ' + comp.emoji + '</div></div>'
+    + '<div style="font-size:32px">' + comp.emoji + '</div>'
+    + '</div>'
+    + '<div class="eiffel-contribs">'
+    + contribs.map(c => '<div class="eiffel-contrib">'
+      + '<div class="eiffel-contrib-name">' + c.name + '</div>'
+      + '<div class="eiffel-contrib-bar"><div class="eiffel-contrib-fill" style="width:' + (c.kg/maxC*100) + '%;background:' + c.color + '"></div></div>'
+      + '<div class="eiffel-contrib-kg" style="color:' + c.color + '">' + (c.kg>0?fmtKg(c.kg):'–') + '</div>'
+      + '</div>').join('')
+    + '</div>';
+}
+
+// ════════════════════════════════════════════════════
+// PERSONKORT
+// ════════════════════════════════════════════════════
+function renderCards() {
+  const container = document.getElementById('cardsContainer');
+  const persons   = loadPersons();
+
+  container.innerHTML = persons.map(p => {
+    const trained   = hasTrainedThisWeek(p);
+    const badge     = p.role ? p.role : (trained ? 'Tränat ✓' : '–');
+    const badgeCls  = (!p.role && trained) ? 'trained' : '';
+    const isDefault = DEFAULT_PERSONS.some(d => d.id === p.id);
+
+    return '<div class="person-card" style="--pc:' + p.color + '" onclick="onCardClick(\'' + p.id + '\')">'
+      + '<div class="card-top">'
+      + '<div class="avatar" style="background:' + p.color + '">' + p.initials + '</div>'
+      + '<div class="card-badge ' + badgeCls + '">' + badge + '</div>'
+      + '</div>'
+      + '<div class="card-name">' + p.name + '</div>'
+      + '<div class="card-last">' + lastTrainedText(p) + '</div>'
+      + '<div class="card-lifts">'
+      + liftHTML('Bänk',     p.weights.bp)
+      + liftHTML('Benböj',   p.weights.sq)
+      + liftHTML('Marklyft', p.weights.dl)
+      + liftHTML('Latsdrag', p.weights.lat)
+      + '</div>'
+      + '<div class="card-cta" style="color:' + p.color + '">' + (p.onboarded?'Öppna mitt pass →':'Kom igång →') + '</div>'
+      + '</div>';
+  }).join('')
+  + '<div class="add-card" onclick="openAddPerson()">'
+  + '<div class="add-icon">➕</div>'
+  + '<div class="add-label">Ny person</div>'
+  + '<div class="add-sub">Lägg till en träningskompis</div>'
+  + '</div>';
+}
+
+function liftHTML(label, val) {
+  return '<div class="lift-item"><div class="lift-label">' + label + '</div>'
+    + (val ? '<div class="lift-val">' + val + ' <span>kg</span></div>' : '<div class="lift-val">–</div>')
+    + '</div>';
+}
+
+function onCardClick(id) {
+  const p = getPerson(id);
+  if (!p) return;
+  if (!p.onboarded) { startOnboard(id); return; }
+  if (p.type === 'free') openFree(id);
+  else openPass(id);
+}
+
+// ════════════════════════════════════════════════════
+// PASS-VY
+// ════════════════════════════════════════════════════
+let currentPassId = null;
+let weightsEditorOpen = false;
+
+function openPass(id) {
+  currentPassId = id;
+  const p = getPerson(id);
+  if (!p) return;
+  document.getElementById('passAvatar').textContent = p.initials;
+  document.getElementById('passAvatar').style.background = p.color;
+  document.getElementById('passAvatar').style.color = '#111';
+  document.getElementById('passName').textContent = p.name;
+  renderPassContent(id);
+  renderWeightsEditor(id);
+  renderTargets(id);
+  renderGraph(id);
+  renderPassHistory(id);
+  document.getElementById('passOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderPassContent(id) {
+  const p = getPerson(id);
+  if (!p) return;
+  const sets = [
+    {label:'Uppvärmning',pct:.70,reps:5,top:false},
+    {label:'Uppvärmning',pct:.80,reps:3,top:false},
+    {label:'Toppset 🔥', pct:.95,reps:1,top:true},
+    {label:'Arbetsserie',pct:.87,reps:5,top:false},
+    {label:'Arbetsserie',pct:.87,reps:5,top:false},
+    {label:'Arbetsserie',pct:.87,reps:5,top:false},
+  ];
+  document.getElementById('passContent').innerHTML = EX_KEYS.map(key => {
+    const w    = p.weights[key];
+    const isLat = key === 'lat';
+    const rows  = w ? sets.map((s,i) => {
+      const kg = r(w, s.pct);
+      return '<div class="set-row' + (s.top?' top-set':'') + '">'
+        + '<div class="set-num">' + (i+1) + '</div>'
+        + '<div class="set-type">' + s.label + '</div>'
+        + '<div class="set-weight" style="' + (s.top?'color:var(--orange)':'') + '">' + (isLat?(latLevel(kg)||kg):kg) + '<span> kg</span></div>'
+        + '<div class="set-reps">× ' + s.reps + '</div>'
+        + '</div>'
+        + plateHTML(kg, isLat);
+    }).join('') : '<div style="padding:14px 16px;font-size:13px;color:var(--muted);">Vikt ej registrerad – uppdatera nedan</div>';
+    return '<div class="exercise-block">'
+      + '<div class="exercise-title" style="color:' + p.color + '">' + EX_NAMES[key] + '</div>'
+      + rows + '</div>';
+  }).join('');
+}
+
+function closePass() {
+  document.getElementById('passOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  currentPassId = null;
+}
+function closePassOutside(e) { if (e.target===document.getElementById('passOverlay')) closePass(); }
+
+function finishWorkout() {
+  const id = currentPassId;
+  const p  = getPerson(id);
+  if (!p) return;
+  addHistory(id, {date:new Date().toISOString(), weights:{...p.weights}, feeling:null});
+  closePass();
+  renderCards();
+  renderWeekBar();
+  renderEiffel();
+  feelingPersonId = id;
+  showFeelingQuestion();
+}
+
+// ════════════════════════════════════════════════════
+// VIKT-EDITOR
+// ════════════════════════════════════════════════════
+let weightsTmp = {};
+
+function renderWeightsEditor(id) {
+  const p   = getPerson(id);
+  const el  = document.getElementById('weightsEditorSection');
+  if (!p || !el) return;
+  if (!weightsTmp[id]) weightsTmp[id] = {...p.weights};
+  const tmp = weightsTmp[id];
+  const exList = [
+    {key:'bp',label:'Bänkpress',step:2.5},
+    {key:'sq',label:'Benböj',step:2.5},
+    {key:'dl',label:'Marklyft',step:2.5},
+    {key:'lat',label:'Latsdrag',step:5},
+  ];
+  el.innerHTML = '<div class="weight-editor">'
+    + '<div class="weight-editor-title" onclick="toggleWeightsEditor(\'' + id + '\')">'
+    + '<span>⚖️ Uppdatera vikter</span>'
+    + '<span style="color:var(--orange)">' + (weightsEditorOpen?'▲ Stäng':'▼ Öppna') + '</span>'
+    + '</div>'
+    + '<div class="weight-editor-body' + (weightsEditorOpen?' open':'') + '">'
+    + exList.map(ex => {
+      const val = tmp[ex.key] || 0;
+      return '<div class="we-row"><div class="we-label">' + ex.label + '</div>'
+        + '<div class="we-stepper">'
+        + '<button class="we-btn" onclick="adjWeightTmp(\'' + id + '\',\'' + ex.key + '\',-' + ex.step + ')">–</button>'
+        + '<div class="we-val" id="wetmp-' + ex.key + '">' + (val?val+' kg':'–') + '</div>'
+        + '<button class="we-btn" onclick="adjWeightTmp(\'' + id + '\',\'' + ex.key + '\',' + ex.step + ')">+</button>'
+        + '</div></div>';
+    }).join('')
+    + '<button class="we-save" onclick="saveWeights(\'' + id + '\')">Spara vikter ✓</button>'
+    + '</div></div>';
+}
+
+function toggleWeightsEditor(id) {
+  weightsEditorOpen = !weightsEditorOpen;
+  renderWeightsEditor(id);
+}
+
+function adjWeightTmp(id, key, delta) {
+  if (!weightsTmp[id]) { const p=getPerson(id); if(p) weightsTmp[id]={...p.weights}; }
+  const cur = weightsTmp[id][key] || 0;
+  weightsTmp[id][key] = Math.round(Math.max(0, cur+delta)/Math.abs(delta))*Math.abs(delta);
+  const el = document.getElementById('wetmp-' + key);
+  if (el) el.textContent = weightsTmp[id][key] ? weightsTmp[id][key]+' kg' : '–';
+}
+
+function saveWeights(id) {
+  const p = getPerson(id);
+  if (!p || !weightsTmp[id]) return;
+  updatePerson(id, {weights:{...weightsTmp[id]}});
+  delete weightsTmp[id];
+  weightsEditorOpen = false;
+  openPass(id);
+  renderCards();
+}
+
+// ════════════════════════════════════════════════════
+// MÅLVIKTER
+// ════════════════════════════════════════════════════
+function renderTargets(id) {
+  const p  = getPerson(id);
+  const el = document.getElementById('targetsSection');
+  if (!p || !el) return;
+  const adj = p.progressionAdj || {bp:1,sq:1,dl:1,lat:1};
+  el.innerHTML = '<div class="targets-block">'
+    + '<div class="targets-title">🎯 Målvikter</div>'
+    + '<div class="targets-head"><span>Övning</span><span style="color:var(--orange)">Nu→1mån</span><span style="color:#4d9fff">→3mån</span></div>'
+    + EX_KEYS.map(key => {
+      const w  = p.weights[key];
+      const a  = adj[key]||1;
+      const m1 = w ? targetWeight(w,4,EX_UPPER[key],a) : null;
+      const m3 = w ? targetWeight(w,12,EX_UPPER[key],a) : null;
+      return '<div class="targets-ex-row">'
+        + '<div class="targets-ex-header">'
+        + '<div class="targets-ex-name">' + EX_NAMES[key] + '</div>'
+        + '<div class="targets-ex-val" style="color:var(--orange)">' + (w?w+'→'+(m1||'–'):'–') + '</div>'
+        + '<div class="targets-ex-val" style="color:#4d9fff">' + (m3||'–') + '</div>'
+        + '</div>'
+        + '<div class="targets-ex-adj">'
+        + '<div class="targets-ex-adjbtn" onclick="adjTarget(\'' + id + '\',\'' + key + '\',-0.1)">−10%</div>'
+        + '<div class="targets-ex-adjbtn" onclick="adjTarget(\'' + id + '\',\'' + key + '\',-0.05)">−5%</div>'
+        + '<div style="flex:1;text-align:center;font-size:10px;color:var(--muted);padding:5px 0">' + Math.round(a*100) + '%</div>'
+        + '<div class="targets-ex-adjbtn" onclick="adjTarget(\'' + id + '\',\'' + key + '\',0.05)">+5%</div>'
+        + '<div class="targets-ex-adjbtn" onclick="adjTarget(\'' + id + '\',\'' + key + '\',0.1)">+10%</div>'
+        + '</div></div>';
+    }).join('')
+    + '</div>';
+}
+
+function adjTarget(id, key, delta) {
+  const p   = getPerson(id);
+  if (!p) return;
+  const adj = p.progressionAdj || {bp:1,sq:1,dl:1,lat:1};
+  adj[key]  = Math.round(Math.max(0.5, Math.min(2.0, (adj[key]||1)+delta))*100)/100;
+  updatePerson(id, {progressionAdj:adj});
+  renderTargets(id);
+}
+
+// ════════════════════════════════════════════════════
+// PROGRESSIONSGRAF
+// ════════════════════════════════════════════════════
+let graphActiveEx = 'bp';
+
+function renderGraph(id) {
+  const el = document.getElementById('graphSection');
+  if (!el) return;
+  el.innerHTML = '<div class="graph-block">'
+    + '<div class="graph-title">📈 Din progression</div>'
+    + '<div class="graph-tabs">'
+    + EX_KEYS.map(k => '<div class="graph-tab' + (k===graphActiveEx?' on':'') + '" onclick="switchGraph(\'' + id + '\',\'' + k + '\',this)">' + EX_NAMES[k] + '</div>').join('')
+    + '</div><div id="graphCanvas"></div></div>';
+  drawGraph(id, graphActiveEx);
+}
+
+function switchGraph(id, ex, el2) {
+  graphActiveEx = ex;
+  document.querySelectorAll('.graph-tab').forEach(t => t.classList.remove('on'));
+  el2.classList.add('on');
+  drawGraph(id, ex);
+}
+
+function drawGraph(id, ex) {
+  const p      = getPerson(id);
+  const canvas = document.getElementById('graphCanvas');
+  if (!p || !canvas) return;
+  const hist = (p.history||[]).filter(h => !h.freeExercises && h.weights && h.weights[ex]);
+  if (hist.length < 2) { canvas.innerHTML = '<div class="graph-empty">Minst 2 pass behövs. Kör på!</div>'; return; }
+  const pts   = hist.map(h => ({d:new Date(h.date),v:h.weights[ex]}));
+  const color = p.color;
+  const W=360,H=100,P={t:10,r:10,b:20,l:30};
+  const iW=W-P.l-P.r, iH=H-P.t-P.b;
+  const vals=pts.map(p=>p.v), minV=Math.min(...vals)-2.5, maxV=Math.max(...vals)+2.5;
+  const minT=pts[0].d.getTime(), rangeT=(pts[pts.length-1].d.getTime()-minT)||1;
+  const cx=d=>P.l+((d.getTime()-minT)/rangeT)*iW;
+  const cy=v=>P.t+iH-((v-minV)/(maxV-minV))*iH;
+  const poly=pts.map(p=>cx(p.d).toFixed(1)+','+cy(p.v).toFixed(1)).join(' ');
+  const area='M'+cx(pts[0].d).toFixed(1)+','+(P.t+iH)+' '+pts.map(p=>'L'+cx(p.d).toFixed(1)+','+cy(p.v).toFixed(1)).join(' ')+' L'+cx(pts[pts.length-1].d).toFixed(1)+','+(P.t+iH)+' Z';
+  const fmt=d=>d.getDate()+' '+MONTHS[d.getMonth()];
+  canvas.innerHTML = '<div class="graph-svg-wrap"><svg class="graph-svg" viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">'
+    + '<defs><linearGradient id="gg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+color+'" stop-opacity="0.25"/><stop offset="100%" stop-color="'+color+'" stop-opacity="0"/></linearGradient></defs>'
+    + '<path d="'+area+'" fill="url(#gg)"/>'
+    + '<polyline points="'+poly+'" fill="none" stroke="'+color+'" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>'
+    + '<text x="'+P.l+'" y="'+(H-4)+'" font-size="8" fill="#666">'+fmt(pts[0].d)+'</text>'
+    + '<text x="'+(W-P.r)+'" y="'+(H-4)+'" font-size="8" fill="#666" text-anchor="end">'+fmt(pts[pts.length-1].d)+'</text>'
+    + pts.map((pt,i)=>'<circle cx="'+cx(pt.d).toFixed(1)+'" cy="'+cy(pt.v).toFixed(1)+'" r="'+(i===pts.length-1?4:2.5)+'" fill="'+color+'" stroke="var(--bg)" stroke-width="1.5"/>'
+      +(i===pts.length-1?'<text x="'+cx(pt.d).toFixed(1)+'" y="'+(cy(pt.v)-7).toFixed(1)+'" text-anchor="middle" font-size="9" fill="'+color+'" font-weight="700">'+pt.v+' kg</text>':'')).join('')
+    + '</svg></div>';
+}
+
+// ════════════════════════════════════════════════════
+// HISTORIK I PASSVY
+// ════════════════════════════════════════════════════
+function renderPassHistory(id) {
+  const p  = getPerson(id);
+  const el = document.getElementById('passHistorySection');
+  if (!p || !el) return;
+  const hist = (p.history||[]).slice(-10).reverse();
+  if (!hist.length) { el.innerHTML = '<div class="week-head"><div class="seclab">Mina pass</div></div><div class="history-empty">Inga pass ännu.</div>'; return; }
+  el.innerHTML = '<div class="week-head"><div class="seclab">Mina pass</div></div>'
+    + '<div class="history-list">'
+    + hist.map(h => {
+      const d = new Date(h.date);
+      const dateStr = DAYS[d.getDay()]+' '+d.getDate()+' '+MONTHS[d.getMonth()];
+      const detail  = h.freeExercises ? h.freeExercises.map(e=>e.name).join(', ') : EX_KEYS.map(k=>h.weights&&h.weights[k]?h.weights[k]+'kg':'-').join('/');
+      return '<div class="history-row">'
+        + '<div class="history-date">'+dateStr+'</div>'
+        + '<div class="history-weights">'+detail+'</div>'
+        + '<div class="history-feeling">'+feelingEmoji(h.feeling)+'</div>'
+        + '</div>';
+    }).join('')
+    + '</div>';
+}
+
+// ════════════════════════════════════════════════════
+// UTSKRIFT
+// ════════════════════════════════════════════════════
+function printPass() {
+  const p = getPerson(currentPassId);
+  if (!p) return;
+  const sets = [{label:'Uppvärmning',pct:.70,reps:5},{label:'Uppvärmning',pct:.80,reps:3},{label:'Toppset',pct:.95,reps:1},{label:'Arbetsserie',pct:.87,reps:5},{label:'Arbetsserie',pct:.87,reps:5},{label:'Arbetsserie',pct:.87,reps:5}];
+  const now = new Date();
+  let html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Gympass – '+p.name+'</title>'
+    + '<style>body{font-family:Arial,sans-serif;padding:20px;max-width:600px}.ex{margin-bottom:16px;border:1px solid #ccc;border-radius:8px;overflow:hidden}.ex-title{background:#f0f0f0;padding:8px 12px;font-size:14px;font-weight:700;text-transform:uppercase}.row{display:grid;grid-template-columns:30px 1fr 80px 60px;padding:6px 12px;border-bottom:1px solid #eee;font-size:13px}.plates{font-size:11px;color:#555;padding:4px 12px 6px;background:#fafafa}</style></head><body>'
+    + '<h1>GYMPASS – '+p.name.toUpperCase()+'</h1>'
+    + '<p style="color:#666;font-size:13px;">'+DAYS[now.getDay()]+' '+now.getDate()+' '+MONTHS[now.getMonth()]+' · Stång '+barWeight+' kg</p>';
+  EX_KEYS.forEach(key => {
+    const w = p.weights[key]; if(!w) return;
+    const isLat = key==='lat';
+    html += '<div class="ex"><div class="ex-title">'+EX_NAMES[key]+'</div>';
+    sets.forEach((s,i) => {
+      const kg = r(w,s.pct);
+      const info = isLat ? 'Stack: nivå '+(latLevel(kg)||kg)+' kg' : (calcPlates(kg).length ? 'Per sida: '+calcPlates(kg).map(pl=>pl.cnt+'×'+pl.w+'kg').join(' + ') : 'Bara stång');
+      html += '<div class="row"><span>'+(i+1)+'</span><span>'+s.label+'</span><span><b>'+kg+' kg</b></span><span>×'+s.reps+'</span></div><div class="plates">'+info+'</div>';
+    });
+    html += '</div>';
+  });
+  html += '<p style="text-align:center;color:#888;font-size:12px;margin-top:8px;">⏱ Vila ca 2 minuter mellan set</p></body></html>';
+  const w2 = window.open('','_blank');
+  w2.document.write(html); w2.document.close(); w2.print();
+}
+
+// ════════════════════════════════════════════════════
+// FRIPASS
+// ════════════════════════════════════════════════════
+let currentFreeId = null;
+let freeExercises = [];
+
+function openFree(id) {
+  currentFreeId = id;
+  freeExercises = [];
+  const p = getPerson(id);
+  if (!p) return;
+  document.getElementById('freeAvatar').textContent  = p.initials;
+  document.getElementById('freeAvatar').style.background = p.color;
+  document.getElementById('freeAvatar').style.color  = '#111';
+  document.getElementById('freeName').textContent    = p.name;
+  renderFree();
+  document.getElementById('freeOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderFree() {
+  const p  = getPerson(currentFreeId);
+  if (!p) return;
+  const el = document.getElementById('freeContent');
+
+  let exerciseList = '';
+  if (freeExercises.length) {
+    exerciseList = '<div class="free-block" style="margin-top:16px;">'
+      + '<div class="free-title"><span>Övningar</span><span style="font-size:12px;color:var(--muted)">' + freeExercises.length + ' st</span></div>'
+      + freeExercises.map((ex,i) =>
+          '<div class="free-exercise">'
+          + '<div style="display:flex;align-items:center;justify-content:space-between">'
+          + '<div class="free-ex-name" style="color:' + p.color + '">' + ex.name + '</div>'
+          + '<button onclick="removeFreeEx(' + i + ')" style="background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;">×</button>'
+          + '</div>'
+          + '<div class="free-ex-detail">'
+          + (ex.weight ? ex.weight + ' kg' : '') + (ex.reps ? ' · ' + ex.reps + ' reps' : '') + (ex.sets ? ' · ' + ex.sets + ' set' : '')
+          + '</div></div>'
+      ).join('')
+      + '</div>';
+  }
+
+  el.innerHTML = exerciseList
+    + '<div class="free-block" style="margin-top:16px;">'
+    + '<div class="free-title">+ Lägg till övning</div>'
+    + '<div style="padding:12px 16px 0;">'
+    + '<input class="free-input" id="freeExName" placeholder="Övningens namn...">'
+    + '</div>'
+    + '<div class="free-suggestion">'
+    + FREE_SUGG.map(s => '<div class="free-sug-chip" onclick="document.getElementById(\'freeExName\').value=\'' + s + '\'">' + s + '</div>').join('')
+    + '</div>'
+    + '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:0 16px 4px;">'
+    + '<div><div style="font-size:10px;color:var(--muted);margin-bottom:4px;">Vikt (kg)</div><input class="free-input" id="freeExWeight" type="number" placeholder="0"></div>'
+    + '<div><div style="font-size:10px;color:var(--muted);margin-bottom:4px;">Reps</div><input class="free-input" id="freeExReps" type="number" placeholder="0"></div>'
+    + '<div><div style="font-size:10px;color:var(--muted);margin-bottom:4px;">Set</div><input class="free-input" id="freeExSets" type="number" placeholder="1"></div>'
+    + '</div>'
+    + '<div style="padding:10px 16px 14px;"><button class="free-add-btn" onclick="addFreeEx()">Lägg till ✓</button></div>'
+    + '</div>'
+    + (freeExercises.length ? '<button class="btn-primary" onclick="finishFree()">Avsluta pass ✅</button>' : '')
+    + '<button class="btn-secondary" onclick="closeFree()">Avbryt</button>';
+}
+
+function addFreeEx() {
+  const name   = (document.getElementById('freeExName')?.value || '').trim();
+  const weight = parseFloat(document.getElementById('freeExWeight')?.value) || 0;
+  const reps   = parseInt(document.getElementById('freeExReps')?.value) || 0;
+  const sets   = parseInt(document.getElementById('freeExSets')?.value) || 1;
+  if (!name) return;
+  freeExercises.push({name, weight, reps, sets});
+  renderFree();
+}
+
+function removeFreeEx(i) {
+  freeExercises.splice(i, 1);
+  renderFree();
+}
+
+function finishFree() {
+  const id = currentFreeId;
+  addHistory(id, {date:new Date().toISOString(), freeExercises:[...freeExercises], feeling:null});
+  closeFree();
+  renderCards();
+  renderWeekBar();
+  renderEiffel();
+  feelingPersonId = id;
+  setTimeout(() => showFeelingQuestion(), 300);
+}
+
+function closeFree() {
+  document.getElementById('freeOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  currentFreeId = null;
+}
+function closeFreeOutside(e) { if (e.target===document.getElementById('freeOverlay')) closeFree(); }
+
+// ════════════════════════════════════════════════════
+// KÄNSLA
+// ════════════════════════════════════════════════════
+let feelingPersonId = null;
+
+function showFeelingQuestion() {
+  document.getElementById('feelingContent').innerHTML =
+    '<div class="onboarding-step"><div class="onboarding-title">Hur kändes passet?</div></div>'
+    + '<div class="feeling-grid">'
+    + FEELINGS.map(f => '<div class="feeling-card" onclick="selectFeeling(' + f.id + ')">'
+      + '<div class="feeling-emoji">' + f.emoji + '</div>'
+      + '<div class="feeling-label">' + f.label + '</div>'
+      + '</div>').join('')
+    + '</div>'
+    + '<button class="btn-secondary" onclick="closeFeelingOverlay()">Hoppa över</button>';
+  document.getElementById('feelingOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function selectFeeling(fid) {
+  const p = getPerson(feelingPersonId);
+  if (p && p.history && p.history.length) {
+    const persons = loadPersons();
+    const idx = persons.findIndex(x => x.id===feelingPersonId);
+    if (idx > -1) {
+      persons[idx].history[persons[idx].history.length-1].feeling = fid;
+      savePersons(persons);
+    }
+  }
+  const f = FEELINGS.find(x => x.id===fid);
+  document.getElementById('feelingContent').innerHTML =
+    '<div class="onboarding-step">'
+    + '<div class="onboarding-emoji">' + f.emoji + '</div>'
+    + '<div class="onboarding-title">' + f.label + '</div>'
+    + '<div class="onboarding-sub">' + f.msg + '</div>'
+    + '</div><button class="btn-primary" onclick="closeFeelingOverlay()">Klart</button>';
+}
+
+function closeFeelingOverlay() {
+  document.getElementById('feelingOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  feelingPersonId = null;
+  renderCards();
+}
+
+// ════════════════════════════════════════════════════
+// ONBOARDING
+// ════════════════════════════════════════════════════
+let onboard = null;
+
+function startOnboard(id) {
+  const p = getPerson(id);
+  onboard = {id, step:1, type:'structured', profile:null, weights:{bp:p.weights.bp||40,sq:p.weights.sq||50,dl:p.weights.dl||50,lat:p.weights.lat||60}};
+  renderOnboard();
+  document.getElementById('onboardOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderOnboard() {
+  const p   = getPerson(onboard.id);
+  const el  = document.getElementById('onboardContent');
+  const pg  = document.getElementById('onboardProgress');
+  const steps = onboard.type==='free' ? 3 : 4;
+  pg.innerHTML = [1,2,3,4].slice(0,steps).map(n => '<div class="progress-dot' + (n<=onboard.step?' active':'') + '"></div>').join('');
+
+  if (onboard.step === 1) {
+    el.innerHTML = '<div class="onboarding-step">'
+      + '<div class="onboarding-emoji">👋</div>'
+      + '<div class="onboarding-title">Välkommen, ' + p.name + '!</div>'
+      + '<div class="onboarding-sub">Sätt upp din profil – tar under en minut.</div>'
+      + '</div><button class="btn-primary" onclick="onboardNext()">Kom igång →</button>';
+
+  } else if (onboard.step === 2) {
+    el.innerHTML = '<div class="onboarding-step">'
+      + '<div class="onboarding-title">Hur vill du träna?</div>'
+      + '<div class="onboarding-sub">Du kan byta senare.</div>'
+      + '<div class="profile-card' + (onboard.type==='structured'?' selected':'') + '" onclick="onboard.type=\'structured\';renderOnboard()">'
+      + '<div class="profile-card-title">🏋️ Strukturerat program</div>'
+      + '<div class="profile-card-desc">Följer Per\'s schema med 6 set och uträknade vikter.</div>'
+      + '</div>'
+      + '<div class="profile-card' + (onboard.type==='free'?' selected':'') + '" onclick="onboard.type=\'free\';renderOnboard()">'
+      + '<div class="profile-card-title">🎯 Eget upplägg</div>'
+      + '<div class="profile-card-desc">Välj egna övningar och logga fritt.</div>'
+      + '</div></div>'
+      + '<button class="btn-primary" onclick="onboardNext()">Nästa →</button>'
+      + '<button class="btn-secondary" onclick="onboard.step=1;renderOnboard()">Tillbaka</button>';
+
+  } else if (onboard.step === 3) {
+    el.innerHTML = '<div class="onboarding-step">'
+      + '<div class="onboarding-title">Vad driver dig?</div>'
+      + '<div class="onboarding-sub">Välj motivationsprofil.</div>'
+      + MOTIVATION.map(m => '<div class="profile-card' + (onboard.profile===m.id?' selected':'') + '" onclick="onboard.profile=' + m.id + ';renderOnboard()">'
+        + '<div class="profile-card-title">' + m.title + '</div>'
+        + '<div class="profile-card-desc">' + m.desc + '</div>'
+        + '</div>').join('')
+      + '</div>'
+      + '<button class="btn-primary"' + (!onboard.profile?' disabled':'') + ' onclick="onboardNext()">Nästa →</button>'
+      + '<button class="btn-secondary" onclick="onboard.step=2;renderOnboard()">Tillbaka</button>';
+
+  } else if (onboard.step === 4) {
+    const w = onboard.weights;
+    el.innerHTML = '<div class="onboarding-step">'
+      + '<div class="onboarding-title">Dina startvikter</div>'
+      + '<div class="onboarding-sub">Justera i steg om 2,5 kg (latsdrag 5 kg).</div>'
+      + [{key:'bp',label:'Bänkpress',step:2.5},{key:'sq',label:'Benböj',step:2.5},{key:'dl',label:'Marklyft',step:2.5},{key:'lat',label:'Latsdrag',step:5}].map(ex =>
+          '<div class="weight-row">'
+          + '<div class="weight-row-label">' + ex.label + '</div>'
+          + '<div class="stepper">'
+          + '<button class="stepper-btn" onclick="adjOnboard(\'' + ex.key + '\',-' + ex.step + ')">–</button>'
+          + '<div class="stepper-val" id="ob-' + ex.key + '">' + (w[ex.key]||0) + ' kg</div>'
+          + '<button class="stepper-btn" onclick="adjOnboard(\'' + ex.key + '\',' + ex.step + ')">+</button>'
+          + '</div></div>'
+        ).join('')
+      + '</div>'
+      + '<button class="btn-primary" onclick="finishOnboard()">Klart →</button>'
+      + '<button class="btn-secondary" onclick="onboard.step=3;renderOnboard()">Tillbaka</button>';
+  }
+
+  document.getElementById('onboardModal').scrollTop = 0;
+}
+
+function onboardNext() {
+  if (onboard.step===3 && !onboard.profile) return;
+  if (onboard.step===3 && onboard.type==='free') { finishOnboard(); return; }
+  onboard.step++;
+  renderOnboard();
+}
+
+function adjOnboard(key, delta) {
+  onboard.weights[key] = Math.round(Math.max(0, (onboard.weights[key]||0)+delta)/Math.abs(delta))*Math.abs(delta);
+  const el = document.getElementById('ob-'+key);
+  if (el) el.textContent = onboard.weights[key]+' kg';
+}
+
+function finishOnboard() {
+  updatePerson(onboard.id, {
+    onboarded:true, type:onboard.type, profile:onboard.profile,
+    weights:{...onboard.weights}
+  });
+  document.getElementById('onboardOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  renderCards();
+  const p = getPerson(onboard.id);
+  if (p.type==='free') openFree(onboard.id);
+  else openPass(onboard.id);
+  onboard = null;
+}
+
+// ════════════════════════════════════════════════════
+// HISTORIK MODAL
+// ════════════════════════════════════════════════════
+function openHistorik() {
+  renderHistorikContent();
+  renderHanteraPersoner();
+  document.getElementById('historikOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeHistorik() {
+  document.getElementById('historikOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeHistorikOutside(e) { if (e.target===document.getElementById('historikOverlay')) closeHistorik(); }
+
+function renderHistorikContent() {
+  const el      = document.getElementById('historikContent');
+  const persons = loadPersons();
+  let html = '';
+  let hasData = false;
+  persons.forEach(p => {
+    const hist = (p.history||[]);
+    if (!hist.length) return;
+    hasData = true;
+    const rows = hist.slice(-10).reverse().map(h => {
+      const d       = new Date(h.date);
+      const dateStr = DAYS[d.getDay()]+' '+d.getDate()+' '+MONTHS[d.getMonth()];
+      const detail  = h.freeExercises
+        ? h.freeExercises.map(e=>e.name).join(', ')
+        : EX_KEYS.map(k=>h.weights&&h.weights[k]?h.weights[k]+'kg':'-').join('/');
+      return '<div style="display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--line);">'
+        + '<div style="font-size:12px;color:var(--muted);min-width:80px;">'+dateStr+'</div>'
+        + '<div style="font-size:13px;flex:1;">'+detail+'</div>'
+        + '<div style="font-size:16px;">'+feelingEmoji(h.feeling)+'</div>'
+        + '</div>';
+    }).join('');
+    html += '<div style="margin:16px 20px 0;">'
+      + '<div style="font-family:var(--disp);font-weight:700;font-size:20px;color:'+p.color+';margin-bottom:8px;">'+p.name+'</div>'
+      + '<div style="background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;">'+rows+'</div>'
+      + '</div>';
+  });
+  el.innerHTML = hasData ? html : '<div style="padding:40px 20px;color:var(--muted);font-size:14px;text-align:center;">Inga loggade pass ännu.</div>';
+}
+
+function renderHanteraPersoner() {
+  const el = document.getElementById('hanteraPersoner');
+  if (!el) return;
+  const persons    = loadPersons();
+  const defaultIds = DEFAULT_PERSONS.map(d => d.id);
+  const dynamic    = persons.filter(p => !defaultIds.includes(p.id));
+  if (!dynamic.length) {
+    el.innerHTML = '<div style="font-size:13px;color:var(--muted);">Inga tillagda personer.</div>';
+    return;
+  }
+  el.innerHTML = dynamic.map(p =>
+    '<div style="display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:8px;">'
+    + '<div style="display:flex;align-items:center;gap:10px;">'
+    + '<div style="width:32px;height:32px;border-radius:8px;background:'+p.color+';display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#111;">'+p.initials+'</div>'
+    + '<div style="font-size:14px;font-weight:600;">'+p.name+'</div>'
+    + '</div>'
+    + '<button onclick="deletePerson(\''+p.id+'\')" style="background:rgba(255,60,60,0.1);border:1px solid rgba(255,60,60,0.3);color:#ff6060;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;">Ta bort</button>'
+    + '</div>'
+  ).join('');
+}
+
+function deletePerson(id) {
+  const p = getPerson(id);
+  if (!p) return;
+  if (!confirm('Ta bort ' + p.name + ' och all träningsdata?')) return;
+  removePerson(id);
+  renderCards();
+  renderEiffel();
+  renderHanteraPersoner();
+}
+
+// ════════════════════════════════════════════════════
+// NY PERSON
+// ════════════════════════════════════════════════════
+let newPerson = null;
+
+function openAddPerson() {
+  newPerson = {name:'', initials:'', color:COLORS[0], type:'structured', profile:null, weights:{bp:40,sq:50,dl:50,lat:60}};
+  renderAddPerson();
+  document.getElementById('addPersonOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAddPerson() {
+  document.getElementById('addPersonOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  newPerson = null;
+}
+function closeAddPersonOutside(e) { if (e.target===document.getElementById('addPersonOverlay')) closeAddPerson(); }
+
+let addStep = 1;
+
+function renderAddPerson() {
+  const el  = document.getElementById('addPersonContent');
+  const av  = document.getElementById('addPersonAvatar');
+  av.textContent = newPerson.name ? newPerson.initials : '➕';
+  av.style.background = newPerson.name ? newPerson.color : 'var(--orange)';
+
+  if (addStep === 1) {
+    el.innerHTML = '<div class="onboarding-step">'
+      + '<div class="onboarding-title">Vad heter du?</div>'
+      + '<div class="onboarding-sub">Vi sätter upp ditt kort.</div>'
+      + '<input class="free-input" id="newName" placeholder="Namn..." value="' + newPerson.name + '" oninput="newPerson.name=this.value;newPerson.initials=this.value.substring(0,2).toUpperCase();document.getElementById(\'addPersonAvatar\').textContent=newPerson.initials||\'➕\'" style="margin-bottom:16px;font-size:16px;">'
+      + '<div style="font-size:12px;color:var(--muted);margin-bottom:10px;font-weight:600;">Välj färg:</div>'
+      + '<div class="color-picker">'
+      + COLORS.map(c => '<div class="color-dot' + (newPerson.color===c?' selected':'') + '" style="background:' + c + '" onclick="newPerson.color=\'' + c + '\';document.getElementById(\'addPersonAvatar\').style.background=\'' + c + '\';renderAddPerson()"></div>').join('')
+      + '</div></div>'
+      + '<button class="btn-primary"' + (newPerson.name.trim().length>1?'':' disabled') + ' onclick="addStep=2;renderAddPerson()">Nästa →</button>';
+
+  } else if (addStep === 2) {
+    el.innerHTML = '<div class="onboarding-step">'
+      + '<div class="onboarding-title">Hur vill ' + newPerson.name + ' träna?</div>'
+      + '<div class="profile-card' + (newPerson.type==='structured'?' selected':'') + '" onclick="newPerson.type=\'structured\';renderAddPerson()">'
+      + '<div class="profile-card-title">🏋️ Strukturerat program</div>'
+      + '<div class="profile-card-desc">Följer Per\'s schema med 6 set och uträknade vikter.</div>'
+      + '</div>'
+      + '<div class="profile-card' + (newPerson.type==='free'?' selected':'') + '" onclick="newPerson.type=\'free\';renderAddPerson()">'
+      + '<div class="profile-card-title">🎯 Eget upplägg</div>'
+      + '<div class="profile-card-desc">Välj egna övningar och logga fritt.</div>'
+      + '</div></div>'
+      + '<button class="btn-primary" onclick="addStep=3;renderAddPerson()">Nästa →</button>'
+      + '<button class="btn-secondary" onclick="addStep=1;renderAddPerson()">Tillbaka</button>';
+
+  } else if (addStep === 3) {
+    el.innerHTML = '<div class="onboarding-step">'
+      + '<div class="onboarding-title">Vad driver ' + newPerson.name + '?</div>'
+      + MOTIVATION.map(m => '<div class="profile-card' + (newPerson.profile===m.id?' selected':'') + '" onclick="newPerson.profile=' + m.id + ';renderAddPerson()">'
+        + '<div class="profile-card-title">' + m.title + '</div>'
+        + '<div class="profile-card-desc">' + m.desc + '</div>'
+        + '</div>').join('')
+      + '</div>'
+      + '<button class="btn-primary"' + (!newPerson.profile?' disabled':'') + ' onclick="addStep=4;renderAddPerson()">Nästa →</button>'
+      + '<button class="btn-secondary" onclick="addStep=2;renderAddPerson()">Tillbaka</button>';
+
+  } else if (addStep === 4) {
+    if (newPerson.type === 'free') {
+      el.innerHTML = '<div class="onboarding-step">'
+        + '<div class="onboarding-emoji">✅</div>'
+        + '<div class="onboarding-title">Välkommen, ' + newPerson.name + '!</div>'
+        + '<div class="onboarding-sub">Kör eget upplägg – logga dina övningar efter varje pass!</div>'
+        + '</div><button class="btn-primary" onclick="saveNewPerson()">Lägg till ✓</button>'
+        + '<button class="btn-secondary" onclick="addStep=3;renderAddPerson()">Tillbaka</button>';
+    } else {
+      const w = newPerson.weights;
+      el.innerHTML = '<div class="onboarding-step">'
+        + '<div class="onboarding-title">Startvikter</div>'
+        + '<div class="onboarding-sub">Justera i steg om 2,5 kg (latsdrag 5 kg).</div>'
+        + [{key:'bp',label:'Bänkpress',step:2.5},{key:'sq',label:'Benböj',step:2.5},{key:'dl',label:'Marklyft',step:2.5},{key:'lat',label:'Latsdrag',step:5}].map(ex =>
+            '<div class="weight-row"><div class="weight-row-label">' + ex.label + '</div>'
+            + '<div class="stepper">'
+            + '<button class="stepper-btn" onclick="adjNewPersonWeight(\'' + ex.key + '\',-' + ex.step + ')">–</button>'
+            + '<div class="stepper-val" id="np-' + ex.key + '">' + (w[ex.key]||0) + ' kg</div>'
+            + '<button class="stepper-btn" onclick="adjNewPersonWeight(\'' + ex.key + '\',' + ex.step + ')">+</button>'
+            + '</div></div>'
+          ).join('')
+        + '</div>'
+        + '<button class="btn-primary" onclick="saveNewPerson()">Lägg till ' + newPerson.name + ' ✓</button>'
+        + '<button class="btn-secondary" onclick="addStep=3;renderAddPerson()">Tillbaka</button>';
+    }
+  }
+  document.getElementById('addPersonModal').scrollTop = 0;
+}
+
+function adjNewPersonWeight(key, delta) {
+  newPerson.weights[key] = Math.round(Math.max(0,(newPerson.weights[key]||0)+delta)/Math.abs(delta))*Math.abs(delta);
+  const el = document.getElementById('np-'+key);
+  if (el) el.textContent = newPerson.weights[key]+' kg';
+}
+
+function saveNewPerson() {
+  const id = 'p_' + Date.now();
+  const persons = loadPersons();
+  persons.push({
+    id, name:newPerson.name, initials:newPerson.initials,
+    color:newPerson.color, role:null,
+    type:newPerson.type, profile:newPerson.profile,
+    weights:{...newPerson.weights},
+    progressionAdj:{bp:1,sq:1,dl:1,lat:1},
+    onboarded:true, history:[]
+  });
+  savePersons(persons);
+  addStep = 1;
+  closeAddPerson();
+  renderCards();
+}
+
+// ════════════════════════════════════════════════════
+// VECKOSTATUS
+// ════════════════════════════════════════════════════
+function renderWeekBar() {
+  const today  = new Date();
+  const monday = getMonday(today);
+  const keys   = ['mon','tue','wed','thu','fri','sat','sun'];
+  const todayI = (today.getDay()+6)%7;
+  const persons = loadPersons();
+  keys.forEach((key,i) => {
+    const dd  = new Date(monday); dd.setDate(monday.getDate()+i);
+    const dEl = document.getElementById('d-'+key);
+    dEl.classList.remove('done','today');
+    if (i < todayI) dEl.classList.add('done');
+    else if (i === todayI) dEl.classList.add('today');
+    const trainedColors = persons
+      .filter(p => (p.history||[]).some(h => sameDay(new Date(h.date), dd)))
+      .map(p => p.color);
+    document.getElementById('wd-'+key).innerHTML = persons.map(p => {
+      const trained = (p.history||[]).some(h => sameDay(new Date(h.date), dd));
+      return '<div class="week-dot" style="background:' + (trained?p.color:'var(--card2)') + '"></div>';
+    }).join('');
+  });
+}
+
+// ════════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════════
+const now = new Date();
+document.getElementById('headerDate').textContent = DAYS[now.getDay()]+' '+now.getDate()+' '+MONTHS[now.getMonth()];
+const q = QUOTES[now.getDay()%QUOTES.length];
+document.getElementById('quoteText').textContent = q.text;
+document.getElementById('quoteSub').textContent  = q.sub;
+
+const daysUntilMon = (8-now.getDay())%7||7;
+const nextMon = new Date(now); nextMon.setDate(now.getDate()+daysUntilMon);
+document.getElementById('nextDay').textContent = 'Måndag '+nextMon.getDate()+' '+MONTHS[nextMon.getMonth()];
+
+renderCards();
+renderEiffel();
+renderWeekBar();
+</script>
 </body>
 </html>
