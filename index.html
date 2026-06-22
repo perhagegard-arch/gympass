@@ -986,16 +986,19 @@ function liftValueHtml(label, value) {
 }
 
 function onCardClick(id) {
-  // Ladda dynamisk person om den inte finns i personStates
+  const _dpC = loadDynamicPeople();
+  // Ladda state om saknas
   if (!personStates[id]) {
-    const dp = loadDynamicPeople();
-    if (dp[id]) {
-      personStates[id] = loadPersonState(id, dp[id]);
+    if (_dpC[id]) {
+      personStates[id] = loadPersonState(id, _dpC[id]);
+    } else if (people[id]) {
+      personStates[id] = loadPersonState(id);
     }
   }
   if (!personStates[id]) return;
+  const type = personStates[id].type || 'structured';
   if (!personStates[id].onboarded) startOnboarding(id);
-  else if (personStates[id].type === 'free') openFreepass(id);
+  else if (type === 'free') openFreepass(id);
   else openModal(id);
 }
 
@@ -1061,9 +1064,15 @@ let feelingPersonId = null;
 
 function openModal(id) {
   currentModalPersonId = id;
-  const p=people[id], state=personStates[id];
+  const _dp = loadDynamicPeople();
+  const p = people[id] || _dp[id];
+  if (!p) { console.error('Person saknas:', id); return; }
+  const state = personStates[id] || loadPersonState(id, _dp[id]);
+  personStates[id] = state;
   const av=document.getElementById('modalAvatar');
-  av.textContent=p.initials; av.style.color=id==='hannes'?'#3a2c00':'#111'; av.style.background=p.color;
+  av.textContent=p.initials;
+  av.style.color = '#111';
+  av.style.background=p.color;
   document.getElementById('modalName').textContent=p.name;
   document.getElementById('modalContent').innerHTML=[
     {key:'bp',label:'Bänkpress',w:state.weights.bp},
@@ -1152,9 +1161,13 @@ let newExName = '';
 function openFreepass(id) {
   freepassPersonId = id;
   freeExercises = [];
-  const p = people[id];
+  const _dp2 = loadDynamicPeople();
+  const p = people[id] || _dp2[id];
+  if (!p) { console.error('Person saknas:', id); return; }
   const av = document.getElementById('freepassAvatar');
-  av.textContent = p.initials; av.style.background = p.color; av.style.color = id==='hannes'?'#3a2c00':'#111';
+  av.textContent = p.initials;
+  av.style.background = p.color;
+  av.style.color = '#111';
   document.getElementById('freepassName').textContent = p.name;
   renderFreepass();
   document.getElementById('freepassOverlay').classList.add('open');
