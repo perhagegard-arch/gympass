@@ -953,27 +953,40 @@ function renderCards() {
   });
 
   container.innerHTML = Object.keys(allPeople).map(id => {
-    const p      = allPeople[id];
-    const state  = personStates[id] || loadPersonState(id, dynamicPeople[id]);
-    const trained = hasTrainedThisWeek(state);
+    const p        = allPeople[id];
+    const state    = personStates[id] || loadPersonState(id, dynamicPeople[id]);
+    const isDynamic = !people[id];
+    const trained  = hasTrainedThisWeek(state);
     const badgeText  = p.role ? p.role : (trained ? 'Tränat ✓' : '–');
     const badgeClass = !p.role && trained ? 'trained' : '';
-    return `
-      <div class="person-card ${id}" onclick="onCardClick('${id}')">
-        <div class="card-top">
-          <div class="avatar">${p.initials}</div>
-          <div class="card-badge ${badgeClass}">${badgeText}</div>
-        </div>
-        <div class="card-name">${p.name}</div>
-        <div class="card-last">${lastTrainedText(state)}</div>
-        <div class="card-lifts">
-          ${liftValueHtml('Bänk',     state.weights.bp)}
-          ${liftValueHtml('Benböj',   state.weights.sq)}
-          ${liftValueHtml('Marklyft', state.weights.dl)}
-          ${liftValueHtml('Latsdrag', state.weights.lat)}
-        </div>
-        <div class="card-cta">${state.onboarded ? 'Öppna mitt pass →' : 'Kom igång →'}</div>
-      </div>`;
+    const cardColor  = isDynamic ? p.color : '';
+    const avatarStyle = isDynamic ? 'background:' + p.color + ';color:#111' : '';
+    const safeId   = id.replace(/'/g, "\\'");
+    const safeName = p.name.replace(/'/g, "\\'");
+    const delBtn   = isDynamic
+      ? '<button onclick="event.stopPropagation();confirmDeletePerson(\'' + safeId + '\',\'' + safeName + '\')" '
+        + 'style="position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:50%;'
+        + 'background:rgba(255,60,60,0.15);border:1px solid rgba(255,60,60,0.35);'
+        + 'color:#ff6060;font-size:12px;cursor:pointer;line-height:1;z-index:2;">✕</button>'
+      : '';
+    return '<div class="person-card ' + id + '" '
+      + (isDynamic ? 'style="--pc:' + cardColor + ';position:relative"' : 'style="position:relative"')
+      + ' onclick="onCardClick(\'' + safeId + '\')">'
+      + delBtn
+      + '<div class="card-top">'
+      + '<div class="avatar" style="' + avatarStyle + '">' + p.initials + '</div>'
+      + '<div class="card-badge ' + badgeClass + '">' + badgeText + '</div>'
+      + '</div>'
+      + '<div class="card-name">' + p.name + '</div>'
+      + '<div class="card-last">' + lastTrainedText(state) + '</div>'
+      + '<div class="card-lifts">'
+      + liftValueHtml('Bänk',     state.weights.bp)
+      + liftValueHtml('Benböj',   state.weights.sq)
+      + liftValueHtml('Marklyft', state.weights.dl)
+      + liftValueHtml('Latsdrag', state.weights.lat)
+      + '</div>'
+      + '<div class="card-cta">' + (state.onboarded ? 'Öppna mitt pass →' : 'Kom igång →') + '</div>'
+      + '</div>`;
   }).join('') + `
     <div class="add-person-card" onclick="openAddPerson()">
       <div class="add-person-icon">➕</div>
