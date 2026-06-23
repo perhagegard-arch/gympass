@@ -568,7 +568,7 @@ function targetWeight(startW, weeks, isUpper, adj) {
 }
 
 function passKg(p) {
-  const sets = [{pct:.70,reps:5},{pct:.80,reps:3},{pct:.95,reps:1},{pct:.87,reps:5},{pct:.87,reps:5},{pct:.87,reps:5}];
+  const sets = [{pct:.70,reps:5},{pct:.80,reps:3},{pct:1.00,reps:1},{pct:.87,reps:5},{pct:.87,reps:5},{pct:.87,reps:5}];
   let tot = 0;
   EX_KEYS.forEach(k => { const w=p.weights[k]; if(w) sets.forEach(s=>{ tot+=r(w,s.pct)*s.reps; }); });
   return tot;
@@ -769,7 +769,7 @@ function renderPassContent(id) {
   const sets = [
     {label:'Uppvärmning',pct:.70,reps:5,top:false},
     {label:'Uppvärmning',pct:.80,reps:3,top:false},
-    {label:'Toppset 🔥', pct:.95,reps:1,top:true},
+    {label:'Toppset 🔥', pct:1.00,reps:1,top:true},
     {label:'Arbetsserie',pct:.87,reps:5,top:false},
     {label:'Arbetsserie',pct:.87,reps:5,top:false},
     {label:'Arbetsserie',pct:.87,reps:5,top:false},
@@ -995,7 +995,7 @@ function renderPassHistory(id) {
 function printPass() {
   const p = getPerson(currentPassId);
   if (!p) return;
-  const sets = [{label:'Uppvärmning',pct:.70,reps:5},{label:'Uppvärmning',pct:.80,reps:3},{label:'Toppset',pct:.95,reps:1},{label:'Arbetsserie',pct:.87,reps:5},{label:'Arbetsserie',pct:.87,reps:5},{label:'Arbetsserie',pct:.87,reps:5}];
+  const sets = [{label:'Uppvärmning',pct:.70,reps:5},{label:'Uppvärmning',pct:.80,reps:3},{label:'Toppset',pct:1.00,reps:1},{label:'Arbetsserie',pct:.87,reps:5},{label:'Arbetsserie',pct:.87,reps:5},{label:'Arbetsserie',pct:.87,reps:5}];
   const now = new Date();
   let html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Gympass – '+p.name+'</title>'
     + '<style>body{font-family:Arial,sans-serif;padding:20px;max-width:600px}.ex{margin-bottom:16px;border:1px solid #ccc;border-radius:8px;overflow:hidden}.ex-title{background:#f0f0f0;padding:8px 12px;font-size:14px;font-weight:700;text-transform:uppercase}.row{display:grid;grid-template-columns:30px 1fr 80px 60px;padding:6px 12px;border-bottom:1px solid #eee;font-size:13px}.plates{font-size:11px;color:#555;padding:4px 12px 6px;background:#fafafa}</style></head><body>'
