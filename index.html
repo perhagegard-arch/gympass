@@ -451,7 +451,24 @@ const DEFAULT_PERSONS = [
 
 function loadPersons() {
   const raw = localStorage.getItem(STORAGE_KEY);
-  if (raw) return JSON.parse(raw);
+  if (raw) {
+    const persons = JSON.parse(raw);
+    // Synka namn och initialer från DEFAULT_PERSONS (så ändringar i koden slår igenom)
+    let changed = false;
+    DEFAULT_PERSONS.forEach(def => {
+      const idx = persons.findIndex(p => p.id === def.id);
+      if (idx > -1) {
+        if (persons[idx].name !== def.name || persons[idx].initials !== def.initials || persons[idx].color !== def.color) {
+          persons[idx].name     = def.name;
+          persons[idx].initials = def.initials;
+          persons[idx].color    = def.color;
+          changed = true;
+        }
+      }
+    });
+    if (changed) savePersons(persons);
+    return persons;
+  }
   // Första gången – initiera med default-personer
   const initial = DEFAULT_PERSONS.map(p => ({
     ...p,
